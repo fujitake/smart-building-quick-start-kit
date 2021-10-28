@@ -1,0 +1,22 @@
+PROCEDURE PeopleCountingCamera.transformPeopleCountEvent(event Object)
+var cameraId = event.camera_id
+try {
+    var camera = SELECT EXACTLY ONE FROM people_counting_cameras WHERE id == cameraId
+    var newEvent = {
+        area_id: camera.area_id,
+        area_name: camera.area_name,
+        area_capacity: camera.area_capacity,
+        floor_id: camera.floor_id,
+        floor_name: camera.floor_name,
+        people_count: event.count,
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "PeopleCountingCamera"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, cameraId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

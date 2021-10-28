@@ -1,0 +1,23 @@
+PROCEDURE VoltMeter.transformVoltEvent(event Object)
+var voltMeterId = event.sensor_id
+try {
+    var voltMeter = SELECT EXACTLY ONE FROM volt_meters WHERE id == voltMeterId
+    var newEvent = {
+        volt_meter_id: voltMeter.id,
+        volt_meter_name: voltMeter.name,
+        machine_room_id: voltMeter.machine_room_id,
+        machine_room_name: voltMeter.machine_room_name,
+        floor_id: voltMeter.floor_id,
+        floor_name: voltMeter.floor_name,
+        voltage: toReal(event.sensing_value),       
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "AnalogVoltMeter"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, voltMeterId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

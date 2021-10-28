@@ -1,0 +1,18 @@
+package apps.CameraEventHandler
+import procedure conf
+import type intrusion_detection_camera_status
+
+PROCEDURE SetIntrusionTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/CameraEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("NOTIFY_INTRUSION_DETECTION_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.CameraEventHandler.SetIntrusionTopic.SetIntrusionTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetIntrusionTopic", ex.message])
+}
+
+return newEvent

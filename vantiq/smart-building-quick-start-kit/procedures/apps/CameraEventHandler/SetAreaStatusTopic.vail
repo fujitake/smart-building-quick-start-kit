@@ -1,0 +1,18 @@
+package apps.CameraEventHandler
+import procedure conf
+import type area_status
+
+PROCEDURE SetAreaStatusTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/CameraEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("AREA_STATUS_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.CameraEventHandler.SetAreaStatusTopic.SetAreaStatusTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetAreaStatusTopic", ex.message])
+}
+
+return newEvent

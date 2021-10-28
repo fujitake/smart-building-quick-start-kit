@@ -1,0 +1,17 @@
+package apps.AnalogMeterEventHandler
+import procedure conf
+
+PROCEDURE SetAbnormalBoilerTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/AnalogMeterEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("NOTIFY_ABNORMAL_BOILER_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.AnalogMeterEventHandler.SetAbnormalBoilerTopic.SetAbnormalBoilerTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetAbnormalBoilerTopic", ex.message])
+}
+
+return newEvent

@@ -1,0 +1,92 @@
+{
+  "adminAccessLevel" : "ars_readWrite",
+  "ars_properties" : null,
+  "ars_relationships" : [ ],
+  "audited" : false,
+  "encapsulated" : false,
+  "expiresAfter" : null,
+  "foreignKeys" : null,
+  "groupBy" : "",
+  "groupEnabled" : false,
+  "groupRequired" : false,
+  "indexes" : [ {
+    "keys" : [ "registrant_detection_camera_id" ],
+    "options" : {
+      "unique" : true
+    }
+  } ],
+  "maxObjects" : 0,
+  "maxStorage" : 0,
+  "metadata" : false,
+  "name" : "registrant_detection_camera_status",
+  "naturalKey" : [ "registrant_detection_camera_id" ],
+  "properties" : {
+    "area_id" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "Integer",
+      "unique" : false
+    },
+    "area_name" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "floor_id" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "Integer",
+      "unique" : false
+    },
+    "floor_name" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "received_at" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "DateTime",
+      "unique" : false
+    },
+    "registrant_detection_camera_id" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "registrant_detection_camera_name" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "registrant_name" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    },
+    "registrant_note" : {
+      "encrypted" : false,
+      "multi" : false,
+      "required" : true,
+      "type" : "String",
+      "unique" : false
+    }
+  },
+  "role" : "standard",
+  "rulesSuppressed" : false,
+  "userAccessLevel" : "ars_readOnly",
+  "volatile" : false
+}

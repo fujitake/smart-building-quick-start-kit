@@ -1,0 +1,8 @@
+[ {
+  "floor_id" : 1,
+  "floor_name" : "1F",
+  "id" : "voltMeter001",
+  "machine_room_id" : 3,
+  "machine_room_name" : "electricalRoom001",
+  "name" : "VoltMeter001"
+} ]

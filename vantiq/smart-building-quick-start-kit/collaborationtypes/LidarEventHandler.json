@@ -1,0 +1,130 @@
+{
+  "active" : true,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 5,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.525091799265606,
+      "translate" : [ 163.18482252141982, 93.5219553243574 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "ars_relationships" : [ ],
+  "assembly" : {
+    "Inout" : {
+      "configuration" : {
+        "childStreams" : [ "TransformInoutEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "LidarInoutMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "d7130609-b8b6-4926-80a6-43422e9eea3b"
+    },
+    "PassToAreaStatusHandler" : {
+      "configuration" : {
+        "parentStreams" : [ "TransformInoutEvent", "TransformPositionEvent" ],
+        "topic" : "/internal/area_status"
+      },
+      "pattern" : "PublishToTopic",
+      "patternVersion" : 1,
+      "uuid" : "776d293a-f784-401a-8508-e4551b6b2f95"
+    },
+    "Position" : {
+      "configuration" : {
+        "childStreams" : [ "TransformPositionEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "LidarPositionMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "e7befbc7-7c7f-42cd-8a44-590a632b54d8"
+    },
+    "TransformInoutEvent" : {
+      "configuration" : {
+        "childStreams" : [ "PassToAreaStatusHandler" ],
+        "parentStreams" : [ "Inout" ],
+        "transformation" : "Lidar.transformInoutEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "fc2350e9-7129-479d-84b9-f89fda942855"
+    },
+    "TransformPositionEvent" : {
+      "configuration" : {
+        "childStreams" : [ "PassToAreaStatusHandler" ],
+        "parentStreams" : [ "Position" ],
+        "transformation" : "Lidar.transformPositionEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "512c58ed-3cf6-4d7a-be90-f9349fcf9aa7"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "compilerOCC" : 7,
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "false",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "isComponent" : false,
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "LidarEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.LidarEventHandler.Position"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.LidarEventHandler.PassToAreaStatusHandler"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.LidarEventHandler.TransformPositionEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.LidarEventHandler.TransformInoutEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.LidarEventHandler.Inout"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.LidarEventHandler.Position"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.LidarEventHandler.TransformPositionEvent"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.LidarEventHandler.TransformInoutEvent"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.LidarEventHandler.Inout"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.LidarEventHandler.PassToAreaStatusHandler"
+    } ]
+  }
+}

@@ -1,0 +1,17 @@
+package apps.EnvEventHandler
+import procedure conf
+
+PROCEDURE SetNotifyHighCo2Topic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/EnvEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("NOTIFY_HIGH_CO2_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.EnvEventHandler.SetNotifyHighCo2Topic.SetNotifyHighCo2Topic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetNotifyHighCo2Topic", ex.message])
+}
+
+return newEvent

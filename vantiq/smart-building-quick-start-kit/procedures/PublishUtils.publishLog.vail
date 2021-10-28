@@ -1,0 +1,10 @@
+PROCEDURE PublishUtils.publishLog(logMessage Object)
+try {
+    var topicStr = conf("LOG_TOPIC")
+    PUBLISH { message: logMessage } TO SOURCE LogMqtt USING { topic: topicStr } 
+} catch(error) {
+    var code = "VELP0001"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, stringify(logMessage), stringify(error))
+    exception(code, message)
+}

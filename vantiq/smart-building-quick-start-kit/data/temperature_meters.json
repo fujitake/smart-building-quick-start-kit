@@ -1,0 +1,8 @@
+[ {
+  "floor_id" : 1,
+  "floor_name" : "1F",
+  "id" : "temp_meter_001",
+  "machine_room_id" : 1,
+  "machine_room_name" : "MachineRoom001",
+  "name" : "TemperatureMeter001"
+} ]

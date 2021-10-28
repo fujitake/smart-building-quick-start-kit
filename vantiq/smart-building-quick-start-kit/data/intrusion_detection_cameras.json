@@ -1,0 +1,8 @@
+[ {
+  "area_id" : 2,
+  "area_name" : "Vault001",
+  "floor_id" : 1,
+  "floor_name" : "1F",
+  "id" : "intrusion_camera_1",
+  "name" : "IntrusionCamera001"
+} ]

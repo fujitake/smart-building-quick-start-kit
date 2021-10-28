@@ -1,0 +1,9 @@
+[ {
+  "area_capacity" : 5,
+  "area_id" : 4,
+  "area_name" : "MeetingRoom003",
+  "floor_id" : 1,
+  "floor_name" : "1F",
+  "id" : "lidar_inout_sensor1",
+  "name" : "LiDAR-Inout001"
+} ]

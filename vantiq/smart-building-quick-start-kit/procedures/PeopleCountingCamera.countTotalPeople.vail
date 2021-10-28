@@ -1,0 +1,10 @@
+PROCEDURE PeopleCountingCamera.countTotalPeople(event Object)
+var existingStatus = SELECT ONE FROM area_status WHERE area_id == event.area_id
+var totalPeopleCount = Math.max(event.people_count, 0)
+if existingStatus and existingStatus.people_count {
+    totalPeopleCount = Math.max(existingStatus.people_count + event.people_count, 0)
+}
+event.people_count = totalPeopleCount
+event.congestion_rate = PeopleUtils.calcCongestionRate(totalPeopleCount, event.area_capacity)
+deleteKey(event, "area_capacity")
+return event

@@ -1,0 +1,9 @@
+PROCEDURE LogUtils.getMessageFormat(code String)
+var formats = {
+    VEMD0001: "Master data is not found. device_type={0}, id={1}, event={2}, details={3}",
+    VEMD0002: "Registrant is not found. face_id={0}, event={1}, details={2}",
+    VEPP0001: "Failed to publish processed data. data={0}, details={1}",
+    VENP0001: "Failed to publish notification. data={0}, details={1}",
+    VELP0001: "Failed to publish log. log={0}, details={1}"
+}
+return formats[code]

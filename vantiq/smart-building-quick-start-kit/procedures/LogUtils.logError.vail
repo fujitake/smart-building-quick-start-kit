@@ -1,0 +1,2 @@
+PROCEDURE LogUtils.logError(code String, message String)
+LogUtils.logCommon("ERROR", code, message)

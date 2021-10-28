@@ -1,0 +1,17 @@
+PROCEDURE LogUtils.logCommon(level String, code String, message String)
+var logMessage = {
+	level: level,
+   code: code,
+   message: message,
+	time: now()
+}
+var logStr = stringify(logMessage)
+if level == "ERROR" {
+    log.error(logStr)
+    PublishUtils.publishLog(logMessage)
+} else if level == "WARN" {
+    log.warn(logStr)    
+    PublishUtils.publishLog(logMessage)
+} else if level == "INFO" {
+    log.info(logStr)    
+}

@@ -1,0 +1,12 @@
+PROCEDURE RegistrantDetectionCamera.findRegistrant(event Object)
+var faceId = event.face_id
+try {
+    event.registrant = SELECT EXACTLY ONE FROM registrants WHERE face_id == faceId
+    return event
+} catch(error) {
+    var code = "VEMD0002"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, faceId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

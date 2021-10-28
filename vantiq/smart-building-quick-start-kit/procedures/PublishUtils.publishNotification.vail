@@ -1,0 +1,11 @@
+PROCEDURE PublishUtils.publishNotification(event Object, topicStr String)
+try {
+    PUBLISH { message: event } TO SOURCE NotificationMqtt USING { topic: topicStr }
+    return event
+} catch(error) {
+    var code = "VENP0001"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)
+}

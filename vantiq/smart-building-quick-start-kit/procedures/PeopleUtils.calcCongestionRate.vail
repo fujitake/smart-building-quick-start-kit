@@ -1,0 +1,2 @@
+PROCEDURE PeopleUtils.calcCongestionRate(peopleCount Integer, capacity Integer)
+return peopleCount / capacity * 100

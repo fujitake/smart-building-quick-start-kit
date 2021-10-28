@@ -1,0 +1,18 @@
+package apps.AnalogMeterEventHandler
+import procedure conf
+import type temperature_meter_status
+
+PROCEDURE SetTempTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/AnalogMeterEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("TEMP_METER_STATUS_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.AnalogMeterEventHandler.SetTempTopic.SetTempTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetTempTopic", ex.message])
+}
+
+return newEvent

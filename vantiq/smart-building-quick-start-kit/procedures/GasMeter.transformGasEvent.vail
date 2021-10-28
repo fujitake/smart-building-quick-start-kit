@@ -1,0 +1,23 @@
+PROCEDURE GasMeter.transformGasEvent(event Object)
+var gasMeterId = event.sensorId
+try {
+    var gasMeter = SELECT EXACTLY ONE FROM gas_meters WHERE id == gasMeterId
+    var newEvent = {
+        gas_meter_id: gasMeter.id,
+        gas_meter_name: gasMeter.name,
+        machine_room_id: gasMeter.machine_room_id,
+        machine_room_name: gasMeter.machine_room_name,
+        floor_id: gasMeter.floor_id,
+        floor_name: gasMeter.floor_name,
+        gas_usage: toReal(event.sensing_value),       
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "AnalogGasMeter"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, gasMeterId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

@@ -1,0 +1,18 @@
+package apps.EnvEventHandler
+import procedure conf
+import type area_status
+
+PROCEDURE SetEnvAreaStatusTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/EnvEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("AREA_STATUS_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.EnvEventHandler.SetEnvAreaStatusTopic.SetEnvAreaStatusTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetEnvAreaStatusTopic", ex.message])
+}
+
+return newEvent

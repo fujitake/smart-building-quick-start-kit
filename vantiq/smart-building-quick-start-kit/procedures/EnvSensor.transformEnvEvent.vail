@@ -1,0 +1,23 @@
+PROCEDURE EnvSensor.transformEnvEvent(event Object)
+var envSensorId = event.env_sensor_id
+try {
+    var envSensor = SELECT EXACTLY ONE FROM env_sensors WHERE id == envSensorId
+    var newEvent = {
+        area_id: envSensor.area_id,
+        area_name: envSensor.area_name,
+        floor_id: envSensor.floor_id,
+        floor_name: envSensor.floor_name,
+        eco2: event.eco2,
+        temperature: event.temperature,       
+        humidity: event.humidity,
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "OmronEnvSensor"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, envSensorId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

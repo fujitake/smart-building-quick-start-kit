@@ -1,0 +1,104 @@
+{
+  "active" : true,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 5,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.7635386795873298,
+      "translate" : [ 311.5, 75.61172088730677 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "ars_relationships" : [ ],
+  "assembly" : {
+    "Env" : {
+      "configuration" : {
+        "childStreams" : [ "TransformEnvEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "EnvMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "db53eba1-2896-4bca-a6af-70dc9f965843"
+    },
+    "PassToAreaStatusHandler" : {
+      "configuration" : {
+        "parentStreams" : [ "TransformEnvEvent" ],
+        "topic" : "/internal/area_status"
+      },
+      "pattern" : "PublishToTopic",
+      "patternVersion" : 1,
+      "uuid" : "8155f410-cba3-4f99-856d-00207f26dd12"
+    },
+    "TransformEnvEvent" : {
+      "configuration" : {
+        "childStreams" : [ "PassToAreaStatusHandler" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service EnvSensor"
+        } ],
+        "parentStreams" : [ "Env" ],
+        "transformation" : "EnvSensor.transformEnvEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "626109de-5767-4be0-8ed6-e2a4da07f054"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "compilerOCC" : 26,
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "false",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "isComponent" : false,
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "EnvEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.EnvEventHandler.Env"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.EnvEventHandler.TransformEnvEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.EnvEventHandler.PassToAreaStatusHandler"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.EnvEventHandler.SetEnvAreaStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.EnvEventHandler.SetAreaStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.EnvEventHandler.SetNotifyHighCo2Topic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.EnvEventHandler.SetHighCo2Topic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.EnvEventHandler.PassToAreaStatusHandler"
+    } ]
+  }
+}

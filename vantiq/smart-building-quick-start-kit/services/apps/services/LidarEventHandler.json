@@ -1,0 +1,25 @@
+{
+  "ars_relationships" : [ ],
+  "eventTypes" : {
+    "Inout" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/LidarInoutMqtt"
+    },
+    "PassToAreaStatusHandler" : {
+      "direction" : "OUTBOUND",
+      "implementingEventPath" : "/topics//internal/area_status"
+    },
+    "Position" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/LidarPositionMqtt"
+    }
+  },
+  "name" : "apps.services.LidarEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "topics",
+      "resourceId" : "/internal/area_status"
+    } ]
+  }
+}

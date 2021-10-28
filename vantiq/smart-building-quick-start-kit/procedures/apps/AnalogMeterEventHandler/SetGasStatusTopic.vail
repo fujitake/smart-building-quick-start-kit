@@ -1,0 +1,18 @@
+package apps.AnalogMeterEventHandler
+import procedure conf
+import type gas_meter_status
+
+PROCEDURE SetGasStatusTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/AnalogMeterEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("GAS_METER_STATUS_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.AnalogMeterEventHandler.SetGasStatusTopic.SetGasStatusTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetGasStatusTopic", ex.message])
+}
+
+return newEvent

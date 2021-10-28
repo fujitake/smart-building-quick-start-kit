@@ -1,0 +1,2 @@
+PROCEDURE LogUtils.logWarn(code String, message String)
+LogUtils.logCommon("WARN", code, message)

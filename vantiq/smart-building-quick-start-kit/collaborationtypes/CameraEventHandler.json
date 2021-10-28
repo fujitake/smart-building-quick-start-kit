@@ -1,0 +1,325 @@
+{
+  "active" : true,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 5,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 0.8781512605042017,
+      "translate" : [ 147.46065848214286, 33.36974789915968 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "ars_relationships" : [ ],
+  "assembly" : {
+    "CountTotalPeople" : {
+      "configuration" : {
+        "childStreams" : [ "PassToAreaStatusHandler" ],
+        "parentStreams" : [ "TransformPeopleCountEvent" ],
+        "procedure" : "PeopleCountingCamera.countTotalPeople",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "e43b2a08-a7de-4534-84ea-64995b349173"
+    },
+    "FindRegistrant" : {
+      "configuration" : {
+        "childStreams" : [ "TransformRegistrantEvent" ],
+        "parentStreams" : [ "Registrant" ],
+        "procedure" : "RegistrantDetectionCamera.findRegistrant",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "60c2fe3c-47b1-46b6-8718-dcf4c820fd15"
+    },
+    "Intrusion" : {
+      "configuration" : {
+        "childStreams" : [ "TransformIntrusionEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "CameraIntrusionMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "ac024a69-aec1-473e-88ee-b1a13000f2a2"
+    },
+    "PassToAreaStatusHandler" : {
+      "configuration" : {
+        "parentStreams" : [ "CountTotalPeople" ],
+        "topic" : "/internal/area_status"
+      },
+      "pattern" : "PublishToTopic",
+      "patternVersion" : 1,
+      "uuid" : "a13c3274-d2dd-4045-8a9c-f395b18193c6"
+    },
+    "PeopleCount" : {
+      "configuration" : {
+        "childStreams" : [ "TransformPeopleCountEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "CameraPeopleCountMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "8525e74f-ff49-4d37-8446-1d5a7cd8a860"
+    },
+    "PublishNotification" : {
+      "configuration" : {
+        "parameters" : {
+          "event" : "event.payload",
+          "topicStr" : "event.topic"
+        },
+        "parentStreams" : [ "SetIntrusionTopic", "SetRegistrantTopic" ],
+        "procedure" : "PublishUtils.publishNotification",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "3933e07d-8bd6-4588-8be6-e84f1d9fc512"
+    },
+    "Registrant" : {
+      "configuration" : {
+        "childStreams" : [ "FindRegistrant" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "CameraRegistrantMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "ef79d014-efd1-4d7d-9b47-34a7edf93d25"
+    },
+    "SetIntrusionTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishNotification" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertIntrusionStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"NOTIFY_INTRUSION_DETECTION_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "297d7ca6-ce38-4cb5-9947-d0b0ef2ba345"
+    },
+    "SetRegistrantTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishNotification" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertRegistrantStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"NOTIFY_REGISTRANT_DETECTION_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "c8fe27ad-3520-493d-8192-fb198eca47eb"
+    },
+    "TransformIntrusionEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertIntrusionStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service IntrusionDetectionCamera"
+        } ],
+        "parentStreams" : [ "Intrusion" ],
+        "transformation" : "IntrusionDetectionCamera.transformIntrusionEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "f1252e98-b796-43bb-abe6-299801467feb"
+    },
+    "TransformPeopleCountEvent" : {
+      "configuration" : {
+        "childStreams" : [ "CountTotalPeople" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service PeopleCountingCamera"
+        } ],
+        "parentStreams" : [ "PeopleCount" ],
+        "transformation" : "PeopleCountingCamera.transformPeopleCountEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "1070eb9e-8cca-41d1-a478-fed2066acc40"
+    },
+    "TransformRegistrantEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertRegistrantStatus" ],
+        "parentStreams" : [ "FindRegistrant" ],
+        "transformation" : "RegistrantDetectionCamera.transformRegistrantEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "8f838a39-d320-48a0-84d1-44cf54545049"
+    },
+    "UpsertIntrusionStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetIntrusionTopic" ],
+        "parentStreams" : [ "TransformIntrusionEvent" ],
+        "type" : "intrusion_detection_camera_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "96098a98-ede1-4c8a-8a1e-88bb676b40ae"
+    },
+    "UpsertRegistrantStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetRegistrantTopic" ],
+        "parentStreams" : [ "TransformRegistrantEvent" ],
+        "type" : "registrant_detection_camera_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "cdfeb8a7-2f9d-4cee-af55-1763a811a065"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "compilerOCC" : 29,
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "false",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "isComponent" : false,
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "CameraEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.UpsertIntrusionStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.SetRegistrantTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.PeopleCount"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.Registrant"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.UpsertRegistrantStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.SetIntrusionTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.TransformIntrusionEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.FindRegistrant"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.PublishNotification"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.TransformRegistrantEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.PassToAreaStatusHandler"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.CountTotalPeople"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.TransformPeopleCountEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.CameraEventHandler.Intrusion"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.CameraEventHandler.SetAreaStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.CameraEventHandler.SetHighCongestionTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.CameraEventHandler.SetIntrusionTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.CameraEventHandler.SetRegistrantTopic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.PeopleCount"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.FindRegistrant"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.UpsertRegistrantStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.CountTotalPeople"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.PublishNotification"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.Intrusion"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.UpsertIntrusionStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.PassToAreaStatusHandler"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.TransformRegistrantEvent"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.TransformPeopleCountEvent"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.CameraEventHandler.Registrant"
+    } ]
+  }
+}

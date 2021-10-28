@@ -1,0 +1,27 @@
+PROCEDURE conf(key String)
+/*
+	Modify the following configurations according to your environment:
+*/
+var configurations = {
+    // Thresholds
+    CO2_THRESHOLD: 1500,
+    CONGETION_RATE_THRESHOLD: 80,
+
+    // Processed data broker topics
+    BOILER_STATUS_INDICATOR_STATUS_TOPIC: "/meters/status/boiler_status",
+    GAS_METER_STATUS_TOPIC: "/meters/status/gas",
+    TEMP_METER_STATUS_TOPIC: "/meters/staus/temperature",
+    VOLT_METER_STATUS_TOPIC: "/meters/status/volt",
+    AREA_STATUS_TOPIC: "/places/status/area",
+
+    // Notification broker topics
+    NOTIFY_HIGH_CO2_TOPIC: "/notification/high_co2",
+    NOTIFY_ABNORMAL_BOILER_TOPIC: "/notification/abnormal/boiler",
+    NOTIFY_HIGH_CONGESTION_TOPIC: "/notification/high_congestion",
+    NOTIFY_INTRUSION_DETECTION_TOPIC: "/notification/intrusion",
+    NOTIFY_REGISTRANT_DETECTION_TOPIC: "/notification/registrant",
+
+    // Log broker topics
+    LOG_TOPIC: "/log"
+}
+return configurations[key]

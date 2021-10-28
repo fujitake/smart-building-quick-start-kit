@@ -1,0 +1,29 @@
+{
+  "ars_relationships" : [ ],
+  "eventTypes" : {
+    "Intrusion" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/CameraIntrusionMqtt"
+    },
+    "PassToAreaStatusHandler" : {
+      "direction" : "OUTBOUND",
+      "implementingEventPath" : "/topics//internal/area_status"
+    },
+    "PeopleCount" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/CameraPeopleCountMqtt"
+    },
+    "Registrant" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/CameraRegistrantMqtt"
+    }
+  },
+  "name" : "apps.services.CameraEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "topics",
+      "resourceId" : "/internal/area_status"
+    } ]
+  }
+}

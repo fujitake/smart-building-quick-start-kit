@@ -1,0 +1,18 @@
+package apps.AnalogMeterEventHandler
+import procedure conf
+import type volt_meter_status
+
+PROCEDURE SetVoltStatusTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/AnalogMeterEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("VOLT_METER_STATUS_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.AnalogMeterEventHandler.SetVoltStatusTopic.SetVoltStatusTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetVoltStatusTopic", ex.message])
+}
+
+return newEvent

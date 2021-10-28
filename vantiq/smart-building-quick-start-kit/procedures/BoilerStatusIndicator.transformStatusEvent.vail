@@ -1,0 +1,27 @@
+PROCEDURE BoilerStatusIndicator.transformStatusEvent(event Object)
+var statusIndicatorId = event.sensor_id
+try {
+    var statusIndicator = SELECT EXACTLY ONE FROM boiler_status_indicators WHERE id == statusIndicatorId
+    var status = true
+    if event.sensing_value == "red" {
+        status = false
+    }
+    var newEvent = {
+        boiler_status_indicator_id: statusIndicator.id,
+        boiler_status_indicator_name: statusIndicator.name,
+        machine_room_id: statusIndicator.machine_room_id,
+        machine_room_name: statusIndicator.machine_room_name,
+        floor_id: statusIndicator.floor_id,
+        floor_name: statusIndicator.floor_name,
+        is_normal: status,       
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "AnalogStatusIndicator"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, statusIndicatorId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

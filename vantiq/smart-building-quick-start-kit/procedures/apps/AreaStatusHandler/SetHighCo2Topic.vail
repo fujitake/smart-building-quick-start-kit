@@ -1,0 +1,17 @@
+package apps.AreaStatusHandler
+import procedure conf
+
+PROCEDURE SetHighCo2Topic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/AreaStatusHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("NOTIFY_HIGH_CO2_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.AreaStatusHandler.SetHighCo2Topic.SetHighCo2Topic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetHighCo2Topic", ex.message])
+}
+
+return newEvent

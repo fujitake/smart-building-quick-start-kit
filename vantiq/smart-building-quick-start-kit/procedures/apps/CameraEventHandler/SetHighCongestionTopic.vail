@@ -1,0 +1,17 @@
+package apps.CameraEventHandler
+import procedure conf
+
+PROCEDURE SetHighCongestionTopic(event) HIDDEN WITH ars_dependentResource="/collaborationtypes/CameraEventHandler"
+
+var newEvent = {}
+
+try {
+    newEvent.payload = event
+newEvent.topic = conf("NOTIFY_HIGH_CONGESTION_TOPIC")
+
+} catch (ex) {
+    exception("io.vantiq.app.CameraEventHandler.SetHighCongestionTopic.SetHighCongestionTopic.transformation.failed",
+              "The generated transformation procedure: {0} failed because: {1}", ["SetHighCongestionTopic", ex.message])
+}
+
+return newEvent

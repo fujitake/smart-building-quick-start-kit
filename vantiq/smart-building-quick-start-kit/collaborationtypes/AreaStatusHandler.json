@@ -1,0 +1,245 @@
+{
+  "active" : true,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 5,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.0233298257321048,
+      "translate" : [ 320.4141621538383, 49.36054718579163 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    }
+  },
+  "ars_relationships" : [ ],
+  "assembly" : {
+    "AreaStatus" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertAreaStatus" ],
+        "condition" : "",
+        "inboundResource" : "topics",
+        "inboundResourceId" : "/internal/area_status",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "b012a1d8-8ae8-4756-8754-8df438cb081d"
+    },
+    "IsHighCo2" : {
+      "configuration" : {
+        "childStreams" : [ "SetHighCo2Topic" ],
+        "condition" : "event.eco2 >= conf(\"CO2_THRESHOLD\")",
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertAreaStatus" ],
+        "upsert" : false
+      },
+      "pattern" : "Filter",
+      "patternVersion" : 1,
+      "uuid" : "e8b4fab5-6865-4edb-ac68-3ea10f4cc6cf"
+    },
+    "IsHighCongestion" : {
+      "configuration" : {
+        "childStreams" : [ "SetHighCongestionTopic" ],
+        "condition" : "event.congestion_rate >= conf(\"CONGETION_RATE_THRESHOLD\")",
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertAreaStatus" ],
+        "upsert" : false
+      },
+      "pattern" : "Filter",
+      "patternVersion" : 1,
+      "uuid" : "b6716c13-076c-4ce8-88c6-6b13ea122e0d"
+    },
+    "PublishAreaStatus" : {
+      "configuration" : {
+        "parameters" : {
+          "event" : "event.payload",
+          "topicStr" : "event.topic"
+        },
+        "parentStreams" : [ "SetAreaStatusTopic" ],
+        "procedure" : "PublishUtils.publishProcessedData",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "6f3c6402-19fe-4953-85ee-6e5cb753dbfb"
+    },
+    "PublishNotification" : {
+      "configuration" : {
+        "parameters" : {
+          "event" : "event.payload",
+          "topicStr" : "event.topic"
+        },
+        "parentStreams" : [ "SetHighCo2Topic", "SetHighCongestionTopic" ],
+        "procedure" : "PublishUtils.publishNotification",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "3933e07d-8bd6-4588-8be6-e84f1d9fc512"
+    },
+    "SetAreaStatusTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishAreaStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertAreaStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"AREA_STATUS_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "e251ee06-b7c4-4e7c-8555-4777a3947178"
+    },
+    "SetHighCo2Topic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishNotification" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "IsHighCo2" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"NOTIFY_HIGH_CO2_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "dd8fdd33-0ccb-4d8a-aa5d-4b9d76a92f00"
+    },
+    "SetHighCongestionTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishNotification" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "IsHighCongestion" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"NOTIFY_HIGH_CONGESTION_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "88897259-af05-42fd-838a-f44d78443357"
+    },
+    "UpsertAreaStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetAreaStatusTopic", "IsHighCongestion", "IsHighCo2" ],
+        "parentStreams" : [ "AreaStatus" ],
+        "type" : "area_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "a65fffe6-6f38-410b-8b0c-c04a01f7108a"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "compilerOCC" : 2,
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "false",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "isComponent" : false,
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "AreaStatusHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.PublishNotification"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.PublishAreaStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.UpsertAreaStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.SetHighCo2Topic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.SetHighCongestionTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.IsHighCongestion"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.SetAreaStatusTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.AreaStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AreaStatusHandler.IsHighCo2"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AreaStatusHandler.SetHighCongestionTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AreaStatusHandler.SetHighCo2Topic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AreaStatusHandler.SetAreaStatusTopic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AreaStatusHandler.PublishAreaStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AreaStatusHandler.IsHighCo2"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AreaStatusHandler.PublishNotification"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AreaStatusHandler.UpsertAreaStatus"
+    } ]
+  }
+}

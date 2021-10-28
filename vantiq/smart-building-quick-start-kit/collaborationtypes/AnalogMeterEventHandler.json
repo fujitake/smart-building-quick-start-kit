@@ -1,0 +1,482 @@
+{
+  "active" : true,
+  "appType" : true,
+  "ars_properties" : {
+    "dataVersion" : 5,
+    "graph" : {
+      "lastZoomRequest" : 0,
+      "scale" : 1.2110031727341117,
+      "translate" : [ 361.18169626794884, 134.79936545317764 ]
+    },
+    "groupSettings" : {
+      "appGroupOpenHash" : {
+        "actions" : true,
+        "filters" : true,
+        "flowControl" : true
+      },
+      "ctGroupOpenHash" : {
+        "actions" : true,
+        "mobile" : true
+      },
+      "ctServiceOpen" : false,
+      "serviceGroupOpenHash" : { }
+    },
+    "propertyWidth" : 607
+  },
+  "ars_relationships" : [ ],
+  "assembly" : {
+    "BoilerStatus" : {
+      "configuration" : {
+        "childStreams" : [ "TransformStatusEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "AnalogBoilerStatusMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "6c2dfdd1-0c1a-4c2b-8a95-b5453bb90a57"
+    },
+    "Gas" : {
+      "configuration" : {
+        "childStreams" : [ "TransformGasEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "AnalogGasMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "92659426-f5aa-4cb7-910a-08be58c9360a"
+    },
+    "IsAbnormal" : {
+      "configuration" : {
+        "childStreams" : [ "SetAbnormalBoilerTopic" ],
+        "condition" : "event.is_normal == false",
+        "parentStreams" : [ "UpsertBoilerStatus" ],
+        "upsert" : false
+      },
+      "pattern" : "Filter",
+      "patternVersion" : 1,
+      "uuid" : "4ba8c6c9-e4cd-4d79-878e-b972fb5fa754"
+    },
+    "PublishMeterStatus" : {
+      "configuration" : {
+        "childStreams" : [ ],
+        "parameters" : {
+          "event" : "event.payload",
+          "topicStr" : "event.topic"
+        },
+        "parentStreams" : [ "SetTempTopic", "SetBoilerStatusTopic", "SetGasStatusTopic", "SetVoltStatusTopic" ],
+        "procedure" : "PublishUtils.publishProcessedData",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "9c642448-bba3-4624-8592-b6606cb5feeb"
+    },
+    "PublishNotification" : {
+      "configuration" : {
+        "parameters" : {
+          "event" : "event.payload",
+          "topicStr" : "event.topic"
+        },
+        "parentStreams" : [ "SetAbnormalBoilerTopic" ],
+        "procedure" : "PublishUtils.publishNotification",
+        "returnBehavior" : "Use Return Value as Outbound event"
+      },
+      "pattern" : "Procedure",
+      "patternVersion" : 1,
+      "uuid" : "87cb7440-a0fa-4119-8074-a8f7ea3e78bb"
+    },
+    "SetAbnormalBoilerTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishNotification" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "IsAbnormal" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"NOTIFY_ABNORMAL_BOILER_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "c6d6a85a-2140-45d6-8554-2bc0315de1f2"
+    },
+    "SetBoilerStatusTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishMeterStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertBoilerStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"BOILER_STATUS_INDICATOR_STATUS_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "9ea60b05-d2b6-4851-893f-ffa628e979a9"
+    },
+    "SetGasStatusTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishMeterStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertGasStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"GAS_METER_STATUS_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "195489d5-c655-4f1b-987a-a4a89ef6f531"
+    },
+    "SetTempTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishMeterStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertTempStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"TEMP_METER_STATUS_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "fb32cd40-6871-49b8-8e0e-be06387d96ad"
+    },
+    "SetVoltStatusTopic" : {
+      "configuration" : {
+        "childStreams" : [ "PublishMeterStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "procedure conf"
+        } ],
+        "parentStreams" : [ "UpsertVoltStatus" ],
+        "transformation" : {
+          "payload" : {
+            "expression" : "event",
+            "type" : "expression"
+          },
+          "topic" : {
+            "expression" : "conf(\"VOLT_METER_STATUS_TOPIC\")",
+            "type" : "expression"
+          }
+        },
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "1f66054d-7784-4de7-8991-efe67233209d"
+    },
+    "Temperature" : {
+      "configuration" : {
+        "childStreams" : [ "TransformTempEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "AnalogTemperatureMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "7403bb43-1a8a-48f2-8d8e-1c8030c83707"
+    },
+    "TransformGasEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertGasStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service GasMeter"
+        } ],
+        "parentStreams" : [ "Gas" ],
+        "transformation" : "GasMeter.transformGasEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "4f27dcaf-5f69-4399-8c8a-3edc94589f36"
+    },
+    "TransformStatusEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertBoilerStatus" ],
+        "parentStreams" : [ "BoilerStatus" ],
+        "transformation" : "BoilerStatusIndicator.transformStatusEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "6c632fb2-16ba-4c6f-80e8-00ada78e9509"
+    },
+    "TransformTempEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertTempStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service TemperatureMeter"
+        } ],
+        "parentStreams" : [ "Temperature" ],
+        "transformation" : "TemperatureMeter.transformTempEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "effc3c45-b7df-4f47-b0d1-fa336432c664"
+    },
+    "TransformVoltEvent" : {
+      "configuration" : {
+        "childStreams" : [ "UpsertVoltStatus" ],
+        "imports" : [ {
+          "type" : "Import",
+          "value" : "service VoltMeter"
+        } ],
+        "parentStreams" : [ "Volt" ],
+        "transformation" : "VoltMeter.transformVoltEvent",
+        "upsert" : false
+      },
+      "pattern" : "Transformation",
+      "patternVersion" : 1,
+      "uuid" : "139b9a98-e934-44c3-a8db-fbd8629dbcc9"
+    },
+    "UpsertBoilerStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetBoilerStatusTopic", "IsAbnormal" ],
+        "parentStreams" : [ "TransformStatusEvent" ],
+        "type" : "boiler_status_indicator_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "3a0bbe9a-ee55-479a-958d-8a5952649afd"
+    },
+    "UpsertGasStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetGasStatusTopic" ],
+        "parentStreams" : [ "TransformGasEvent" ],
+        "type" : "gas_meter_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "edaa7545-111e-4f15-8f5a-5ca54a508695"
+    },
+    "UpsertTempStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetTempTopic" ],
+        "parentStreams" : [ "TransformTempEvent" ],
+        "type" : "temperature_meter_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "1746646d-00b2-4ea6-9191-fe18ecfbd415"
+    },
+    "UpsertVoltStatus" : {
+      "configuration" : {
+        "childStreams" : [ "SetVoltStatusTopic" ],
+        "parentStreams" : [ "TransformVoltEvent" ],
+        "type" : "volt_meter_status",
+        "upsert" : true
+      },
+      "pattern" : "SaveToType",
+      "patternVersion" : 1,
+      "uuid" : "8936db4e-3fc8-40af-8901-94691e503535"
+    },
+    "Volt" : {
+      "configuration" : {
+        "childStreams" : [ "TransformVoltEvent" ],
+        "condition" : "",
+        "inboundResource" : "sources",
+        "inboundResourceId" : "AnalogVoltMqtt",
+        "parentStreams" : [ ],
+        "upsert" : false
+      },
+      "pattern" : "EventStream",
+      "patternVersion" : 1,
+      "uuid" : "89677ea1-f374-45c0-9eff-5b4b9768d1b5"
+    }
+  },
+  "collaboratorRoles" : [ ],
+  "compilerOCC" : 25,
+  "currentState" : {
+    "code" : "success"
+  },
+  "description" : "false",
+  "disableBadging" : false,
+  "entityRoles" : [ ],
+  "isComponent" : false,
+  "keyTypes" : [ "system.collaborations" ],
+  "name" : "AnalogMeterEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetBoilerStatusTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.BoilerStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertTempStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.Volt"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertBoilerStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertGasStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.Temperature"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.IsAbnormal"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertVoltStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetAbnormalBoilerTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.TransformStatusEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.TransformGasEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetGasStatusTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetTempTopic"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.PublishNotification"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.Gas"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.TransformTempEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.TransformVoltEvent"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.PublishMeterStatus"
+    }, {
+      "resource" : "system.eventstreams",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetVoltStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetBoilerStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetNotifyAbnormalBoilerTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetTempTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetGasStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetVoltStatusTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetNotifyBoilerAbnormalityTopic"
+    }, {
+      "resource" : "procedures",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetAbnormalBoilerTopic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.BoilerStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.Temperature"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.PublishMeterStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.Volt"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.PublishNotification"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.Gas"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertBoilerStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetGasStatusTopic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertTempStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.IsAbnormal"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.TransformVoltEvent"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertGasStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetVoltStatusTopic"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.UpsertVoltStatus"
+    }, {
+      "resource" : "rules",
+      "resourceId" : "apps.AnalogMeterEventHandler.SetBoilerStatusTopic"
+    } ]
+  }
+}

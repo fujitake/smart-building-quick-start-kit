@@ -1,0 +1,23 @@
+PROCEDURE TemperatureMeter.transformTempEvent(event Object)
+var tempMeterId = event.deviceId
+try {
+    var tempMeter = SELECT EXACTLY ONE FROM temperature_meters WHERE id == tempMeterId
+    var newEvent = {
+        temperature_meter_id: tempMeter.id,
+        temperature_meter_name: tempMeter.name,
+        machine_room_id: tempMeter.machine_room_id,
+        machine_room_name: tempMeter.machine_room_name,
+        floor_id: tempMeter.floor_id,
+        floor_name: tempMeter.floor_name,
+        temperature: event.temperature,       
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "AnalogTemperatureMeter"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, tempMeterId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

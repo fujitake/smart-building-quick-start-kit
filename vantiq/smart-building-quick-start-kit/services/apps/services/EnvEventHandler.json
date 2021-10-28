@@ -1,0 +1,21 @@
+{
+  "ars_relationships" : [ ],
+  "eventTypes" : {
+    "Env" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/EnvMqtt"
+    },
+    "PassToAreaStatusHandler" : {
+      "direction" : "OUTBOUND",
+      "implementingEventPath" : "/topics//internal/area_status"
+    }
+  },
+  "name" : "apps.services.EnvEventHandler",
+  "resourceBinding" : {
+    "optionalResources" : [ ],
+    "requiredResources" : [ {
+      "resource" : "topics",
+      "resourceId" : "/internal/area_status"
+    } ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "activationConstraint" : "",
+  "active" : false,
+  "ars_properties" : null,
+  "ars_relationships" : [ ],
+  "config" : {
+    "automaticReconnect" : true,
+    "cleanSession" : true,
+    "connectionTimeout" : 15,
+    "contentType" : "application/json",
+    "keepAliveInterval" : 15,
+    "maxInflight" : 10,
+    "password" : "your-password",
+    "passwordType" : "string",
+    "qos" : "AT_LEAST_ONCE",
+    "serverURIs" : [ "mqtts://your-broker.com:8883" ],
+    "topics" : [ ],
+    "username" : "your-username"
+  },
+  "direction" : "BOTH",
+  "messageType" : null,
+  "mockProcedures" : { },
+  "name" : "LogMqtt",
+  "type" : "MQTT"
+}

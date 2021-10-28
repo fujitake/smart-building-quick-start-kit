@@ -1,0 +1,23 @@
+PROCEDURE Lidar.transformPositionEvent(event Object)
+var sensorId = event.sensor_id
+try {
+    var sensor = SELECT EXACTLY ONE FROM lidar_position_sensors WHERE id == sensorId
+    var newEvent = {
+        area_id: sensor.area_id,
+        area_name: sensor.area_name,
+        floor_id: sensor.floor_id,
+        floor_name: sensor.floor_name,
+        people_count: event.people_num,
+        congestion_rate: PeopleUtils.calcCongestionRate(event.people_num, sensor.area_capacity),
+        people_position: event.people_locations,        
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "LidarPositionSensor"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, sensorId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

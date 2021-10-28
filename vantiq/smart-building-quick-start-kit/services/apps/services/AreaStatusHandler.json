@@ -1,0 +1,10 @@
+{
+  "ars_relationships" : [ ],
+  "eventTypes" : {
+    "AreaStatus" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/topics//internal/area_status"
+    }
+  },
+  "name" : "apps.services.AreaStatusHandler"
+}

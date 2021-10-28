@@ -1,0 +1,2 @@
+PROCEDURE LogUtils.logInfo(code String, message String)
+LogUtils.logCommon("INFO", code, message)

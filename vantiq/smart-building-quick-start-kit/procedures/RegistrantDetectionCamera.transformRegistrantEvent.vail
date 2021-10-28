@@ -1,0 +1,24 @@
+PROCEDURE RegistrantDetectionCamera.transformRegistrantEvent(event Object)
+var cameraId = event.camera_id
+try {
+    var camera = SELECT EXACTLY ONE FROM registrant_detection_cameras WHERE id == cameraId
+    var newEvent = {
+        registrant_detection_camera_id: camera.id,
+        registrant_detection_camera_name: camera.name,
+        area_id: camera.area_id,
+        area_name: camera.area_name,
+        floor_id: camera.floor_id,
+        floor_name: camera.floor_name,
+        registrant_name: event.registrant.name,
+        registrant_note: event.registrant.note,
+        received_at: now()
+    }
+    return newEvent
+} catch(error) {
+    var code = "VEMD0001"
+    var deviceType = "RegistrantDetectionCamera"
+    var messageFormat = LogUtils.getMessageFormat(code)
+    var message = format(messageFormat, deviceType, cameraId, stringify(event), stringify(error))
+    LogUtils.logError(code, message)
+    exception(code, message)	
+}

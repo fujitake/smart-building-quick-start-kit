@@ -1,0 +1,22 @@
+{
+  "ars_relationships" : [ ],
+  "eventTypes" : {
+    "BoilerStatus" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/AnalogBoilerStatusMqtt"
+    },
+    "Gas" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/AnalogGasMqtt"
+    },
+    "Temperature" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/AnalogTemperatureMqtt"
+    },
+    "Volt" : {
+      "direction" : "INBOUND",
+      "implementingEventPath" : "/sources/AnalogVoltMqtt"
+    }
+  },
+  "name" : "apps.services.AnalogMeterEventHandler"
+}
