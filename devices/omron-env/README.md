@@ -73,7 +73,7 @@ Published Event: 2021/09/21 11:03:46
 | フォーマット | JSON                  |
 
 **出力サンプル**
-```
+```JSON
 {
 	"env_sensor_id": "env_sensor1",
 	"pressure": 1005,

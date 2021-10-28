@@ -65,7 +65,7 @@ $ python3 segment_meter_reader.py
 | 頻度         | 30 秒ごとに 1 回送信  |
 | フォーマット | JSON                  |
 
-```
+```JSON
 {
   "sensor_id": "string",
   "sensing_value": "string",

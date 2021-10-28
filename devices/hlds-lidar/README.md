@@ -199,7 +199,7 @@ $ python lidar_inout_sensor_observer.py
 |フォーマット|JSON |
 
 **出力サンプル**
-```
+```JSON
 {
    "people_num": 2,
    "people_locations": [
@@ -225,7 +225,7 @@ $ python lidar_inout_sensor_observer.py
 |フォーマット|JSON |
 
 **出力サンプル**
-```
+```JSON
 {
    "count_data_list": [
       {

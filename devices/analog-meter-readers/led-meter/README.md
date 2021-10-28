@@ -60,7 +60,7 @@ $ python3 led_status_observer.py
 | 頻度         | 30 秒ごとに 1 回送信  |
 | フォーマット | JSON                  |
 
-```
+```JSON
 {
   "sensor_id": "string",
   "sensing_value": "string",

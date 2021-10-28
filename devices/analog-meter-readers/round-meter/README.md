@@ -78,7 +78,7 @@ $ python analog_round_meter_reader.py
 |頻度|60秒ごとに1回|
 |フォーマット|JSON |
 
-```
+```JSON
 {
    "deviceId": "temp_meter_001",  # デバイスのID
    "temperature": 27.48 # 温度（℃）

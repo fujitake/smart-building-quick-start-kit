@@ -84,7 +84,7 @@ python3 person_count.py \
 | 頻度         | イベントドリブン(人が仮想線を越えたタイミングで送信) |
 | フォーマット | JSON                                                 |
 
-```
+```JSON
 {
   "camera_id": "string",
   "timestamp": int,

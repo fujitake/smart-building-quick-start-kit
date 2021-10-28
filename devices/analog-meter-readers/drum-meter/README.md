@@ -68,7 +68,7 @@ $ python3 drum_meter_reader.py
 | 頻度         | 30 秒ごとに 1 回送信  |
 | フォーマット | JSON                  |
 
-```
+```JSON
 {
   "sensorId": "string",
   "sensing_value": "string",

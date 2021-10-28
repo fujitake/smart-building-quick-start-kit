@@ -87,7 +87,7 @@ $ python3 person_detect.py
 | 頻度         | 新しい顔を検出するごとに 1 回送信 |
 | フォーマット | JSON                              |
 
-```
+```JSON
 {
   "camera_id": "string",
   "face_id": "string",
