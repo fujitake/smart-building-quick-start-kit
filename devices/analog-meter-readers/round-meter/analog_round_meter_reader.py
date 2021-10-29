@@ -216,5 +216,44 @@ def main():
             break
     cv2.destroyAllWindows()
 
+
+'''
+MEMO: 
+You can try round meter reader with sample image.
+Please uncomment the following main function if you want to try it.
+'''
+# def main():
+#     last_published_time = time.time() - PUBLISH_INTERVAL_SEC
+#     while True:
+#         try:
+#             frame = cv2.imread('./img/sample.jpg')
+#             x, y, r = calibrate_gauge(frame)
+#             if x != None and y != None and r != None: 
+#                 val = get_current_value(frame, x, y, r)
+#                 val = round(val,2)
+#                 print("Current temperature: %s %s" %(val, UNIT))
+#                 cv2.putText(frame, 'Current temperature:', (10,20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+#                 cv2.putText(frame, str(val), (10,45), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+#                 now = time.time()
+#                 if now - last_published_time > PUBLISH_INTERVAL_SEC:
+#                     data = {}
+#                     data['deviceId'] = DEVICE_ID
+#                     data['temperature'] = val
+#                     publish_to_mqtt_broker(data)
+#                     last_published_time = time.time()
+#             else:
+#                 print('Round meter is not found.')
+#             cv2.namedWindow('VIDEO', cv2.WINDOW_NORMAL)
+#             cv2.imshow('VIDEO', frame)
+#             time.sleep(1)
+#         except Exception: 
+#             pass
+#         except KeyboardInterrupt:
+#             break
+#         key = cv2.waitKey(1)
+#         if key == 27:
+#             break
+#     cv2.destroyAllWindows()
+
 if __name__=='__main__':
     main()
