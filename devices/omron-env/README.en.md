@@ -9,13 +9,13 @@ This is the procedure for acquiring values related to the surrounding environmen
 
 ### Values that can be acquired.
 
-There are two types of Omron Environment Sensors: 2JCIE-BU01 (USB tyoe) and 2JCIE-BL01 (BAG type). There is a slight difference in the values that can be acquired with each, but they can acquire information about the surrounding environment such as Temperature, Humidity, and Barometric pressure. As for the details, please refer to the User's manual.  
+There are two types of Omron Environment Sensors: 2JCIE-BU01 (USB type) and 2JCIE-BL01 (BAG type). There is a slight difference in the values that can be acquired with each, but they can acquire information about the surrounding environment such as Temperature, Humidity, and Barometric pressure. As for the details, please refer to the User's manual.  
 
 In this instruction, use `2JCIE-BU01(USB type)` which can acquire the value of `eCO2`.  
 
 - [2JCIE-BU01 Environment Sensor (USB Type) User's Manual (pdf)](https://omronfs.omron.com/en_US/ecb/products/pdf/A279-E1-01.pdf)
 
-- [2JCIE-BU01 Environment Sensor User's Manual (pdf)](https://omronfs.omron.com/en_US/ecb/products/pdf/A278-E1.pdf)
+- [2JCIE-BL01 Environment Sensor User's Manual (pdf)](https://omronfs.omron.com/en_US/ecb/products/pdf/A278-E1.pdf)
 
 ## Setup
 
