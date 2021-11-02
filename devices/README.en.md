@@ -20,6 +20,6 @@ The samples that analyze camera images to detect intrusion, count the number of 
 
 The sample that detects the location of persons in an area and counts their entry/exit into/out of an area, using Hitachi LG 3D LiDAR sensor.  
 
-## [Omron Ambient Sensor](./omron-env)
+## [Omron Environment Sensor](./omron-env)
 
-The sample that acquires information about the surrounding environment, such as CO2 concentration, temperature, and humidity, using Omron Ambient Sensor.  
+The sample that acquires information about the surrounding environment, such as CO2 concentration, temperature, and humidity, using Omron Environment Sensor.  
