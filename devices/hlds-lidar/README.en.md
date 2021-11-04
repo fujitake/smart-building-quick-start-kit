@@ -27,7 +27,7 @@ It also describes the minimum required procedure from LiDAR sensor startup to tr
 1. Prepare Hitachi-LG LiDAR sensor and a Windows terminal on the same network as the sensor.  
 1. Install the SDK for the LiDAR sensor and the package for the People Tracking (the flow line measurement) on a Windows terminal.  
 1. Execute the application included in the People Tracking package.  
-1. Execute the scripts which are in this directory.  
+1. Execute the Python scripts.  
 
 
 ## **Procedure**
