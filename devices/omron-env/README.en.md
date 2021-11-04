@@ -29,7 +29,7 @@ In this instruction, use `2JCIE-BU01(USB type)` which can acquire the value of `
 
 - Full set of this directory
 
-### Procedure
+### Instructions
 
 1. Confirm the MAC address of the Environment Sensor.  
 
