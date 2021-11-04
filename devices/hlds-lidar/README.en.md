@@ -48,7 +48,7 @@ Prepare an MQTT broker of any choice, such as a fully managed one like AmazonMQ 
     ※ If an error occurs when running the installer, confirm the handling method in the enclosed manual.  
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. Download the People Tracking package.  
-    1. Download the latest version from [the download page](https://hlds.co.jp/product/tofsdk/people-tracking_en). (e.g. PeopleTracking_v200.zip)  
+    1. Download the latest version from [the download page](https://hlds.co.jp/product/tofsdk/people-tracking_en). (e.g., PeopleTracking_v200.zip)  
     2. Unzip the zip file at any location.  
 
 <br/>
@@ -66,9 +66,8 @@ Prepare an MQTT broker of any choice, such as a fully managed one like AmazonMQ 
 
 ### 4. Execute the HumanCounterPro (the People Tracking application).  
 ---
-　
-The configuration of HumanCounterPro is described in the XML files that exist in ``PeopleTracking_v200\PeopleTracking`` (``Store*.xml`` and ``HumanCounterPro.xml``). Since these XML files are loaded when the application is launched, it is possible to do any configuration by modifying these XML files.  
-In this procedure, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xml`` (it is not necessary if just running HumanCounterPro.exe, but it is necessary in case of doing socket communication).  
+
+The configuration of HumanCounterPro is described in the XML files that exist in ``PeopleTracking_v200\PeopleTracking`` (``Store*.xml`` and ``HumanCounterPro.xml``). Since these XML files are loaded when the application is launched, it is possible to do any configuration by modifying these XML files. In this procedure, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xml`` (it is not necessary if just running HumanCounterPro.exe, but it is necessary in case of doing socket communication).  
 
 <br/>
 
@@ -93,7 +92,7 @@ In this procedure, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xm
 ...(omitted)...
     <Output>
         <StoreHuman>
-            <Valid>1</Valid> ← set the value to "1" &nbsp; ※ If it is "0", it means disable.
+            <Valid>1</Valid> ← set the value to "1"  ※ If it is "0", it means disable.
             <Socket>
                 <Valid>1</Valid> ← set the value to "1"
                 <Ip>127.0.0.1</Ip>
@@ -162,7 +161,7 @@ In this procedure, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xm
 
 <br/>
 
-### 5. Send the sensing results to MQTT　Broker.  
+### 5. Send the sensing results to  MQTT Broker.  
 ---
 1.  Place the set of the scripts on the Windows terminal.  
     - ``lidar_position_sensor_observer.py``
@@ -195,7 +194,7 @@ $ python lidar_inout_sensor_observer.py
 - lidar_position_sensor_observer.py
 
 |Items|Details|
-|-|-|
+|---|---|
 |Protocol|MQTTS|
 |Frequency| Depends on the output frequency setting of the LiDAR sensor |
 |Format|JSON |
@@ -221,7 +220,7 @@ $ python lidar_inout_sensor_observer.py
 - lidar_inout_sensor_observer.py
 
 |Items|Details|
-|-|-|
+|---|---|
 |Protocol|MQTTS|
 |Frequency| Depends on the output frequency setting of the LiDAR sensor |
 |Format|JSON |
