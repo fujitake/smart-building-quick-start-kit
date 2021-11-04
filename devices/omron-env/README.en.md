@@ -67,7 +67,7 @@ Published Event: 2021/09/21 11:03:46
 | Items      | Details               |
 | ---------- | --------------------- |
 | Protocol   | MQTTS                 |
-| Frequenc   | Transmit once every 10 seconds  |
+| Frequency   | Transmit once every 10 seconds  |
 | Format | JSON                  |
 
 **Output sample**
