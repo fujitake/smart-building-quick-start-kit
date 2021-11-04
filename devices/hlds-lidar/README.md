@@ -23,7 +23,7 @@ LiDARセンサーによってセンシングした内容をMQTTブローカー�
 
 ### **作業の大まかな流れ**
 ---
-1.  MQTTブローカー、Vantiqの準備
+1.  MQTTブローカーの準備
 1.  日立LG社のLiDARセンサーと同ネットワーク上にWindows端末を用意
 1.  Windows端末にLiDARセンサー用のSDK及び動線計測のパッケージをインストール
 1.  動線計測パッケージに含まれるアプリケーションを実行
@@ -49,10 +49,10 @@ AmazonMQなどフルマネージドのものやMosquitoで自分で構築する�
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. 動線計測パッケージのダウンロード
     1.  [ダウンロードページ](https://hlds.co.jp/product/tofsdk/peopletrack)より、最新版をダウンロードする（例: PeopleTracking_v200.zip）
-    2. 任意の場所場所でzipファイルを展開する
+    2. 任意の場所でzipファイルを展開する
 
 <br/>
-   
+
 ### 3. LiDARセンサーの設定変更
 ---
 1. IPアドレスの変更
@@ -120,7 +120,7 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
 - 略 -
 ```
 
-3. 【HumanCount（ラインカウント）を使用する場合のこの手順を実施】``TofStitcher.exe``を使用してラインを引く
+3. 【HumanCount（ラインカウント）を使用する場合にこの手順を実施】``TofStitcher.exe``を使用してラインを引く
 
      HumanCountはラインを跨いだ人数をカウントしたデータであるため、そもそもラインを設定しておく必要がある。ラインの設定は動線計測パッケージに含まれる``TofStitcher.exe``で行うことができる
      1. ``TofStitcher.exe``を使用してIN用、OUT用のラインを計2つ設定する
@@ -160,7 +160,7 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
 
 <br/>
 
-### 5. Vantiqにセンシング結果を送信する
+### 5. MQTTブローカーにセンシング結果を送信する
 ---
 1.  スクリプト一式をWindows端末に配置する
     - ``lidar_position_sensor_observer.py``
@@ -175,7 +175,7 @@ MQTT_USER = 'your-username'
 MQTT_PASSWORD = 'your-password'
 ```
 
-2.  ``lidar_*_sensor_observer.py``を実行する 
+2.  ``lidar_*_sensor_observer.py``を実行する
 
 >スクリプトを確認し、自身の環境にインストールされていないモジュールがある場合は足りないものをインストールしてください。
 ```
