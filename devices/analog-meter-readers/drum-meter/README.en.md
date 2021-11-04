@@ -2,7 +2,7 @@
 
 # Drum Type Meter reader  
 
-This is the instructions for reading the values of a Drum Type Meter and sending the reading values to an MQTT broker.  
+This is the instructions for reading the values of a Drum Type Meter and sending the reading values to an MQTT Broker.  
 
 ## Specifications
 
@@ -24,7 +24,7 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 ### Requirements for this instruction.
 
 - Drum Type Meter to be detected.  
-> The script used in this instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
+> The script used in this instruction can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
 - PC with camera &nbsp; ※ This instructions uses a MacBook Pro (2018) for verification.
 
