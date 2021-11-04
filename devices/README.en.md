@@ -18,7 +18,7 @@ The samples that analyze camera images to detect intrusion, count the number of 
 
 ## [Hitachi LG 3D LiDAR Sensor](./hlds-lidar)
 
-The sample that detects the location of persons in an area and counts their entry/exit into/out of an area, using Hitachi LG 3D LiDAR sensor.  
+The sample that detects the location of people in an area and counts their entry/exit into/out of an area, using Hitachi LG 3D LiDAR sensor.  
 
 ## [Omron Environment Sensor](./omron-env)
 
