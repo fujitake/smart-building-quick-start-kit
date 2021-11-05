@@ -90,5 +90,7 @@
 - スマートビル化についてのより詳細な説明
     - [Smart Building Quick Start Details](./docs/ja/details.md)
 - サンプル
+> 本パッケージにはデバイス層からデータ統合層（Vantiqアプリケーション）のサンプルが含まれています。
+
     - [接続デバイスのサンプルスクリプト及び手順](./devices)
     - [Vantiqアプリケーション](./vantiq)
