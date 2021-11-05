@@ -4,12 +4,12 @@
 
 ### **Overview and Prerequisite**
 ---
-This is the instruction to send the contents that are sensed by the LiDAR sensor to the MQTT broker. In this instruction, two types of sensing contents will be used: "location of people" and "counting the number of people who crossed the line".<br/>
+This is the instructions to send the contents that are sensed by the LiDAR sensor to the MQTT broker. In these  instructions, two types of sensing contents will be used: "location of people" and "counting the number of people who crossed the line".<br/>
 It also describes the minimum required instructions from LiDAR sensor startup to transmission to Vantiq. As for the individual instructions for multiple types of LiDAR sensors, settings for when operating multiple sensors, kitting, etc., please refer to the LiDAR sensor manual.  
 
-### **Requirements for this instruction.**
+### **Requirements for these instructions.**
 ---
-- Hitachi LG LiDAR Sensor（In this instruction, one HLS-LFOM5 is used.）  
+- Hitachi LG LiDAR Sensor（In these instructions, one HLS-LFOM5 is used.）  
 - Windows 10 terminal (To run the software for the LiDAR Sensor.)  
 - Set of the scripts in this directory (To execute socket communication and send the acquired data to Vantiq.)  
     - Send the "location of people" data to Vantiq.  
@@ -67,7 +67,7 @@ Prepare an MQTT broker of any choice, such as a fully managed one like AmazonMQ 
 ### 4. Execute the HumanCounterPro (the People Tracking application).  
 ---
 
-The configuration of HumanCounterPro is described in the XML files that exist in ``PeopleTracking_v200\PeopleTracking`` (``Store*.xml`` and ``HumanCounterPro.xml``). Since these XML files are loaded when the application is launched, it is possible to do any configuration by modifying these XML files. In this instruction, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xml`` (it is not necessary if just running HumanCounterPro.exe, but it is necessary in case of doing socket communication).  
+The configuration of HumanCounterPro is described in the XML files that exist in ``PeopleTracking_v200\PeopleTracking`` (``Store*.xml`` and ``HumanCounterPro.xml``). Since these XML files are loaded when the application is launched, it is possible to do any configuration by modifying these XML files. In these instructions, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xml`` (it is not necessary if just running HumanCounterPro.exe, but it is necessary in case of doing socket communication).  
 
 <br/>
 
@@ -120,7 +120,7 @@ The configuration of HumanCounterPro is described in the XML files that exist in
 ...(omitted)...
 ```
 
-3. ***In case of using HumanCount (Line Counting data), follow this instruction.***   
+3. ***In case of using HumanCount (Line Counting data), follow these instructions.***   
    Use `TofStitcher.exe` to draw a line.  
 
      HumanCount is the data that counts the number of people who crossed the line, so it is necessary to configure the lines in advance. It is possible to configure the line settings with ``TofStitcher.exe`` included in the People Tracking package.  
