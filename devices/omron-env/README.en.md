@@ -2,7 +2,7 @@
 
 # Omron Environment Sensor (2JCIE-BU01)
 
-This is the procedure for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to MQTT Broker.  
+This is the instructions for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to MQTT Broker.  
 
 
 ## Specifications
@@ -11,7 +11,7 @@ This is the procedure for acquiring values related to the surrounding environmen
 
 There are two types of Omron Environment Sensors: 2JCIE-BU01 (USB type) and 2JCIE-BL01 (BAG type). There is a slight difference in the values that can be acquired with each, but they can acquire information about the surrounding environment such as Temperature, Humidity, and Barometric pressure. As for the details, please refer to the User's manual.  
 
-In this instruction, use `2JCIE-BU01(USB type)` which can acquire the value of `eCO2`.  
+In these instructions, use `2JCIE-BU01(USB type)` which can acquire the value of `eCO2`.  
 
 - [2JCIE-BU01 Environment Sensor (USB Type) User's Manual (pdf)](https://omronfs.omron.com/en_US/ecb/products/pdf/A279-E1-01.pdf)
 
@@ -19,13 +19,13 @@ In this instruction, use `2JCIE-BU01(USB type)` which can acquire the value of `
 
 ## Setup
 
-### Requirements for this instruction.
+### Requirements for these instructions.
 
 - Omron Environment Sensor (2JCIE-BU01)  
 
 - Raspberry Pi 3B+ or 4B
   - [Raspberry Pi OS with desktop (32bit)](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit)
-  - Although it is not mandatory to use Raspberry Pi, this procedure uses Raspberry Pi 3B+ and 4B for verification.　
+  - Although it is not mandatory to use Raspberry Pi, these instructions use Raspberry Pi 3B+ and 4B for verification.　
 
 - Full set of this directory
 
