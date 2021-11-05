@@ -2,7 +2,7 @@
 
 # 7セグメントメーターリーダー
 
-7セグメントメーターの値を読み取り、MQTTブローカーに読み取った値を送信する手順です。
+7セグメントメーターの値を読み取り、MQTT Broker に読み取った値を送信する手順です。
 
 ## 仕様
 
@@ -50,7 +50,7 @@ $ pip3 install -r requirements.txt
 
 ## セグメントメーターの数値検出
 
-`segment_meter_reader.py`を実行して、セグメントメーターの値を読み取り、VANTIQ にデータを送信します。
+`segment_meter_reader.py`を実行して、セグメントメーターの値を読み取り、MQTT Broker にデータを送信します。
 
 ```sh
 $ python3 segment_meter_reader.py

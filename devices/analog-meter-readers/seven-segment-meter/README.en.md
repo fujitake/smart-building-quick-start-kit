@@ -53,7 +53,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Segment Meter.  
 
-Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to VANTIQ.
+Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to MQTT Broker.
 
 ```sh
 $ python3 segment_meter_reader.py
