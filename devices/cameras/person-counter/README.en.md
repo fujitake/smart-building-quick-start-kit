@@ -1,6 +1,6 @@
-[English](./README.en.md)
+[Japanese](./README.md)
 
-# Number of persons count  
+# The number of persons count  
 
 This is the instructions to analyze video captured by a camera with TensorFlow Lite, and when detecting entering an area and leaving an area, send the data to an MQTT Broker.  
 
