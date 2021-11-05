@@ -2,7 +2,7 @@
 
 # LEDリーダー
 
-LEDランプの色を読み取り、MQTTブローカーに読み取った値を送信する手順です。
+LEDランプの色を読み取り、MQTT Broker に読み取った値を送信する手順です。
 
 ## 仕様
 
@@ -45,7 +45,7 @@ $ pip3 install -r requirements.txt
 
 ## 緑や赤の LED 検出
 
-`led_status_observer.py`を実行して、緑や赤の LED を検出し、VANTIQ にデータを送信します。
+`led_status_observer.py`を実行して、緑や赤の LED を検出し、MQTT Broker にデータを送信します。
 
 ```sh
 $ python3 led_status_observer.py

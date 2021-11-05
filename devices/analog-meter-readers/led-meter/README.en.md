@@ -43,7 +43,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect Green LED or Red LED.   
 
-Run `led_status_observer.py` to detect Green LED or Red LED and send the data to Vantiq.  
+Run `led_status_observer.py` to detect Green LED or Red LED and send the data to MQTT Broker.  
 
 ```sh
 $ python3 led_status_observer.py
