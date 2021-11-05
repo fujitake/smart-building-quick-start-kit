@@ -2,7 +2,7 @@
 
 # ドラム式メーターリーダー
 
-ドラム式メーターの値を読み取り、MQTTブローカーに読み取った値を送信する手順です。
+ドラム式メーターの値を読み取り、MQTT Broker に読み取った値を送信する手順です。
 
 ## 仕様
 
@@ -54,7 +54,7 @@ $ pip3 install -r requirements.txt
 
 ## ドラム式メーターの数値検出
 
-`drum_meter_reader.py`を実行して、同梱されているドラム式メーターのサンプル画像を読み取り、VANTIQ にデータを送信します。
+`drum_meter_reader.py`を実行して、同梱されているドラム式メーターのサンプル画像を読み取り、MQTT Broker にデータを送信します。
 
 ```sh
 $ python3 drum_meter_reader.py

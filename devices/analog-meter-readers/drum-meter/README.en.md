@@ -53,7 +53,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Drum Type Meter.  
 
-Run `drum_meter_reader.py` to read the sample image of the Drum Type Meter which is in directory and send the data to VANTIQ.  
+Run `drum_meter_reader.py` to read the sample image of the Drum Type Meter which is in directory and send the data to MQTT Broker.  
 
 ```sh
 $ python3 drum_meter_reader.py
