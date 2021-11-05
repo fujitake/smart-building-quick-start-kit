@@ -23,7 +23,7 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 
 ### Requirements for these instructions.
 
-- Drum Type Meter to be detected.  
+- Drum Type Meter to be detected for its values.    
 > The script used in these instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
 - PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
@@ -51,7 +51,7 @@ $ pip3 install -r requirements.txt
 3. Load confidential information into the script as environment variables.    
    Copy the .env.sample file to create a .env file and set the values according to the instructions in the file.  
 
-## Detect the numerical value of the Drum Type Meter.  
+## Detect the numerical values of the Drum Type Meter.  
 
 Run `drum_meter_reader.py` to read the sample image of the Drum Type Meter which is in directory and send the data to VANTIQ.  
 
