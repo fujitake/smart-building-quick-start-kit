@@ -21,12 +21,12 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 
 ## Setup
 
-### Requirements for this instruction.
+### Requirements for these instructions.
 
 - Drum Type Meter to be detected.  
-> The script used in this instruction can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
+> The script used in these instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
-- PC with camera &nbsp; ※ This instructions uses a MacBook Pro (2018) for verification.
+- PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
 
 >The Paddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
 
@@ -77,7 +77,7 @@ $ python3 drum_meter_reader.py
 
 ## Notes
 
-- This instruction detects the numerical values by making adjustments based on the sample images. If using the images which are captured by yourself, it may not be possible to detect the values correctly. Please prepare them by referring to the following notes.
+- These instructions detect the numerical values by making adjustments based on the sample images. If using the images which are captured by yourself, it may not be possible to detect the values correctly. Please prepare them by referring to the following notes.
   - Capture a large, bright image of the meter only.  
   - Make sure that the reflection of light does not appear on the meter.  
   - Take a picture with the meter part directly in front of you.  
