@@ -19,7 +19,7 @@ At this point, it is only judging ***"whether or not there is green or red in th
 - LED lamp to be detected.
 > The script used in these instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
-- PC with camera &nbsp; ※ These instructions uses a MacBook Pro (2018) for verification.
+- PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
 
 - Full set of this directory
 
