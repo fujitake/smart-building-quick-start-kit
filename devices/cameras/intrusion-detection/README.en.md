@@ -2,13 +2,13 @@
 
 # Intrusion Detection
 
-This is the instructions to analyze video images acquired by a camera with TensorFlow Lite, and when detecting intrusion into an area, send data to an MQTT Broker.  
+This is the instructions to analyze video images captured by a camera with TensorFlow Lite, and when detecting intrusion into an area, send the data to an MQTT Broker.  
 
 ## Specifications
 
 ### Detect a person
 
-Take a picture with the camera connected to the Rasbperry Pi and detect a person. It is developed based on the following sample programs of TensorFlow Lite.
+Take a picture with the camera connected to the Raspberry Pi and detect a person. It is developed based on the following sample programs of TensorFlow Lite.
 
 [TensorFlow Lite Python object detection example with Raspberry Pi](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/raspberry_pi)
 
@@ -34,7 +34,7 @@ It is confirmed that it can detect when a person walks sideways at a distance of
 
 ### Requirements for these instructions.
 
-- Raspberry Pi  &nbsp; ※ Use Raspberry Pi 3B for verification.  
+- Raspberry Pi  &nbsp; ※ Used Raspberry Pi 3B for this verification.  
 - [Raspberry Pi Camera Module 2](https://www.raspberrypi.com/products/camera-module-v2/)
 - [Raspberry Pi OS with desktop (32bit)](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit)
 - Full set of this directory
@@ -49,7 +49,7 @@ It is confirmed that it can detect when a person walks sideways at a distance of
 $ pip3 install --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
 ```
 
-3. Install the required Python modules and TensorFlow lite model and labels.    
+3. Install the required Python modules and TensorFlow lite models and labels.    
    Place the `requirements.txt` file in the same directory as the `download.sh`, and run the following command.  
 
 ```
@@ -61,7 +61,7 @@ $ bash download.sh ./tmp
 
 ## Detect intrusion into the specified area.  
 
-Run `intrusion_detect.py` and as soon as a person walks in front of the Raspberry Pi Camera, it will send the data to the MQTT broker.  
+Run `intrusion_detect.py` and as soon as a person walks in front of the Raspberry Pi Camera, it will send the data to the MQTT Broker.  
 
 ```
 python3 intrusion_detect.py \
