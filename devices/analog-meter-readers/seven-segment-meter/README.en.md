@@ -53,7 +53,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Segment Meter.  
 
-Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to MQTT Broker.
+Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to the MQTT Broker.
 
 ```sh
 $ python3 segment_meter_reader.py
@@ -65,7 +65,7 @@ $ python3 segment_meter_reader.py
 | Items         | Details                  |
 | ------------ | --------------------- |
 | Protocol   | MQTTS                 |
-| Frequency  | Transmit once every 30 seconds30 |
+| Frequency  | Transmit once every 30 seconds|
 | Format | JSON                  |
 
 ```JSON
