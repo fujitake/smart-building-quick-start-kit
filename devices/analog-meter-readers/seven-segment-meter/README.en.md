@@ -11,9 +11,9 @@ This is the instructions for reading the values of a 7 Segment Meter and sending
 ### Reading the values of a Segment Meter
 
 Segment Meter reading is accomplished using [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR).  
-As for the usage, refer to [PaddleOCR Quick Start](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.3/doc/doc_en/quickstart_en.md#22-use-by-code).  
+As for the usage, please refer to the [PaddleOCR Quick Start](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.3/doc/doc_en/quickstart_en.md#22-use-by-code).  
 
-The following demo page shows how "PaddleOCR" detects the text in an image. Please refer to it, if necessary.  
+The following demo page shows how "PaddleOCR" detects the text in an image. Please refer to this, if necessary.  
 
 [https://huggingface.co/spaces/akhaliq/PaddleOCR](https://huggingface.co/spaces/akhaliq/PaddleOCR)
 
@@ -22,7 +22,7 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 ### Requirements for these instructions.
 
 - A 7 Segment Meter to be detected for its values.  
->The script used in these instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
+>The script used in these instructions can also work with sample image. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
 - PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
 
@@ -53,7 +53,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Segment Meter.  
 
-Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to the MQTT Broker.
+Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to an MQTT Broker.
 
 ```sh
 $ python3 segment_meter_reader.py
@@ -78,7 +78,7 @@ $ python3 segment_meter_reader.py
 
 ## Notes
 
-- Confirmed that the detection of the values of the segment meter with based on the sample image. If using the images which are captured by yourself, it may not be possible to detect the values of a Segment Meter correctly. Please prepare them by referring to the following notes.  
+- Confirmed that the detection of the value of the segment meter with based on the sample image. If using the images which are captured by yourself, it may not be possible to detect the values of a Segment Meter correctly. Please prepare them by referring to the following notes.  
   - It is necessary to show only one targeted Meter as a large image to detect the numbers on the meter correctly.
-  - Keep a distance of about 0.5 m from the camera.
-  - Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+  - Keep a distance of about 0.5 m from the camera.  
+- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
