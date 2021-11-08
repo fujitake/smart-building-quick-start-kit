@@ -14,7 +14,10 @@ This repository summarizes the knowledge necessary to promote a smart building p
 <br />
 
 
-**Click here if you'd like to build a sample system right away:** [Sample Smart Building](./sample)
+**Check the following samples if you'd like to build a sample system right away:** 
+- Samples
+    - [Sample scripts and procedures for devices](./devices)
+    - [Vantiq application](./vantiq)
 
 **Continue to read this page if you'd like to understand the overview first.** 
 
