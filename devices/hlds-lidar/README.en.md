@@ -12,7 +12,7 @@ It also describes the minimum required instructions from LiDAR sensor startup to
 - Hitachi LG LiDAR Sensor（In these instructions, one HLS-LFOM5 is used.）  
 - Windows 10 terminal (To run the software for the LiDAR Sensor.)  
 - Set of the scripts in this directory (To execute socket communication and send the acquired data to an MQTT Broker.)  
-    - Send the "location of persons" data to an MQTT Brokerq.  
+    - Send the "location of persons" data to an MQTT Broker.  
         - lidar_position_sensor_observer.py
             - The script that sends the "location of persons" data to an MQTT Broker.  
     - Send the "counting the number of persons who crossed the line" data to an MQTT Broker.  
@@ -25,7 +25,7 @@ It also describes the minimum required instructions from LiDAR sensor startup to
 ---
 1. Prepare an MQTT Broker.
 1. Prepare Hitachi-LG LiDAR sensor and a Windows terminal on the same network as the sensor.  
-1. Install the SDK for the LiDAR sensor and the package for **the People Tracking** (the flow line measurement) on a Windows terminal.  
+1. Install the SDK for the LiDAR sensor and the package for the **People Tracking** (the flow line measurement) on a Windows terminal.  
 1. Execute the application included in the People Tracking package.  
 1. Execute the Python scripts.  
 
@@ -41,14 +41,14 @@ Prepare an MQTT Broker of any choice, such as a fully managed one like AmazonMQ 
 ### 2. Set up the Windows terminal.  
 ---
 1. Install the SDK  
-    1. Download the latest SDK for Windows from [the download page](https://hlds.co.jp/product-eng/tofsdk). (e.g., HldsTofSdk.2.3.0vs2015.zip) <br/> ※ When using Google Chrome, it may not be able to download. In that case, change the browser.  
+    1. Download the latest SDK for Windows from the [download page](https://hlds.co.jp/product-eng/tofsdk). (e.g., HldsTofSdk.2.3.0vs2015.zip) <br/> ※ When using Google Chrome, it may not be able to download. In that case, change the browser.  
     1. Unzip the zip file and run the driver installer.  　
     <br/> 例 ``HldsTofSdk.2.3.0vs2015\x64\tofdriver\tof_driver_x64_v2.3.0_Installer``
 
     ※ If an error occurs when running the installer, confirm the handling method in the enclosed manual.  
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. Download the People Tracking package.  
-    1. Download the latest version from [the download page](https://hlds.co.jp/product/tofsdk/people-tracking_en). (e.g., PeopleTracking_v200.zip)  
+    1. Download the latest version from the [download page](https://hlds.co.jp/product/tofsdk/people-tracking_en). (e.g., PeopleTracking_v200.zip)  
     2. Unzip the zip file at any location.  
 
 <br/>
