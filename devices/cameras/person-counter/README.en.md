@@ -16,11 +16,11 @@ The models in the above sample programs can detect a variety of objects other th
 
 ### Detect entering and leaving a specified area.  
 
-Put a virtual line in the middle of the screen, and regard the left side of the screen as inside the area and regard the right side of the screen as outside the area.  
+Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen as inside the area and regard the right side of the screen as outside the area.  
 
 ![](./img/flame0.png)
 
-Detect when a person overlaps the virtual line (Figure 1), and then when the person has moved to the left or the right of the virtual line (Figure 2 or 3), publish the event of detection to the MQTT broker.  
+Detect when a person overlaps the virtual line (Figure 1), and then when the person has moved to the left or the right of the virtual line (Figure 2 or 3), publish the event of detection to an MQTT broker.  
 
 Figure 1.  
 ![](./img/flame1.png)
@@ -64,7 +64,7 @@ Copy the `.env.sample` file to create a `.env` file and set the values according
 
 ## Detect entering and leaving a specified area.  
 
-Run `person_count.py` and when a person walks in front of the Raspberry Pi Camera, it will send the data to the MQTT Broker depending on the direction.  
+Run `person_count.py` and when a person walks in front of the Raspberry Pi Camera, it will send the data to an MQTT Broker depending on the direction.  
 
 ```
 python3 person_count.py \
