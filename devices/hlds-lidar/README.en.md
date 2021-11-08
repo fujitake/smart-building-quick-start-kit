@@ -4,28 +4,28 @@
 
 ### **Overview and Prerequisite**
 ---
-This is the instructions to send the contents that are sensed by the LiDAR sensor to the MQTT broker. In these  instructions, two types of sensing contents will be used: "location of people" and "counting the number of people who crossed the line".<br/>
-It also describes the minimum required instructions from LiDAR sensor startup to transmission to Vantiq. As for the individual instructions for multiple types of LiDAR sensors, settings for when operating multiple sensors, kitting, etc., please refer to the LiDAR sensor manual.  
+This is the instructions to send the contents that are sensed by the LiDAR sensor to an MQTT broker. In these  instructions, two types of sensing contents will be used: "location of persons" and "counting the number of persons who crossed the line".<br/>
+It also describes the minimum required instructions from LiDAR sensor startup to transmission to an MQTT Broker. As for the individual instructions for multiple types of LiDAR sensors, settings for when operating multiple sensors, kitting, etc., please refer to the LiDAR sensor manual.  
 
 ### **Requirements for these instructions.**
 ---
 - Hitachi LG LiDAR Sensor（In these instructions, one HLS-LFOM5 is used.）  
 - Windows 10 terminal (To run the software for the LiDAR Sensor.)  
-- Set of the scripts in this directory (To execute socket communication and send the acquired data to Vantiq.)  
-    - Send the "location of people" data to Vantiq.  
+- Set of the scripts in this directory (To execute socket communication and send the acquired data to an MQTT Broker.)  
+    - Send the "location of persons" data to an MQTT Brokerq.  
         - lidar_position_sensor_observer.py
-            - The script that sends the "location of people" data to Vantiq.  
-    - Send the "counting the number of people who crossed the line" data to Vantiq.  
+            - The script that sends the "location of persons" data to an MQTT Broker.  
+    - Send the "counting the number of persons who crossed the line" data to an MQTT Broker.  
         - lidar_inout_sensor_observer.py
-            - The Script that sends the data of the number of people who crossed two lines, one is for IN and another is for OUT, to Vantiq.  
+            - The Script that sends the data of the number of persons who crossed two lines, one is for IN and another is for OUT, to an MQTT Broker.  
 
-- MQTT Broker
+- An MQTT Broker
 
 ### **Overall flow of the work**
 ---
 1. Prepare an MQTT Broker.
 1. Prepare Hitachi-LG LiDAR sensor and a Windows terminal on the same network as the sensor.  
-1. Install the SDK for the LiDAR sensor and the package for the People Tracking (the flow line measurement) on a Windows terminal.  
+1. Install the SDK for the LiDAR sensor and the package for **the People Tracking** (the flow line measurement) on a Windows terminal.  
 1. Execute the application included in the People Tracking package.  
 1. Execute the Python scripts.  
 
@@ -33,7 +33,7 @@ It also describes the minimum required instructions from LiDAR sensor startup to
 ## **Instructions**
 ### 1. Prepare an MQTT Broker.  
 ---
-Prepare an MQTT broker of any choice, such as a fully managed one like AmazonMQ or build your own with Mosquito.  
+Prepare an MQTT Broker of any choice, such as a fully managed one like AmazonMQ or build your own with Mosquito.  
 
 <br/>
 
@@ -58,7 +58,7 @@ Prepare an MQTT broker of any choice, such as a fully managed one like AmazonMQ 
 1. Change the IP Address  
     1. Open ``http://<IP address of the LiDAR sensor>`` in a browser to access the console screen.  
         1. Initial IP: ``192.168.0.105``, Initial Password: ``admin``
-    1. Open the Network Settings menu , and change the IP address to the same network as the Windows terminal.  
+    1. Open the Network Settings menu, and change the IP address to the same network as the Windows terminal.  
         1. Also, copy the MAC address.  
 
 <br/>
@@ -123,7 +123,7 @@ The configuration of HumanCounterPro is described in the XML files that exist in
 3. ***In case of using HumanCount (Line Counting data), follow these instructions.***   
    Use `TofStitcher.exe` to draw a line.  
 
-     HumanCount is the data that counts the number of people who crossed the line, so it is necessary to configure the lines in advance. It is possible to configure the line settings with ``TofStitcher.exe`` included in the People Tracking package.  
+     HumanCount is the data that counts the number of persons who crossed the line, so it is necessary to configure the lines in advance. It is possible to configure the line settings with ``TofStitcher.exe`` included in the People Tracking package.  
      1. Configure a total of two lines, one is for IN and another is for OUT, using ``TofStitcher.exe``.  
         1. Please refer to the enclosed ``HLDS_TOF_TofStitcher_Operation_Manual.pdf`` for detailed instructions on how to use ``TofStitcher.exe``.  
      1.  In ``<Count>/<CountName>`` of ``StoreCount.xml``, revise the names of the count groups for IN and for OUT according to the following naming rules.  
@@ -154,14 +154,14 @@ The configuration of HumanCounterPro is described in the XML files that exist in
     ```
 
 1. Execute ``HumanCounterPro.exe``.  
-    1. Confirm that it will launch.   
+    1. Confirm that it launches.   
 
-1. Confirm that socket communication will possible.  
-    1. Execute ``PeopleTracking_v200\SocketReceiver\ReceiveTest.exe`` to confirm that the data will be able to be received.
+1. Confirm that socket communication is possible.  
+    1. Execute ``PeopleTracking_v200\SocketReceiver\ReceiveTest.exe`` to confirm that the data can be received.
 
 <br/>
 
-### 5. Send the sensing results to  MQTT Broker.  
+### 5. Send the sensing results to the MQTT Broker.  
 ---
 1.  Place the set of the scripts on the Windows terminal.  
     - ``lidar_position_sensor_observer.py``
@@ -182,10 +182,10 @@ MQTT_PASSWORD = 'your-password'
 ```
 ※ HumanCounterPro.exe should be running.  
 
-Send the "location of people" data.  
+Send the "location of persons" data.  
 $ python lidar_position_sensor_observer.py
 
-Send the "counting the number of people who crossed the line" data.  
+Send the "counting the number of persons who crossed the line" data.  
 $ python lidar_inout_sensor_observer.py
 ```
 
