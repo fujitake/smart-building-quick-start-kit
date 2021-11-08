@@ -8,7 +8,7 @@ This is the instructions for for reading the values of a round shaped analog met
 
 For high accuracy in reading values, it is necessary for the camera to have a large image with only a Round Meter in focus and as few shadows as possible.
 
-It is not suitable for high accuracy requirements, as this was created for the purpose of experiencing the process of smart building.
+It is not suitable for high accuracy requirements, as this was created for the purpose of experiencing the process of Smart Building.
 
 ## Requirements for these instructions.
 - An Analog Round Meter
@@ -19,11 +19,11 @@ It is not suitable for high accuracy requirements, as this was created for the p
 - Python script
     - analog_round_meter_reader.py
 
-> The script used in these instructions can also work with sample images. So, it is possible to execute this even without a Round meter and/or Raspberry pi. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.
+> The script used in these instructions can also work with sample image. So, it is possible to execute this even without a Round meter and/or Raspberry pi. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.
 
 - PC with a camera  
     - These instructions use Raspberry pi 4B + Picamera v2 for verification.
-- MQTT Broker
+- An MQTT Broker
 
 
 ## Instructions
@@ -63,7 +63,7 @@ MAX_ANGLE = 278 # Maximum value of angle
 MIN_VALUE = -25 # Minimum value of graduations
 MAX_VALUE = 55  # Maximum value of graduations
 ```
->Run the script, then the angle will be displayed around the meter as shown in the reference image. Once running the script with an arbitrary value on a trial basis and grasping the angle, it is easy to configure.
+>Run the script, then the angle will be displayed around the meter as shown in the Reference image. Once running the script with an arbitrary value on a trial basis and grasping the angle, it is easy to configure.
 
 
 2.  Run `analog_round_meter_reader.py`.  
