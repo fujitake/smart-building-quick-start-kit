@@ -16,11 +16,11 @@ The models in the above sample programs can detect a variety of objects other th
 
 ### Detect intrusion into a specified area.  
 
-Put a virtual line in the middle of the screen, and regard the left side of the screen (width: 320px) as the restricted area.  
+Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen (width: 320px) as the restricted area.  
 
 ![](./img/flame0.png)
 
-Detect when a person overlaps the virtual line (Figure 1), and then when the person has completely moved into the restricted area (Figure 2), publish the event of detection to the MQTT broker.
+Detect when a person overlaps the virtual line (Figure 1), and then when the person has completely moved into the restricted area (Figure 2), publish the event of detection to an MQTT broker.
 
 Figure 1.  
 ![](./img/flame1.png)
@@ -61,7 +61,7 @@ $ bash download.sh ./tmp
 
 ## Detect intrusion into the specified area.  
 
-Run `intrusion_detect.py` and as soon as a person walks in front of the Raspberry Pi Camera, it will send the data to the MQTT Broker.  
+Run `intrusion_detect.py` and as soon as a person walks in front of the Raspberry Pi Camera, it will send the data to an MQTT Broker.  
 
 ```
 python3 intrusion_detect.py \
