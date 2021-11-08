@@ -2,7 +2,7 @@
 
 # Smart Building Quick Start Kit Vantiq Application  
 
-![Vantiq App](./img/sbqsk-vantiq-app.png)
+![Vantiq App](./img/sbqsk-vantiq-app.en.png)
 
 This is the Vantiq application that can be used with the device samples. Data store and API Gateway are not included.
 
