@@ -101,7 +101,7 @@ This repository summarizes the knowledge necessary to promote a smart building p
 - A more detailed explanation of smart building
     - [Smart Building Quick Start Details](./docs/ja/details.md)
 - Samples
-    - [接続デバイスのサンプルスクリプト及び手順](./devices)
-    - [Vantiqアプリケーション](./vantiq)
+    - [Sample scripts and procedures for devices](./devices)
+    - [Vantiq application](./vantiq)
 
 > Samples of devices (device layer) and Vantiq application (data integration layer) are included in this package.
