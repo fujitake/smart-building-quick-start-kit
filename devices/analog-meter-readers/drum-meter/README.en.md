@@ -9,13 +9,13 @@ This is the instructions for reading the values of a Drum Type Meter and sending
 ### Reading the values of a Drum Type Meter
 
 Drum Type Meter reading is accomplished using [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR).  
-As for the usage, refer to [PaddleOCR Quick Start](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.3/doc/doc_en/quickstart_en.md#22-use-by-code).  
+As for the usage, please refer to the [PaddleOCR Quick Start](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.3/doc/doc_en/quickstart_en.md#22-use-by-code).  
 
-When a Drum Type Meter is read and multiple values are detected, calculate the area of the rectangle (Bounding Box) surrounding the detected values, and send the value whose area is the largest. For example, in the sample image which is in the directory, the value `02446` in the red frame will be sent.  
+When a Drum Type Meter is read and multiple values are detected, calculate the area of the rectangle (Bounding Box) surrounding the detected value, and send the value whose area is the largest. For example, in the sample image which is in the directory, the value `02446` in the red frame is sent.  
 
 ![](img/readme.jpg)
 
-The following demo page shows how "PaddleOCR" detects the text in an image. Please refer to it, if necessary.  
+The following demo page shows how "PaddleOCR" detects the text in an image. Please refer to this, if necessary.  
 
 [https://huggingface.co/spaces/akhaliq/PaddleOCR](https://huggingface.co/spaces/akhaliq/PaddleOCR)
 
@@ -24,7 +24,7 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 ### Requirements for these instructions.
 
 - Drum Type Meter to be detected for its values.    
-> The script used in these instructions can also work with sample images. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
+> The script used in these instructions can also work with sample image. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
 
 - PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
 
@@ -53,7 +53,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Drum Type Meter.  
 
-Run `drum_meter_reader.py` to read the sample image of the Drum Type Meter which is in directory and send the data to MQTT Broker.  
+Run `drum_meter_reader.py` to read the sample image of the Drum Type Meter which is in directory and send the data to an MQTT Broker.  
 
 ```sh
 $ python3 drum_meter_reader.py
@@ -77,7 +77,7 @@ $ python3 drum_meter_reader.py
 
 ## Notes
 
-- These instructions detect the numerical values by making adjustments based on the sample images. If using the images which are captured by yourself, it may not be possible to detect the values correctly. Please prepare them by referring to the following notes.
+- These instructions detect the numerical values by making adjustments based on the sample image. If using the images which are captured by yourself, it may not be possible to detect the values correctly. Please prepare them by referring to the following notes.
   - Capture a large, bright image of the meter only.  
   - Make sure that the reflection of light does not appear on the meter.  
   - Take a picture with the meter part directly in front of you.  
