@@ -2,7 +2,7 @@
 
 # Omron Environment Sensor (2JCIE-BU01)
 
-This is the instructions for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to MQTT Broker.  
+This is the instructions for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to an MQTT Broker.  
 
 
 ## Specifications
