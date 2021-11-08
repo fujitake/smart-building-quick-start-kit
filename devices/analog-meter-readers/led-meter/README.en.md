@@ -43,7 +43,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect Green LED or Red LED.   
 
-Run `led_status_observer.py` to detect Green LED or Red LED and send the data to MQTT Broker.  
+Run `led_status_observer.py` to detect Green LED or Red LED and send the data to an MQTT Broker.  
 
 ```sh
 $ python3 led_status_observer.py
@@ -70,6 +70,6 @@ $ python3 led_status_observer.py
 
 - It is necessary to show only one targeted LED as a large image to detect the LED lighting correctly.  
 - Since "Lighting" is judged based on "whether the color is present" in the image, it is necessary to change the logic for judging "Lighting" when the number of LEDs increases to two.  
-- It is assumed that there are no LEDs of any color other than Green or Red. Since "lighting" is judged based on whether the color is present in the image, the presence of LEDs other than Green or Red may cause misjudge that the LED is "Lighting".  
+- It is assumed that there are no LEDs of any color other than Green or Red. Since "Lighting" is judged based on whether the color is present in the image, the presence of LEDs other than Green or Red may cause misjudge that the LED is "Lighting".  
 - It is recommended to use a camera from the same manufacturer. The colors of the images captured will vary depending on the camera.
 - Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
