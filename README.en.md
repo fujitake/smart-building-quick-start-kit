@@ -99,7 +99,7 @@ This repository summarizes the knowledge necessary to promote a smart building p
 
 ## Next step
 - A more detailed explanation of smart building
-    - [Smart Building Quick Start Details](./docs/ja/details.md)
+    - [Smart Building Quick Start Details](./docs/en/details.md)
 - Samples
     - [Sample scripts and procedures for devices](./devices)
     - [Vantiq application](./vantiq)
