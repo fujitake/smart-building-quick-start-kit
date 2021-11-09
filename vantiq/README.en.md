@@ -4,12 +4,12 @@
 
 ![Vantiq App](./img/sbqsk-vantiq-app.en.png)
 
-This is the Vantiq application that can be used with the device samples. Data store and API Gateway are not included.
+This is the Vantiq application that can be used with the device samples. Data store or API Gateway are not included.
 
-To use this, import the full set of [smart-building-quick-start-kit](./smart-building-quick-start-kit) in the Vantiq IDE.  
+To use this, import the full set of [smart-building-quick-start-kit](./smart-building-quick-start-kit) in Vantiq IDE.  
 
-- Source is set to inactive, so please configure your MQTT Broker and then make it active.  
+- Sources are inactive, please set your MQTT Brokers and then make them active.  
 
-- Because of the performance conscious design, Types which are used for saving the master data of each device is denormalized. Synchronization of master data is the responsibility of the master data administrator.   
+- This application is designed performance-conscious, Types that are used for saving master data of each device are denormalized. Synchronization of master data is the responsibility of the master data administrator. 
 
-- There is no limit on the frequency of transmission from Vantiq to an MQTT broker. Please note that it depends on how often the data is sent from the device.   
+- Limitation of frequency of data transmission from Vantiq is not implemented. please note that depends on the frequency of data from devices.
