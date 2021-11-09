@@ -12,9 +12,18 @@
 
 実際のアナログメーターがなくてもサンプル画像で動作を確認できます。サンプル画像に合わせて各スクリプトをチューニングしているため、***その他で使用する場合はチューニングし直す必要があります。***
 
+- [ドラム式メーターリーダー](./analog-meter-readers/drum-meter)
+- [LEDリーダー](./analog-meter-readers/led-meter)
+- [円形メーターリーダー](./analog-meter-readers/round-meter)
+- [7 セグメントメーターリーダー](./analog-meter-readers/seven-segment-meter)
+
 ## [カメラ](./cameras)
 
 カメラの映像を解析し、侵入検知、人数カウント、登録者検知を行うサンプルです。
+
+- [侵入検知](./cameras/intrusion-detection)
+- [人数カウント](./cameras/person-counter)
+- [登録者検知](./cameras/registrant-detection)
 
 ## [日立LG 3D LiDARセンサー](./hlds-lidar)
 

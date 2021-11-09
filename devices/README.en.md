@@ -12,9 +12,18 @@ The samples that use a camera to constantly capture images of analog meters such
 
 Even if don't have an actual analog meter, it is possible to check the behavior with sample images. Each script has been tuned to fit the sample image, so ***it will be required to be re-tuned when used with other images***.  
 
+- [Drum type meter reader](./analog-meter-readers/drum-meter)
+- [LED reader](./analog-meter-readers/led-meter)
+- [Round meter reader](./analog-meter-readers/round-meter)
+- [7 segment meter reader](./analog-meter-readers/seven-segment-meter)
+
 ## [Cameras](./cameras)
 
 The samples that analyze camera images to detect intrusion, to count the number of persons, and to detect registered persons.  
+
+- [Intrusion detection](./cameras/intrusion-detection)
+- [People count](./cameras/person-counter)
+- [Registrant detection](./cameras/registrant-detection)
 
 ## [Hitachi LG 3D LiDAR Sensor](./hlds-lidar)
 
