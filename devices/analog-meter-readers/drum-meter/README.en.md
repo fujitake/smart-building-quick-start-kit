@@ -2,7 +2,7 @@
 
 # Drum-type meter reader  
 
-This is the instructions for reading the value of a drum-type meter and sending it to an MQTT Broker.  
+This is the procedure for reading the value of a drum-type meter and sending it to an MQTT Broker.  
 
 ## Specifications
 
@@ -15,24 +15,25 @@ When detected multiple values, the sample script will send the value whose area 
 
 ![](img/readme.jpg)
 
-The following demo page shows how `PaddleOCR` detects the text in an image. Please refer to this, if necessary.  
+The following demo page shows how `PaddleOCR` detects texts in an image. Please refer to this if necessary:
 
 [https://huggingface.co/spaces/akhaliq/PaddleOCR](https://huggingface.co/spaces/akhaliq/PaddleOCR)
 
 ## Setup
 
-### Requirements for these instructions
+### Required items
 
 - Drum-type meter
 > The sample script also works with the sample image. You can try it without a meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
-- PC with camera &nbsp; ※ verified with Macbook pro(2018)
+- PC with camera
+  - This procedure has been verified with Macbook pro(2018).
 
 >The PaddlePaddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
 
 - Full set of this directory
 
-### Instructions
+### Procedure
 
 1. Install OpenCV.  
    On MacOS, install it with the following command:
@@ -49,7 +50,7 @@ $ pip3 install -r requirements.txt
 > With Python 3.9.x, the installation of PaddleOCR may fail. In that case, please switch to Python 3.8.x.  
 
 3. Load confidential information into the script as environment variables.    
-   Copy `.env.sample` file to create `.env` file and set the values according to the instructions in the file.  
+   Copy `.env.sample` file to create `.env` file and set the values according to the file contents.
 
 ## Detect the value of drum-type meter
 
@@ -79,7 +80,7 @@ $ python3 drum_meter_reader.py
 
 - Meter value is detected by tuning based on the sample image. The sample script may not detect a meter value correctly if you use an image prepared by yourself. 
 
-- Please check the following notes.
+- Please check the following notes:
   - Capture so that the meter part occupies most of the camera view.
   - Capture the meter part brightly.
   - Capture so that light is not reflected on the meter part.

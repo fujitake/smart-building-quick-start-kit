@@ -4,13 +4,13 @@
 
 ## Overview and Prerequisite
 
-This is the instructions for reading the value of a round-shaped meter and sending it to an MQTT broker.  
+This is the procedure for reading the value of a round-shaped meter and sending it to an MQTT broker.
 
 For high accuracy in reading values, it is necessary for the camera to capture so that the meter part occupies most of the camera view. It's also important that the meter part is not shaded.
 
 It is not suitable for high accuracy requirements, as this was created for the purpose of experiencing the process of Smart Building.
 
-## Requirements for these instructions
+## Required items
 - Round meter
     - No multiple types of measurements. (Not a temperature-humidity meter, etc.)　
     - [Reference image](#meter-image)
@@ -21,13 +21,12 @@ It is not suitable for high accuracy requirements, as this was created for the p
 
 > The sample script also works with the sample image. You can try it without Raspberry pi or a round meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
-- PC with a camera  
-    - Verified with Raspberry pi 4B + Picamera v2.
+- PC with a camera   
+    - This procedure has been verified with Raspberry pi 4B + Picamera v2.
 - MQTT Broker
 
 
-## Instructions
-
+## Procedure
 
 1. Set the environment variables used in the script.
 

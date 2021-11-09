@@ -2,7 +2,7 @@
 
 # LED reader
 
-This is the instructions for reading the color of the LED lamp and sending it to an MQTT Broker.  
+This is the procedure for reading the color of the LED lamp and sending it to an MQTT Broker.  
 
 ## Specifications  
 
@@ -14,16 +14,17 @@ At this point, it is only judging ***"whether or not there is green or red in th
 
 ## Setup
 
-### Requirements for these instructions.
+### Required items
 
 - LED lamp
 > The sample script also works with the sample image. You can try it without a LED lamp. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
-- PC with camera &nbsp; ※ verified with Macbook pro(2018)
+- PC with camera
+   - This procedure has been verified with Macbook pro(2018).
 
 - Full set of this directory
 
-### Instructions
+### Procedure
 
 1. Install OpenCV.  
    On MacOS, install it with the following command:
@@ -39,7 +40,7 @@ $ pip3 install -r requirements.txt
 ```
 
 3. Load confidential information into the script as environment variables.    
-   Copy the `.env.sample` file to create a `.env file` and set the values according to the instructions in the file.
+   Copy the `.env.sample` file to create a `.env file` and set the values according to the file contents.
 
 ## Detect Green LED or Red LED.   
 

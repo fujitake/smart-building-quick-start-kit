@@ -1,45 +1,44 @@
 [Japanese](./README.md)
 
-# 7 Segment Meter Reader
+# 7-segment meter reader
 
-This is the instructions for reading the values of a 7 Segment Meter and sending the reading values to an MQTT Broker.
-
-
+This is the procedure for reading the value of a 7-segment meter and sending it to an MQTT Broker.
 
 ## Specifications
 
-### Reading the values of a Segment Meter
+### Reading the value of a segment meter
 
-Segment Meter reading is accomplished using [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR).  
+Segment meter reading is accomplished using [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR).  
 As for the usage, please refer to the [PaddleOCR Quick Start](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.3/doc/doc_en/quickstart_en.md#22-use-by-code).  
 
-The following demo page shows how "PaddleOCR" detects the text in an image. Please refer to this, if necessary.  
+The following demo page shows how `PaddleOCR` detects texts in an image. Please refer to this if necessary:
 
 [https://huggingface.co/spaces/akhaliq/PaddleOCR](https://huggingface.co/spaces/akhaliq/PaddleOCR)
 
 ## Setup
 
-### Requirements for these instructions.
+### Required items
 
-- A 7 Segment Meter to be detected for its values.  
->The script used in these instructions can also work with sample image. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.  
+- 7-segment meter
+> The sample script also works with the sample image. You can try it without a meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
-- PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
+- PC with camera
+  - This procedure has been verified with Macbook pro(2018).
 
->The Paddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.
+>The PaddlePaddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
 
 - Full set of this directory  
 
-### Instructions  
+### Procedure 
 
 1. Install OpenCV.  
-   On MacOS, install it with the following command.
+   On MacOS, install it with the following command:
 
 ```sh
 $ brew install opencv
 ```
 
-2. Place the requirements.txt file in the same directory as the segment_meter_reader.py, and install the Python modules needed for the application.  
+2. Place the `requirements.txt` file in the same directory as the segment_meter_reader.py, and install the Python modules needed for the script.  
 
 ```
 $ pip3 install -r requirements.txt
@@ -49,18 +48,17 @@ $ pip3 install -r requirements.txt
 
 
 3. Load confidential information into the script as environment variables.    
-   Copy the .env.sample file to create a .env file and set the values according to the instructions in the file.  
+   Copy the .env.sample file to create a .env file and set the values according to the file contents.  
 
 ## Detect the numerical values of the Segment Meter.  
 
-Run `segment_meter_reader.py` to read the values of the Segment Meter and send the data to an MQTT Broker.
+Run `segment_meter_reader.py` to read the values of the Segment Meter and send it to an MQTT Broker.
 
 ```sh
 $ python3 segment_meter_reader.py
-
 ```
 
-## Transmission details  
+## Output specifications
 
 | Items         | Details                  |
 | ------------ | --------------------- |
@@ -78,7 +76,10 @@ $ python3 segment_meter_reader.py
 
 ## Notes
 
-- Confirmed that the detection of the value of the segment meter with based on the sample image. If using the images which are captured by yourself, it may not be possible to detect the values of a Segment Meter correctly. Please prepare them by referring to the following notes.  
-  - It is necessary to show only one targeted Meter as a large image to detect the numbers on the meter correctly.
-  - Keep a distance of about 0.5 m from the camera.  
-- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+- Meter value is detected by tuning based on the sample image. The sample script may not detect a meter value correctly if you use an image prepared by yourself. 
+
+- Please check the following notes:
+  - Capture so that the meter part occupies most of the camera view.
+  - Keep a 0.5 m distance between a meter and a camera.
+
+- The encryption and authentication used in the sample script to communicate with an MQTT broker are simple. You need to modify according to your project's requirements. 
