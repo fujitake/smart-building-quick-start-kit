@@ -10,6 +10,6 @@ To use this, import the full set of [smart-building-quick-start-kit](./smart-bui
 
 - Sources are inactive, please set your MQTT Brokers and then make them active.  
 
-- This application is designed performance-conscious, Types that are used for saving master data of each device are denormalized. Synchronization of master data is the responsibility of the master data administrator. 
+- This application is designed performance-conscious, Types that are used for holding master data of each device are denormalized. Synchronization of master data is the responsibility of the master data administrator. 
 
 - Limitation of frequency of data transmission from Vantiq is not implemented. please note that depends on the frequency of data from devices.
