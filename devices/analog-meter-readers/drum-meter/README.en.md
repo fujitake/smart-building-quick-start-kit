@@ -24,7 +24,7 @@ The following demo page shows how `PaddleOCR` detects the text in an image. Plea
 ### Requirements for these instructions
 
 - Drum-type meter
-> The sample script also works with the sample image. The source code for using the sample image has been commented out, so please uncomment it if necessary.
+> The sample script also works with the sample image. You can try it without a meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with camera &nbsp; ※ verified with Macbook pro(2018)
 

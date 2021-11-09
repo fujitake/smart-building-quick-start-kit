@@ -17,7 +17,7 @@ At this point, it is only judging ***"whether or not there is green or red in th
 ### Requirements for these instructions.
 
 - LED lamp
-> The sample script also works with the sample image. The source code for using the sample image has been commented out, so please uncomment it if necessary.
+> The sample script also works with the sample image. You can try it without a LED lamp. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with camera &nbsp; ※ verified with Macbook pro(2018)
 

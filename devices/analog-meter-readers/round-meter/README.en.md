@@ -1,37 +1,37 @@
 [Japanese](./README.md)
 
-# Analog Round Meter Reader
+# Round meter reader
 
 ## Overview and Prerequisite
 
-This is the instructions for for reading the values of a round shaped analog meter and sending the reading values to an MQTT broker.  
+This is the instructions for reading the value of a round-shaped meter and sending it to an MQTT broker.  
 
-For high accuracy in reading values, it is necessary for the camera to have a large image with only a Round Meter in focus and as few shadows as possible.
+For high accuracy in reading values, it is necessary for the camera to capture so that the meter part occupies most of the camera view. It's also important that the meter part is not shaded.
 
 It is not suitable for high accuracy requirements, as this was created for the purpose of experiencing the process of Smart Building.
 
-## Requirements for these instructions.
-- An Analog Round Meter
-    - There should be only one needle and no multiple graduations.　　
+## Requirements for these instructions
+- Round meter
+    - No multiple types of measurements. (Not a temperature-humidity meter, etc.)　
     - [Reference image](#meter-image)
->As a stand-alone script behavior, the detection target is not limited to thermometer. In this **Smart Building Quick Start Kit**, it is used as reading a thermometer.   
+> The sample script's target is not limited to a temperature meter. However, in this Smart Building Quick Start Kit, it is used as reading a temperature meter.
 
 - Python script
     - analog_round_meter_reader.py
 
-> The script used in these instructions can also work with sample image. So, it is possible to execute this even without a Round meter and/or Raspberry pi. The process to use the sample image is commented out, so please uncomment the corresponding part if necessary.
+> The sample script also works with the sample image. You can try it without Raspberry pi or a round meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with a camera  
-    - These instructions use Raspberry pi 4B + Picamera v2 for verification.
-- An MQTT Broker
+    - Verified with Raspberry pi 4B + Picamera v2.
+- MQTT Broker
 
 
 ## Instructions
 
 
-1. Configure the environment variables used in the script.  
+1. Set the environment variables used in the script.
 
-Create an `.env` file in the same directory as the script and configure the information about your MQTT Broker, the minimum and maximum values of the graduations of the Analog Round Meter, and the minimum and maximum values of the angles of the Analog Round Meter.  
+Create a `.env` file in the same directory as the script and set the information about your MQTT Broker and about round meter's scales such as min/max value, min/max value angles.
 
 ```.env
 # Mqtt broker
@@ -47,7 +47,7 @@ MAX_ANGLE = 280
 MIN_VALUE = -30
 MAX_VALUE = 60
 ```
->**How to set up the Analog Round Meter**
+>**How to set up the Round meter information**
 
 <a id="meter-image"></a>
 
@@ -58,22 +58,22 @@ MAX_VALUE = 60
 For the reference image, the configuration information is the followings.  
 
 ```
-MIN_ANGLE = 80  # Minimum value of angle
-MAX_ANGLE = 278 # Maximum value of angle
-MIN_VALUE = -25 # Minimum value of graduations
-MAX_VALUE = 55  # Maximum value of graduations
+MIN_ANGLE = 80  # Minimum value angle
+MAX_ANGLE = 278 # Maximum value angle
+MIN_VALUE = -25 # Minimum value of scales
+MAX_VALUE = 55  # Maximum value of scales
 ```
->Run the script, then the angle will be displayed around the meter as shown in the Reference image. Once running the script with an arbitrary value on a trial basis and grasping the angle, it is easy to configure.
+> While executing the script, the angles are displayed around the meter. You can check min/max value angles by executing the script with arbitrary values first.
 
 
-2.  Run `analog_round_meter_reader.py`.  
->Check the script before running it, and if there are any modules that are not installed in your environment, install the necessary ones.  
+2.  Run `analog_round_meter_reader.py`
+> Before executing the script, check the script and install missing modules that are not installed in your environment yet.
 ```
 $ python analog_round_meter_reader.py
 ```
 
 
-**Transmission details**
+**Output specifications**
 
 |Items|Details|
 |---|---|
@@ -83,7 +83,7 @@ $ python analog_round_meter_reader.py
 
 ```JSON
 {
-   "deviceId": "temp_meter_001",  # the ID of Device
+   "deviceId": "temp_meter_001",  # Device ID
    "temperature": 27.48 # Temperature (℃)
 }
 ```
