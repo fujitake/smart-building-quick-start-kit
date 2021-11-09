@@ -12,24 +12,24 @@ The samples that use a camera to constantly capture images of analog meters such
 
 Even if don't have an actual analog meter, it is possible to check the behavior with sample images. Each script has been tuned to fit the sample image, so ***it will be required to be re-tuned when used with other images***.  
 
-- [Drum type meter reader](./analog-meter-readers/drum-meter)
-- [LED reader](./analog-meter-readers/led-meter)
-- [Round meter reader](./analog-meter-readers/round-meter)
-- [7 segment meter reader](./analog-meter-readers/seven-segment-meter)
+- [Drum type meter reader](./analog-meter-readers/drum-meter/README.en.md)
+- [LED reader](./analog-meter-readers/led-meter/README.en.md)
+- [Round meter reader](./analog-meter-readers/round-meter/README.en.md)
+- [7 segment meter reader](./analog-meter-readers/seven-segment-meter/README.en.md)
 
 ## [Cameras](./cameras)
 
 The samples that analyze camera images to detect intrusion, to count the number of persons, and to detect registered persons.  
 
-- [Intrusion detection](./cameras/intrusion-detection)
-- [People count](./cameras/person-counter)
-- [Registrant detection](./cameras/registrant-detection)
+- [Intrusion detection](./cameras/intrusion-detection/README.en.md)
+- [People count](./cameras/person-counter/README.en.md)
+- [Registrant detection](./cameras/registrant-detection/README.en.md)
 
-## [Hitachi LG 3D LiDAR Sensor](./hlds-lidar)
+## [Hitachi LG 3D LiDAR Sensor](./hlds-lidar/README.en.md)
 
 The sample uses Hitachi LG 3D LiDAR sensor to detect the location of people in an area and to count the number of persons entering and leaving the area.  
 
 
-## [Omron Environment Sensor](./omron-env)
+## [Omron Environment Sensor](./omron-env/README.en.md)
 
 The sample uses Omron Environment Sensor to acquire information about the surrounding environment, such as CO2 concentration, temperature, and humidity.    
