@@ -28,7 +28,7 @@ The following demo page shows how "PaddleOCR" detects the text in an image. Plea
 
 - PC with camera &nbsp; ※ These instructions use a MacBook Pro (2018) for verification.
 
->The Paddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
+>The PaddlePaddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
 
 - Full set of this directory
 
