@@ -2,7 +2,7 @@
 
 # Drum-type meter reader  
 
-This is the instructions for reading the value of a Drum-type meter and sending it to an MQTT Broker.  
+This is the instructions for reading the value of a drum-type meter and sending it to an MQTT Broker.  
 
 ## Specifications
 
@@ -21,9 +21,9 @@ The following demo page shows how `PaddleOCR` detects the text in an image. Plea
 
 ## Setup
 
-### Requirements for these instructions.
+### Requirements for these instructions
 
-- Reading target drum-type meter
+- Drum-type meter
 > The sample script also works with the sample image. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with camera &nbsp; ※ verified with Macbook pro(2018)
@@ -80,7 +80,8 @@ $ python3 drum_meter_reader.py
 - Meter value is detected by tuning based on the sample image. The sample script may not detect a meter value correctly if you use an image prepared by yourself. 
 
 - Please check the following notes.
-  - Capture only the meter part largely and brightly.
+  - Capture so that the meter part occupies most of the camera view.
+  - Capture the meter part brightly.
   - Capture so that light is not reflected on the meter part.
   - Capture so that the meter part is positioned in front of the camera directly.
   - The sample script is tuned assuming that the meter part is constructed with white text and black background.
