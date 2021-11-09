@@ -5,25 +5,25 @@
 ### **概要・前提**
 ---
 LiDARセンサーによってセンシングした内容をMQTTブローカーに送信するまでの手順です。本手順では、「人の位置」「ラインを跨いだ人数のカウント」の2種類のセンシング内容を使用します。<br/>
-また、LiDARセンサー起動からVantiqに送信するまでの最低限の手順を記載しています。複数種類あるLiDARセンサー個別の手順、複数台運用する場合の設定、キッティングなどについてはLiDARセンサーのマニュアルをご確認ください。
+また、LiDARセンサー起動からMQTTブローカーに送信するまでの最低限の手順を記載しています。複数種類あるLiDARセンサー個別の手順、複数台運用する場合の設定、キッティングなどについてはLiDARセンサーのマニュアルをご確認ください。
 
 ### **必要なもの**
 ---
 - 日立LG LiDARセンサー（本手順ではHLS-LFOM5を1台使用）
 - Windows 10の端末（LiDARセンサー用のソフトウェアを動作させる）
-- スクリプト一式（ソケット通信を行い、取得したデータをVantiqに送信する）
-    - 「人の位置」のデータをVantiqに送信
+- スクリプト一式（ソケット通信を行い、取得したデータをMQTTブローカーに送信する）
+    - 「人の位置」のデータをMQTTブローカーに送信
         - lidar_position_sensor_observer.py
-            - 人の位置データをVantiqに送信するスクリプト
-    - 「ラインを跨いだ人数のカウント」のデータをVantiqに送信
+            - 人の位置データをMQTTブローカーに送信するスクリプト
+    - 「ラインを跨いだ人数のカウント」のデータをMQTTブローカーに送信
         - lidar_inout_sensor_observer.py
-            - IN用、OUT用の2つのラインを跨いだ人数のデータをVantiqに送信するスクリプト
+            - IN用、OUT用の2つのラインを跨いだ人数のデータをMQTTブローカーに送信するスクリプト
 
 - MQTTブローカー
 
 ### **作業の大まかな流れ**
 ---
-1.  MQTTブローカー、Vantiqの準備
+1.  MQTTブローカーの準備
 1.  日立LG社のLiDARセンサーと同ネットワーク上にWindows端末を用意
 1.  Windows端末にLiDARセンサー用のSDK及び動線計測のパッケージをインストール
 1.  動線計測パッケージに含まれるアプリケーションを実行
@@ -49,10 +49,10 @@ AmazonMQなどフルマネージドのものやMosquitoで自分で構築する�
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. 動線計測パッケージのダウンロード
     1.  [ダウンロードページ](https://hlds.co.jp/product/tofsdk/peopletrack)より、最新版をダウンロードする（例: PeopleTracking_v200.zip）
-    2. 任意の場所場所でzipファイルを展開する
+    2. 任意の場所でzipファイルを展開する
 
 <br/>
-   
+
 ### 3. LiDARセンサーの設定変更
 ---
 1. IPアドレスの変更
@@ -120,7 +120,7 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
 - 略 -
 ```
 
-3. 【HumanCount（ラインカウント）を使用する場合のこの手順を実施】``TofStitcher.exe``を使用してラインを引く
+3. 【HumanCount（ラインカウント）を使用する場合にこの手順を実施】``TofStitcher.exe``を使用してラインを引く
 
      HumanCountはラインを跨いだ人数をカウントしたデータであるため、そもそもラインを設定しておく必要がある。ラインの設定は動線計測パッケージに含まれる``TofStitcher.exe``で行うことができる
      1. ``TofStitcher.exe``を使用してIN用、OUT用のラインを計2つ設定する
@@ -160,7 +160,7 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
 
 <br/>
 
-### 5. Vantiqにセンシング結果を送信する
+### 5. MQTTブローカーにセンシング結果を送信する
 ---
 1.  スクリプト一式をWindows端末に配置する
     - ``lidar_position_sensor_observer.py``
@@ -175,7 +175,7 @@ MQTT_USER = 'your-username'
 MQTT_PASSWORD = 'your-password'
 ```
 
-2.  ``lidar_*_sensor_observer.py``を実行する 
+2.  ``lidar_*_sensor_observer.py``を実行する
 
 >スクリプトを確認し、自身の環境にインストールされていないモジュールがある場合は足りないものをインストールしてください。
 ```

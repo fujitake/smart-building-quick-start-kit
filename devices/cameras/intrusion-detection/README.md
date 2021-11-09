@@ -8,7 +8,7 @@
 
 ### 人の検出
 
-Rasbperry Pi に接続されたカメラで撮影を行い、人を検出します。
+Raspberry Pi に接続されたカメラで撮影を行い、人を検出します。
 TensorFlow Lite の以下サンプルプログラムをベースに開発しています。
 
 [TensorFlow Lite Python object detection example with Raspberry Pi](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/raspberry_pi)

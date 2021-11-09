@@ -1,15 +1,15 @@
 [English](./README.en.md)
 
-# オムロン環境センサー（2JCIE-BU01）
+# オムロン環境センサー (2JCIE-BU01)  
 
-オムロン環境センサーから周辺環境に関する値を取得し、MQTTローカーに送信する手順です。
+オムロン環境センサーから周辺環境に関する値を取得し、MQTT Broker に送信する手順です。
 
 
 ## 仕様
 
 ### 取得できる値
 
-オムロン環境センサーには2種類あり、2JCIE-BU01(USB型)と2JCIE-BL01（バッグ型）それぞれで取得できる値に若干の差がありますが、温度、湿度、気圧など周辺環境に関する情報を取得できます。詳細はマニュアルをご確認ください。
+オムロン環境センサーには 2種類あり、2JCIE-BU01(USB型) と 2JCIE-BL01(バッグ型) それぞれで取得できる値に若干の差がありますが、温度、湿度、気圧など周辺環境に関する情報を取得できます。詳細はマニュアルをご確認ください。
 
 本手順では`eCO2`を取得することができる`2JCIE-BU01(USB型)`を使用します。
 
@@ -22,23 +22,23 @@
 
 ### 必要なもの
 
-- オムロン環境センサー（2JCIE-BU01）
+- オムロン環境センサー (2JCIE-BU01)  
 
 - Raspberry Pi 3B+ または 4B
   - [Raspberry Pi OS with desktop (32bit)](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit)
-  - 必ずしもRaspberry piを使用する必要はございませんが、本手順の検証では Raspberry Pi 3B+及び4Bを使用しています。
+  - 必ずしも Raspberry pi を使用する必要はございませんが、本手順の検証では Raspberry Pi 3B+ 及び 4B を使用しています。
 
 - 本ディレクトリ一式
 
 ### 手順
 
-1. 環境センサーの Mac アドレスの確認
+1. 環境センサーの Mac アドレスを確認します
 
 ```
 $ sudo hcitool lescan
 LE Scan ...
 C2:B7:E4:CC:FE:79 Env
-※「Env」が環境センサーのMacアドレス
+※「Env」が環境センサーの Mac アドレス
 ```
 
 
@@ -46,8 +46,8 @@ C2:B7:E4:CC:FE:79 Env
 3. 秘匿情報等は環境変数としてスクリプトへ読み込みます  
    `.env.sample` ファイルをコピーして `.env` ファイルを作成し、ファイル内の説明に沿った値を設定してください
 
-4. 必要なパッケージ、モジュールをインストールします
-envsensor_observer.py と同じディレクトリに`requirements.txt` ファイルを設置し、アプリケーションに必要な Python モジュールをインストールします
+4. 必要なパッケージ、モジュールをインストールします  
+   envsensor_observer.py と同じディレクトリに`requirements.txt` ファイルを設置し、アプリケーションに必要な Python モジュールをインストールします
 
 ```
 $ sudo apt install libglib2.0-dev
