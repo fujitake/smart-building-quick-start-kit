@@ -4,7 +4,7 @@
 
 # Smart Building Quick Start Kit 
 
-This repository summarizes the knowledge necessary to promote a smart building project.
+This repository summarizes the knowledge necessary to facilitate a smart building project.
 
 `Smart building` means the state that IoT devices such as sensors and cameras are installed in a building so that the entire building can be sensed and users and developers can utilize those data easily.
 
@@ -36,45 +36,46 @@ This repository summarizes the knowledge necessary to promote a smart building p
 
 - Device selection
     - Features/Functions
-    - Accuracy
+    - Accuracy/Precision
     - Installation requirements
-> You need to select devices carefully. If the quality of device is poor, the quality of data finally provided to users through upper layers will also be poor.
+> You need to select devices carefully. If the quality of device is poor, the quality of data finally provided to users through upper layers will also be poor, so when selecting devices, check each of the above items in detail.
 
-- Data features
+- Data specification
     - Format
     - Protocol
     - Transmission frequency
 - How to send data to "data integration layer"(Vantiq)
     - From sensors directly, via an IoT gateway, via a broker, via a device-specific service or etc.
-    - When sending directly to Vantiq via REST API, it's necessary to check how to set HTTP Header, method, and body (Some devices cannot be set them flexibly).
-    - Send data via broker if possible. It's to loosely couple device layer and data integration layer.
+    - When sending directly to Vantiq via REST API, it's necessary to check how to set HTTP Header, method, and body (Some devices cannot set them).
+    - Send data via a broker/brokers so that the device layer and data integration layer are loosely coupled.
 
 <br />
 
 ### Important points of data integration layer
-- Master data management
-    - Who manages and updates the master data needed to process data sent from devices.
+- Who and how manages master data
+    - Who manages and maintains the master data needed to process data sent from devices.
         - e.g.: Master data management system holds master data such as id, installation position, and update Vantiq Type for master data via REST API. In other words, the master data is additional information needed to implement arbitrary processes  (identifying a device or installation area and so on).
 
-- Data integration/delivery
+- Data creation/delivery according to requirements
     - Create the necessary data according to the requirements by integrating data sent from the device layer.
         - e.g.: 
             - Transformed data for users to utilize easily
             - Data delivered in real-time (like meaning that an emergency has been detected)
             - Log data
     - Deliver those data to the recipients who need them.
-- Saving data
+- Storage location selection according to the characteristics of data
     - Save the data in the required format at the required location.
         - e.g.: 
             - Save time series data in the data store.
             - Hold latest sensing results in a stream processing engine.
         - It depends on the characteristics of the data.
-- Performance
-    - Implement in consideration of the number of devices and the frequency of data transmission
+- Performance-considered implementation
+    - Won't get the high performance just by using Vantiq. Proper implementation is required.
+    - Implement in consideration of the number of devices and the frequency of data transmission.
         - e.g.: 
             - Use MQTT instead of REST.
             - Minimize read/write frequency to Type by denormalizing.
-
+    - Too much priority to performance causes to loss of readability and maintainability of Vantiq applications, so you need to balance it.
 
 ### Important points of data providing layer
 - Prepare API and broker according to characteristics of data.
