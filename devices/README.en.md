@@ -5,7 +5,7 @@
 Here is the list of device samples. Samples can get value from a device and send it to a broker.
 You can experience the data flow from the device to the broker by trying each sample.
 
-***These are just samples for experiencing the flow that gets data from devices to send to brokers. Accuracy and stability are not guaranteed***
+***These are just samples for experiencing the flow that gets data from devices to send to brokers. Accuracy and stability are not guaranteed.***
 
 ## [Analog meter readers](./analog-meter-readers)
 
@@ -13,10 +13,10 @@ The samples that use a camera to constantly capture images of analog meters such
 
 Even if you don't have actual analog meters, sample scripts work with sample images(also included). Each script has been tuned to fit the sample image, so ***it will be required to be re-tuned when used with other images***.  
 
-- [Drum type meter reader](./analog-meter-readers/drum-meter/README.en.md)
+- [Drum-type meter reader](./analog-meter-readers/drum-meter/README.en.md)
 - [LED reader](./analog-meter-readers/led-meter/README.en.md)
 - [Round meter reader](./analog-meter-readers/round-meter/README.en.md)
-- [7 segment meter reader](./analog-meter-readers/seven-segment-meter/README.en.md)
+- [7-segment meter reader](./analog-meter-readers/seven-segment-meter/README.en.md)
 
 ## [Cameras](./cameras)
 

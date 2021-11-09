@@ -42,7 +42,7 @@ PaddleOCR がどのように画像中の文字列を検出しているかは、�
 $ brew install opencv
 ```
 
-2. drum_meter_reader.py と同じディレクトリに`requirements.txt` ファイルを設置し、アプリケーションに必要な Python モジュールをインストールします
+2. drum_meter_reader.py と同じディレクトリに`requirements.txt` ファイルを設置し、スクリプトに必要な Python モジュールをインストールします
 
 ```
 $ pip3 install -r requirements.txt
@@ -54,7 +54,7 @@ $ pip3 install -r requirements.txt
 
 ## ドラム式メーターの数値検出
 
-`drum_meter_reader.py`を実行して、同梱されているドラム式メーターのサンプル画像を読み取り、MQTT Broker にデータを送信します。
+`drum_meter_reader.py`を実行してドラム式メーターの値を読み取り、MQTT Broker にデータを送信します。
 
 ```sh
 $ python3 drum_meter_reader.py
