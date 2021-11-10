@@ -1,26 +1,26 @@
 [Japanese](./README.md)
 
-# Detecting intrusion  
+# Intrusion detection
 
-This is the instructions to analyze video images captured by a camera with TensorFlow Lite, and when detecting intrusion into an area, send the data to an MQTT Broker.  
+This is the procedure to detect an intrusion into the area by analyzing video with TensorFlow Lite, and sending it to an MQTT Broker.
 
 ## Specifications
 
-### Detect a person
+### Detect person
 
-Take a picture with the camera connected to the Raspberry Pi and detect a person. It is developed based on the following sample programs of TensorFlow Lite.
+Capture video with the camera connected with Raspberry Pi and detect a person. The sample script is developed based on the following sample program of TensorFlow Lite:
 
 [TensorFlow Lite Python object detection example with Raspberry Pi](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/raspberry_pi)
 
-The models in the above sample programs can detect a variety of objects other than persons. In these instructions, customized to detect intrusion only when a person is detected.
+The model of the above sample program can detect various objects other than people. In this procedure, the sample script is customized to detect only people. When detecting a person, intrusion detection process starts.
 
-### Detect intrusion into a specified area.  
+### Detect intrusion into restricted area
 
 Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen (width: 320px) as the restricted area.  
 
 ![](./img/flame0.png)
 
-Detect when a person overlaps the virtual line (Figure 1), and then when the person has completely moved into the restricted area (Figure 2), publish the event of detection to an MQTT broker.
+Detect when a person overlaps the virtual line (Figure 1), and then when the person has completely moved into the restricted area (Figure 2), send intrusion event to an MQTT broker.
 
 Figure 1.  
 ![](./img/flame1.png)
@@ -30,26 +30,30 @@ Figure 2.
 
 It is confirmed that it can detect when a person walks sideways at a distance of about 1.5 m to 2.0 m from the camera. It may fail to detect when a person is walking too fast due to the high CPU load.
 
+The sample script has been confirmed to be able to detect when a person passes sideways 1.5m to 2.0m from the camera.
+This process is High CPU load and can fail a person passes too fast.
+
 ## Setup
 
-### Requirements for these instructions.
+### Required items
 
-- Raspberry Pi  &nbsp; ※ Used Raspberry Pi 3B for this verification.  
+- Raspberry Pi
+   -  This procedure has been verified with Raspberry Pi 3B.
 - [Raspberry Pi Camera Module 2](https://www.raspberrypi.com/products/camera-module-v2/)
 - [Raspberry Pi OS with desktop (32bit)](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit)
 - Full set of this directory
 
-### Instructions
+### Procedure
 
-1. Setting up both Raspberry Pi and Raspberry Pi Camera.   
-   Connect the Raspberry pi and the Raspberry Pi Camera, and start them up.  
+1. Setting up Raspberry Pi and Raspberry Pi Camera.
+   Connect Raspberry pi and Raspberry Pi Camera, and start them up.  
 
-2. Install "TensorFlow Lite runtime".  
+2. Install TensorFlow Lite runtime.  
 ```
 $ pip3 install --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
 ```
 
-3. Install the required Python modules and TensorFlow lite models and labels.    
+3. Install the required Python modules and TensorFlow lite models/labels.    
    Place the `requirements.txt` file in the same directory as the `download.sh`, and run the following command.  
 
 ```
@@ -57,11 +61,11 @@ $ bash download.sh ./tmp
 ```
 
 4. Load confidential information into the script as environment variables.    
-   Copy the `.env.sample` file to create a `.env` file and set the values according to the instructions in the file.  
+   Copy the `.env.sample` file to create a `.env` file and set the values according to the file contents.  
 
-## Detect intrusion into the specified area.  
+## Detect intrusion into restricted area
 
-Run `intrusion_detect.py` and as soon as a person walks in front of the Raspberry Pi Camera, it will send the data to an MQTT Broker.  
+Run `intrusion_detect.py` and a person walks in front of the Raspberry Pi Camera, it will send intrusion event to an MQTT Broker.
 
 ```
 python3 intrusion_detect.py \
@@ -69,7 +73,7 @@ python3 intrusion_detect.py \
   --labels ./tmp/coco_labels.txt
 ```
 
-## Transmission details
+## Output specifications
 
 | Items         | Details                                                 |
 | ------------ | ---------------------------------------------------- |
@@ -86,10 +90,6 @@ python3 intrusion_detect.py \
 ```
 
 ## Notes  
-
-- Only one person should be caught by the Raspberry Pi's camera.  
-- Set up the camera around the same height as a person.  
-- A person must walk sideways to the camera.  
-- It may fail to detect when walking speed is too fast.  
-- This confirmed with a Raspberry Pi 3B, but the usage of some of the CPU cores will be 100%, so prepare a Raspberry Pi with higher specifications depending on the use case.  
-- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+- The sample script can detect only one person.
+- Set the camera at about a person waist height.
+- The encryption and authentication used in the sample script to communicate with an MQTT broker are simple. You need to modify according to your project's requirements. 
