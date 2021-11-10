@@ -2,7 +2,7 @@
 
 # Omron Environment Sensor (2JCIE-BU01)
 
-This is the instructions for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to an MQTT Broker.  
+This is the instructions for acquiring values related to the surrounding environment from Omron Environment Sensor and transmitting them to an MQTT broker.  
 
 
 ## Specifications
@@ -87,4 +87,4 @@ Published Event: 2021/09/21 11:03:46
 ## Notes
 
 - Place the Environment Sensor and the Raspberry Pi at a distance within 1 meter.  
-- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+- Since the encryption and authentication of the communication path with the MQTT broker is a brief one, please take measures according to the security level required in the actual project.  

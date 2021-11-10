@@ -34,7 +34,7 @@
 スクリプトと同じディレクトリに`.env`ファイルを作成し、自分のMQTTブローカーに関する情報と、円形メーターの最小値、最小値の角度、最大値、最大値の角度を設定する
 
 ```.env
-# Mqtt broker
+# MQTT broker
 MQTT_HOST = 'your-broker.com'
 MQTT_PORT = 8883
 MQTT_TOPIC = '/analog_meter/temperature'

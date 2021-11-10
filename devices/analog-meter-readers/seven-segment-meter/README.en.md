@@ -2,7 +2,7 @@
 
 # 7-segment meter reader
 
-This is the procedure for reading the value of a 7-segment meter and sending it to an MQTT Broker.
+This is the procedure for reading the value of a 7-segment meter and sending it to an MQTT broker.
 
 ## Specifications
 
@@ -52,7 +52,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the numerical values of the Segment Meter.  
 
-Run `segment_meter_reader.py` to read the values of the Segment Meter and send it to an MQTT Broker.
+Run `segment_meter_reader.py` to read the values of the Segment Meter and send it to an MQTT broker.
 
 ```sh
 $ python3 segment_meter_reader.py

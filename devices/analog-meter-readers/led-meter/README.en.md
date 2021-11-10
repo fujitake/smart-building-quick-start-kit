@@ -2,7 +2,7 @@
 
 # LED reader
 
-This is the procedure for reading the color of the LED lamp and sending it to an MQTT Broker.  
+This is the procedure for reading the color of the LED lamp and sending it to an MQTT broker.  
 
 ## Specifications  
 
@@ -44,7 +44,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect Green LED or Red LED.   
 
-Run `led_status_observer.py` to detect Green LED or Red LED and send it to an MQTT Broker.  
+Run `led_status_observer.py` to detect Green LED or Red LED and send it to an MQTT broker.  
 
 ```sh
 $ python3 led_status_observer.py

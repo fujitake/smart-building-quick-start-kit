@@ -2,7 +2,7 @@
 
 # Person counter
 
-This is the procedure to detect enter/exit the area by analyzing video with TensorFlow Lite, and sending it to an MQTT Broker.
+This is the procedure to detect enter/exit the area by analyzing video with TensorFlow Lite, and sending it to an MQTT broker.
 
 ## Specifications
 
@@ -65,7 +65,7 @@ Copy the `.env.sample` file to create a `.env` file and set the values according
 
 ## Detect entry/exit inside the area
 
-Run `person_count.py` and a person walks in front of the Raspberry Pi Camera, it will send entry/exit event to an MQTT Broker.
+Run `person_count.py` and a person walks in front of the Raspberry Pi Camera, it will send entry/exit event to an MQTT broker.
 
 ```
 python3 person_count.py \

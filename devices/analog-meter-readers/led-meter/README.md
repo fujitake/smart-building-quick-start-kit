@@ -2,7 +2,7 @@
 
 # LEDリーダー
 
-LEDランプの色を読み取り、MQTT Broker に読み取った値を送信する手順です。
+LEDランプの色を読み取り、MQTT broker に読み取った値を送信する手順です。
 
 ## 仕様
 
@@ -45,7 +45,7 @@ $ pip3 install -r requirements.txt
 
 ## 緑や赤の LED 検出
 
-`led_status_observer.py`を実行して、緑や赤の LED を検出し、MQTT Broker にデータを送信します。
+`led_status_observer.py`を実行して、緑や赤の LED を検出し、MQTT broker にデータを送信します。
 
 ```sh
 $ python3 led_status_observer.py
@@ -74,4 +74,4 @@ $ python3 led_status_observer.py
 - 2つ以上のLEDがカメラに写っている場合は正しく動作しません。
 - 赤、緑のみ検出することができます。
 - 使用するカメラの種類で画像の色味が変わることに注意してください。
-- MQTT Broker との通信経路の暗号化・認証は簡易的なものなので、実際の案件で求められるセキュリティレベルに応じて対策ください。
+- MQTT broker との通信経路の暗号化・認証は簡易的なものなので、実際の案件で求められるセキュリティレベルに応じて対策ください。

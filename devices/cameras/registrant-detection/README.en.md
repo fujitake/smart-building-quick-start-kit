@@ -2,7 +2,7 @@
 
 # Registrant detection
 
-This is the procedure to detect a registrant by detecting a face from video using OpenCV and verify the detected face matches the one registered in Amazon Rekognition, and sending it to an MQTT Broker.
+This is the procedure to detect a registrant by detecting a face from video using OpenCV and verify the detected face matches the one registered in Amazon Rekognition, and sending it to an MQTT broker.
 
 ## Specifications
 
@@ -14,7 +14,7 @@ Take a picture of a face with the camera (built-in camera or etc.) using OpenCV 
 
 Take a picture of a face periodically with the camera using OpenCV. This cycle varies depending on the presence/absence of a face, but it is approximately 1 to 4 seconds.
 
-When detected a face in the picture, verify whether the face is in the registered faces in Amazon Rekognition, and send this event to an MQTT Broker if matched.
+When detected a face in the picture, verify whether the face is in the registered faces in Amazon Rekognition, and send this event to an MQTT broker if matched.
 
 The following logs will output in Terminal depending on the detection status:
 
@@ -65,7 +65,7 @@ Save ***FaceId*** (included in the response) to the Vantiq Type for master data.
 
 ## Detect face  
 
-Run `person_detect.py` to detect a face and send it to an MQTT Broker.  
+Run `person_detect.py` to detect a face and send it to an MQTT broker.  
 
 ```sh
 $ python3 person_detect.py

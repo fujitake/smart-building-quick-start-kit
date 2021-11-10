@@ -2,7 +2,7 @@
 
 # Drum-type meter reader  
 
-This is the procedure for reading the value of a drum-type meter and sending it to an MQTT Broker.  
+This is the procedure for reading the value of a drum-type meter and sending it to an MQTT broker.  
 
 ## Specifications
 
@@ -54,7 +54,7 @@ $ pip3 install -r requirements.txt
 
 ## Detect the value of drum-type meter
 
-Run `drum_meter_reader.py` to read the value of the drum-type meter and send it to an MQTT Broker.
+Run `drum_meter_reader.py` to read the value of the drum-type meter and send it to an MQTT broker.
 
 ```sh
 $ python3 drum_meter_reader.py

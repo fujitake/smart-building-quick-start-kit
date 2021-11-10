@@ -8,7 +8,7 @@ This is the Vantiq application that can be used with the device samples. Data st
 
 To use this, import the full set of [smart-building-quick-start-kit](./smart-building-quick-start-kit) in Vantiq IDE.  
 
-- Sources are inactive, please set your MQTT Brokers and then make them active.  
+- Sources are inactive, please set your MQTT brokers and then make them active.  
 
 - This application is designed performance-conscious, Types that are used for holding master data of each device are denormalized. Synchronization of master data is the responsibility of the master data administrator. 
 

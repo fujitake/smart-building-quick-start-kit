@@ -5,19 +5,19 @@
 ### **概要・前提**
 ---
 LiDARセンサーによってセンシングした内容をMQTTブローカーに送信するまでの手順です。本手順では、「人の位置」「ラインを跨いだ人数のカウント」の2種類のセンシング内容を使用します。<br/>
-また、LiDARセンサー起動からMQTTブローカーに送信するまでの最低限の手順を記載しています。複数種類あるLiDARセンサー個別の手順、複数台運用する場合の設定、キッティングなどについてはLiDARセンサーのマニュアルをご確認ください。
+また、LiDARセンサー起動からMQTTブローカーに送信するまでの最低限の手順を記載しています。複数台運用する場合の設定、キッティングなどの詳細についてはLiDARセンサーのマニュアルをご確認ください。
 
 ### **必要なもの**
 ---
 - 日立LG LiDARセンサー（本手順ではHLS-LFOM5を1台使用）
 - Windows 10の端末（LiDARセンサー用のソフトウェアを動作させる）
-- スクリプト一式（ソケット通信を行い、取得したデータをMQTTブローカーに送信する）
-    - 「人の位置」のデータをMQTTブローカーに送信
+- サンプルスクリプト（ソケット通信を行い、取得したデータをMQTTブローカーに送信する）
+    - 「人の位置」データ用
         - lidar_position_sensor_observer.py
             - 人の位置データをMQTTブローカーに送信するスクリプト
-    - 「ラインを跨いだ人数のカウント」のデータをMQTTブローカーに送信
+    - 「ラインを跨いだ人数のカウント」データ用
         - lidar_inout_sensor_observer.py
-            - IN用、OUT用の2つのラインを跨いだ人数のデータをMQTTブローカーに送信するスクリプト
+            - IN用、OUT用それぞれのラインを跨いだ人数のデータをMQTTブローカーに送信するスクリプト
 
 - MQTTブローカー
 
@@ -49,7 +49,7 @@ AmazonMQなどフルマネージドのものやMosquitoで自分で構築する�
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. 動線計測パッケージのダウンロード
     1.  [ダウンロードページ](https://hlds.co.jp/product/tofsdk/peopletrack)より、最新版をダウンロードする（例: PeopleTracking_v200.zip）
-    2. 任意の場所でzipファイルを展開する
+    1. 任意の場所でzipファイルを展開する
 
 <br/>
 
@@ -122,7 +122,7 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
 
 3. 【HumanCount（ラインカウント）を使用する場合にこの手順を実施】``TofStitcher.exe``を使用してラインを引く
 
-     HumanCountはラインを跨いだ人数をカウントしたデータであるため、そもそもラインを設定しておく必要がある。ラインの設定は動線計測パッケージに含まれる``TofStitcher.exe``で行うことができる
+     HumanCountはラインを跨いだ人数をカウントしたデータであるため、予めラインを設定しておく必要がある。ラインの設定は動線計測パッケージに含まれる``TofStitcher.exe``で行うことができる
      1. ``TofStitcher.exe``を使用してIN用、OUT用のラインを計2つ設定する
         1. ``TofStitcher.exe``の詳しい操作方法は同封されている``HLDS_TOF_TofStitcher_操作マニュアル.pdf``を参照すること
     1.  ``StoreCount.xml``の``<Count>/<CountName>``を編集し、IN用・OUT用それぞれのカウントグループを以下の命名規則に則った名前に修正する
@@ -153,7 +153,6 @@ HumanCounterProの設定は``PeopleTracking_v200\PeopleTracking``に存在する
     ```
 
 1.  ``HumanCounterPro.exe``を実行する
-    1. 起動することを確認する
 
 1.  ソケット通信ができるか確認する
     1. ``PeopleTracking_v200\SocketReceiver\ReceiveTest.exe``を実行し、データを受信できるか確認する
@@ -177,14 +176,16 @@ MQTT_PASSWORD = 'your-password'
 
 2.  ``lidar_*_sensor_observer.py``を実行する
 
->スクリプトを確認し、自身の環境にインストールされていないモジュールがある場合は足りないものをインストールしてください。
-```
-※ HumanCounterPro.exeが実行中であること
+>スクリプトを確認し、自身の環境にインストールされていないモジュールがある場合は足りないものをインストールしてください
+
+> HumanCounterPro.exeが実行中である必要があります
 
 「人の位置」を送信する
+```
 $ python lidar_position_sensor_observer.py
-
+```
 「ラインを跨いだ人数のカウント」送信する
+```
 $ python lidar_inout_sensor_observer.py
 ```
 

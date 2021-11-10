@@ -1,100 +1,110 @@
 [Japanese](./README.md)
 
-# Hitachi LG LiDAR Sensor (HLS-LFOM5)  
+# Hitachi LG LiDAR Sensor (HLS-LFOM5)
 
 ### **Overview and Prerequisite**
 ---
-This is the instructions to send the contents that are sensed by the LiDAR sensor to an MQTT broker. In these  instructions, two types of sensing contents will be used: "location of persons" and "counting the number of persons who crossed the line".<br/>
-It also describes the minimum required instructions from LiDAR sensor startup to transmission to an MQTT Broker. As for the individual instructions for multiple types of LiDAR sensors, settings for when operating multiple sensors, kitting, etc., please refer to the LiDAR sensor manual.  
+This is the procedure to send the information sensed by the LiDAR sensor to an MQTT broker.
 
-### **Requirements for these instructions.**
+This procedure uses two types of sensing contents: `positions of people` and `counting the number of people crossed lines`.
+
+This also describes the minimum required steps from activating LiDAR sensor to sending sensing results to an MQTT broker. Please refer to the LiDAR sensor manuals in details such as settings for multiple sensors, kitting and etc.
+
+### **Required items**
 ---
-- Hitachi LG LiDAR Sensor（In these instructions, one HLS-LFOM5 is used.）  
-- Windows 10 terminal (To run the software for the LiDAR Sensor.)  
-- Set of the scripts in this directory (To execute socket communication and send the acquired data to an MQTT Broker.)  
-    - Send the "location of persons" data to an MQTT Broker.  
+- Hitachi LG LiDAR Sensor（this procedure uses one HLS-LFOM5)
+- Windows 10 PC (To run software for the LiDAR Sensor)  
+- Sample scripts (To get sensed results via socket communication and send them to an MQTT broker)  
+    - For `positions-of-people` data
         - lidar_position_sensor_observer.py
-            - The script that sends the "location of persons" data to an MQTT Broker.  
-    - Send the "counting the number of persons who crossed the line" data to an MQTT Broker.  
+            - Sends positions of people data to an MQTT broker.
+    - For `number-of-people-who-crossed-lines` data
         - lidar_inout_sensor_observer.py
-            - The Script that sends the data of the number of persons who crossed two lines, one is for IN and another is for OUT, to an MQTT Broker.  
+            - Sends each number of people who crossed IN line and OUT line to an MQTT broker.
 
-- An MQTT Broker
+- MQTT broker
 
-### **Overall flow of the work**
+### **Outline**
 ---
-1. Prepare an MQTT Broker.
-1. Prepare Hitachi-LG LiDAR sensor and a Windows terminal on the same network as the sensor.  
-1. Install the SDK for the LiDAR sensor and the package for the **People Tracking** (the flow line measurement) on a Windows terminal.  
+1. Prepare an MQTT broker.
+1. Prepare Hitachi-LG LiDAR sensor and a Windows PC on the same network as the sensor.  
+1. Install SDK for LiDAR sensor and  **People Tracking** package on a Windows PC.  
 1. Execute the application included in the People Tracking package.  
-1. Execute the Python scripts.  
+1. Execute the sample scripts.  
 
 
-## **Instructions**
-### 1. Prepare an MQTT Broker.  
+## **Procedure**
+### 1. Prepare MQTT broker  
 ---
-Prepare an MQTT Broker of any choice, such as a fully managed one like AmazonMQ or build your own with Mosquito.  
+Prepare any MQTT broker (such as a fully managed one like AmazonMQ or build yourself with Mosquito).
 
 <br/>
 
 
-### 2. Set up the Windows terminal.  
+### 2. Set up Windows PC
 ---
-1. Install the SDK  
-    1. Download the latest SDK for Windows from the [download page](https://hlds.co.jp/product-eng/tofsdk). (e.g., HldsTofSdk.2.3.0vs2015.zip) <br/> ※ When using Google Chrome, it may not be able to download. In that case, change the browser.  
-    1. Unzip the zip file and run the driver installer.  　
-    <br/> 例 ``HldsTofSdk.2.3.0vs2015\x64\tofdriver\tof_driver_x64_v2.3.0_Installer``
+1. Install SDK
+    1. Download the latest SDK for Windows from the [download page](https://hlds.co.jp/product-eng/tofsdk)(e.g.: `HldsTofSdk.2.3.0vs2015.zip`).
+    
+        ※ When using Google Chrome, downloading can fail. In that case, change the browser.
+    1. Unzip the downloaded zip file and run the driver installer.
+    
+        e.g.: ``HldsTofSdk.2.3.0vs2015\x64\tofdriver\tof_driver_x64_v2.3.0_Installer``
 
-    ※ If an error occurs when running the installer, confirm the handling method in the enclosed manual.  
-    ``HldsTofSdk.2.3.0vs2015\manual``
-1. Download the People Tracking package.  
-    1. Download the latest version from the [download page](https://hlds.co.jp/product/tofsdk/people-tracking_en). (e.g., PeopleTracking_v200.zip)  
-    2. Unzip the zip file at any location.  
+    ※ Please check the enclosed manuals if errors occur while running the installer.
+    `HldsTofSdk.2.3.0vs2015\manual`
+1. Download People Tracking package
+    1. Download the latest version from the [download page](https://hlds.co.jp/product/tofsdk/people-tracking_en)(e.g.: `PeopleTracking_v200.zip`).
+    1. Unzip the downloaded zip file at any location.  
 
 <br/>
 
-### 3. Change the configuration of the LiDAR sensor.  
+### 3. Change LiDAR sensor settings  
 ---
-1. Change the IP Address  
-    1. Open ``http://<IP address of the LiDAR sensor>`` in a browser to access the console screen.  
-        1. Initial IP: ``192.168.0.105``, Initial Password: ``admin``
-    1. Open the Network Settings menu, and change the IP address to the same network as the Windows terminal.  
+1. Change IP Address
+    1. Open `http://<IP address of the LiDAR sensor>` with a browser to access the console screen.
+        1. Initial IP: `192.168.0.105`, Initial Password: `admin`
+    1. Open the network settings menu, and change the IP address to the same network as the Windows terminal.  
         1. Also, copy the MAC address.  
 
 <br/>
 
 
-### 4. Execute the HumanCounterPro (the People Tracking application).  
+### 4. Execute HumanCounterPro (People Tracking application).  
 ---
+HumanCounterPro settings are described in the XML files (`Store*.xml, HumanCounterPro.xml`) that exist in `PeopleTracking_v200\PeopleTracking`, and these XML files are read when the application is started. So, you can set this application by modifying these XML files.
 
-The configuration of HumanCounterPro is described in the XML files that exist in ``PeopleTracking_v200\PeopleTracking`` (``Store*.xml`` and ``HumanCounterPro.xml``). Since these XML files are loaded when the application is launched, it is possible to do any configuration by modifying these XML files. In these instructions, modify the required ``StoreTof.xml`` and ``HumanCounterPro.xml`` (it is not necessary if just running HumanCounterPro.exe, but it is necessary in case of doing socket communication).  
+In this procedure, modify `StoreTof.xml` and `HumanCounterPro.xml`, which are the minimum required.
+
+(You don't need to modify these files if you just would like to run HumanCounterPro.exe. this step is necessary for socket communication.)
+
 
 <br/>
 
-1. Configure the IP address and the MAC address of the LiDAR sensor in ``StoreTof.xml``.
+1. Set the IP address and the MAC address of the LiDAR sensor in `StoreTof.xml`.
 ```xml:StoreTof.xml
-...(omitted)...
+...
     <Tof>
         <PcNo>1</PcNo>
         <TofNo>1</TofNo>
-        <Mac>MAC address of the LiDAR Sensor</Mac>　← revise this value
-        <Ip>IP address of the LiDAR Sensor</Ip>　← revise this value
+        <Mac>MAC address of the LiDAR Sensor</Mac>　← Revise this value
+        <Ip>IP address of the LiDAR Sensor</Ip>　← Revise this value
         <Height>2260</Height>
         <AngleX>72</AngleX>
         <AngleY>0</AngleY>
         <AngleZ>87</AngleZ>
         <Direction>161</Direction>
         ...
-...(omitted)...
+...
 ```
-2. Enable the socket output of two types of data in ``HumanCounterPro.xml``: "StoreHuman (Tracking data)" and "HumanCount (Line Counting data)".  
+2. Enable the socket outputs of two types of data in ``HumanCounterPro.xml``: `StoreHuman (Tracking data)` and `HumanCount (Line Counting data)`.  
 ```xml:HumanCounterPro.xml
-...(omitted)...
+...
     <Output>
         <StoreHuman>
-            <Valid>1</Valid> ← set the value to "1"  ※ If it is "0", it means disable.
+            <Valid>1</Valid> ← Set "1" ("0" is disabled)
             <Socket>
-                <Valid>1</Valid> ← set the value to "1"
+                <Valid>1</Valid> ← Set "1"
                 <Ip>127.0.0.1</Ip>
                 <Port>6666</Port>
             </Socket>
@@ -105,10 +115,10 @@ The configuration of HumanCounterPro is described in the XML files that exist in
             </File>
         </StoreHuman>
         <HumanCount>
-            <Valid>1</Valid> ← set the value to "1"
+            <Valid>1</Valid> ← Set "1"
             <PeriodSec>60</PeriodSec>
             <Socket>
-                <Valid>1</Valid> ← set the value to "1"
+                <Valid>1</Valid> ← Set "1"
                 <Ip>127.0.0.1</Ip>
                 <Port>6667</Port>
             </Socket>
@@ -117,22 +127,24 @@ The configuration of HumanCounterPro is described in the XML files that exist in
             </File>
         </HumanCount>
         ...
-...(omitted)...
+...
 ```
 
-3. ***In case of using HumanCount (Line Counting data), follow these instructions.***   
-   Use `TofStitcher.exe` to draw a line.  
+3. 【***This step is for HumanCount (Line Counting data). you don't need to do it when not using HumanCount***】Use `TofStitcher.exe` to draw lines.  
 
-     HumanCount is the data that counts the number of persons who crossed the line, so it is necessary to configure the lines in advance. It is possible to configure the line settings with ``TofStitcher.exe`` included in the People Tracking package.  
-     1. Configure a total of two lines, one is for IN and another is for OUT, using ``TofStitcher.exe``.  
-        1. Please refer to the enclosed ``HLDS_TOF_TofStitcher_Operation_Manual.pdf`` for detailed instructions on how to use ``TofStitcher.exe``.  
-     1.  In ``<Count>/<CountName>`` of ``StoreCount.xml``, revise the names of the count groups for IN and for OUT according to the following naming rules.  
+    Since HumanCount is data that counts the number of people who crossed lines, so it requires setting lines beforehand.
+
+    You can draw virtual lines by using `TofStitcher.exe` included in the People Tracking package.
+
+    1. Draw two lines, one is for IN and another is for OUT.
+        1. Please refer to the enclosed `HLDS_TOF_TofStitcher_Operation_Manual.pdf` for details about how to use `TofStitcher.exe`.
+    1. Edit `<Count>/<CountName>` in `StoreCount.xml`, revise the names of count groups for IN and for OUT according to the following naming rules.  
     ```
     For IN： <Any alphanumeric name>_in
     For OUT： <Any alphanumeric name>_out
     ```
     ```xml:StoreCount.xml
-    ...(omitted)...
+    ...
         <!-- e.g., For IN -->
         <Count>
             <CountName>entrance_1_in</CountName> ← revise this value
@@ -150,24 +162,23 @@ The configuration of HumanCounterPro is described in the XML files that exist in
             <Attribute>NULL</Attribute>
         </Count>
         ...
-    ...(omitted)...
+    ...
     ```
 
-1. Execute ``HumanCounterPro.exe``.  
-    1. Confirm that it launches.   
+1. Execute `HumanCounterPro.exe`.
 
-1. Confirm that socket communication is possible.  
-    1. Execute ``PeopleTracking_v200\SocketReceiver\ReceiveTest.exe`` to confirm that the data can be received.
+1. Confirm that socket communication is enabled.
+    1. Execute `PeopleTracking_v200\SocketReceiver\ReceiveTest.exe` to confirm that the data can be received.
 
 <br/>
 
-### 5. Send the sensing results to the MQTT Broker.  
+### 5. Send sensing results to MQTT broker 
 ---
-1.  Place the set of the scripts on the Windows terminal.  
-    - ``lidar_position_sensor_observer.py``
-    - ``lidar_inout_sensor_observer.py``
+1.  Place the sample scripts on the Windows PC.  
+    - `lidar_position_sensor_observer.py`
+    - `lidar_inout_sensor_observer.py`
 
-1.  Create a ``.env`` file in the same directory as set of the scripts, and configure the information about your MQTT broker.  
+1. Create a `.env` file in the same directory as the sample scripts, and set your MQTT broker information.
 ```.env
 MQTT_HOST = 'your-broker.com'
 MQTT_TOPIC = '/lidar/position' → For using "lidar_position_sensor_observer.py"  
@@ -176,16 +187,18 @@ MQTT_USER = 'your-username'
 MQTT_PASSWORD = 'your-password'
 ```
 
-2.  Execute ``lidar_*_sensor_observer.py``.  
+2.  Execute `lidar_*_sensor_observer.py`.  
 
 >Check the script, and if there are any modules that are not installed in your environment, install the necessary ones.  
+
+> HumanCounterPro.exe has to be running.
+
+Send `positions-of-people` data.  
 ```
-※ HumanCounterPro.exe should be running.  
-
-Send the "location of persons" data.  
 $ python lidar_position_sensor_observer.py
-
-Send the "counting the number of persons who crossed the line" data.  
+```
+Send `number-of-people-who-crossed-lines` data.
+```
 $ python lidar_inout_sensor_observer.py
 ```
 

@@ -2,7 +2,7 @@
 
 # Intrusion detection
 
-This is the procedure to detect an intrusion into the area by analyzing video with TensorFlow Lite, and sending it to an MQTT Broker.
+This is the procedure to detect an intrusion into the area by analyzing video with TensorFlow Lite, and sending it to an MQTT broker.
 
 ## Specifications
 
@@ -63,7 +63,7 @@ $ bash download.sh ./tmp
 
 ## Detect intrusion into restricted area
 
-Run `intrusion_detect.py` and a person walks in front of the Raspberry Pi Camera, it will send intrusion event to an MQTT Broker.
+Run `intrusion_detect.py` and a person walks in front of the Raspberry Pi Camera, it will send intrusion event to an MQTT broker.
 
 ```
 python3 intrusion_detect.py \

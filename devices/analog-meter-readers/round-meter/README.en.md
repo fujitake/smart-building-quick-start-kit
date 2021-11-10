@@ -23,17 +23,17 @@ It is not suitable for high accuracy requirements, as this was created for the p
 
 - PC with a camera   
     - This procedure has been verified with Raspberry pi 4B + Picamera v2.
-- MQTT Broker
+- MQTT broker
 
 
 ## Procedure
 
 1. Set the environment variables used in the script.
 
-Create a `.env` file in the same directory as script and set the information about your MQTT Broker and about round meter's scales such as min/max value, min/max value angles.
+Create a `.env` file in the same directory as script and set the information about your MQTT broker and about round meter's scales such as min/max value, min/max value angles.
 
 ```.env
-# Mqtt broker
+# MQTT broker
 MQTT_HOST = 'your-broker.com'
 MQTT_PORT = 8883
 MQTT_TOPIC = '/analog_meter/temperature'
