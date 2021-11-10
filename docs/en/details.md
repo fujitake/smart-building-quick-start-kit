@@ -27,7 +27,7 @@
 
     2.4. [Data loss](#device-data-loss)
 
-    2.5. [Path of transmitting data to the Data Integration Layer (Vantiq)](#device-data-path)
+    2.5. [Path of transmitting data to Data Integration Layer (Vantiq)](#device-data-path)
 
     2.6. [Operation in the case of anomaly or malfunction](#device-operation)
 
@@ -141,11 +141,11 @@ Be especially careful when dealing with devices from overseas.Check whether the 
 Especially in the case of wireless connections, data loss will occur, so it is necessary to consider increasing the number of devices to reduce the loss rate, supplementing the data on the application side, and designing the system so that it will not be affected by the loss.  
 
 <a id="device-data-path"></a>
-### 2.5. Path of transmitting data to the Data Integration Layer (Vantiq)
+### 2.5. Path of transmitting data to Data Integration Layer (Vantiq)
 
-It is necessary to consider the path how the data will be transmitted from the device to Vantiq, the Data Integration Layer. There are two main patterns for providing the data to Vantiq. The first is to use Vantiq's REST API. The second is via a broker with protocols such as MQTT and Kafka.  
+It is necessary to consider the path how the data will be transmitted from the device to Vantiq, the Data Integration Layer. There are two main patterns for providing the data to Vantiq. The first is to use the REST API of Vantiq. The second is via a broker with protocols such as MQTT and Kafka.  
 
-First of all, when using Vantiq's REST API, it should be necessary to set the Access Token issued by Vantiq in the Header and then make an HTTP request. If the device has this feature, it is possible to use this method. There are some cases where HTTP requests can be made but the settings of the Header cannot be configured, in that case  case there are other options such as using AWS Lambda or Azure Functions as a relay.  
+First of all, when using the REST API of Vantiq, it should be necessary to set the Access Token issued by Vantiq in the Header and then make an HTTP request. If the device has this feature, it is possible to use this method. There are some cases where HTTP requests can be made but the settings of the Header cannot be configured, in that case  case there are other options such as using AWS Lambda or Azure Functions as a relay.  
 
 Using the REST API is simple, but has the following disadvantages.  
 ① The management of Access Tokens becomes complicated.  
