@@ -1,26 +1,26 @@
 [Japanese](./README.md)
 
-# Counting the number of persons    
+# Person counter
 
-This is the instructions to analyze video captured by a camera with TensorFlow Lite, and when detecting entering an area and leaving an area, send the data to an MQTT Broker.  
+This is the procedure to detect enter/exit the area by analyzing video with TensorFlow Lite, and sending it to an MQTT Broker.
 
 ## Specifications
 
-### Detect a person
+### Detect person
 
-Take a picture with the camera connected to the Raspberry Pi and detect a person. It is developed based on the following sample programs of TensorFlow Lite.  
+Capture video with the camera connected with Raspberry Pi and detect a person. The sample script is developed based on the following sample program of TensorFlow Lite:
 
 [TensorFlow Lite Python object detection example with Raspberry Pi](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/raspberry_pi)
 
-The models in the above sample programs can detect a variety of objects other than persons. In these instructions, customized to process only when a person is detected.
+The model of the above sample program can detect various objects other than people. In this procedure, the sample script is customized to detect only people. When detecting a person, count process starts.
 
-### Detect entering and leaving a specified area.  
+### Detect enter/exit
 
-Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen as inside the area and regard the right side of the screen as outside the area.  
+Put the virtual line in the middle of the camera's field of view (red dotted line), and regard the left side as inside the area and the right side as outside.
 
 ![](./img/flame0.en.png)
 
-Detect when a person overlaps the virtual line (Figure 1), and then when the person has moved to the left or the right of the virtual line (Figure 2 or 3), publish the event of detection to an MQTT broker.  
+Detect when a person overlaps the virtual line (Figure 1), and then when the person has moved to the left or the right of the virtual line (Figure 2 or 3), send entry/exit event to an MQTT broker.
 
 Figure 1.  
 ![](./img/flame1.png)
@@ -31,24 +31,25 @@ Figure 2.
 Figure 3.  
 ![](./img/flame3.en.png)
 
-It is confirmed that it can detect when a person walks sideways at a distance of about 1.5 m to 2.0 m from the camera. It may fail to detect when a person is walking too fast due to the high CPU load.  
+The sample script has been confirmed to be able to detect when a person passes sideways 1.5m to 2.0m from the camera.
+This process is High CPU load and can fail a person passes too fast.
 
 ## Setup  
 
-### Requirements for these instructions.  
+### Required items 
 
-- Raspberry Pi  &nbsp; ※ Used Raspberry Pi 3B for this verification.
+- Raspberry Pi
+   -  This procedure has been verified with Raspberry Pi 3B.
 - [Raspberry Pi Camera Module 2](https://www.raspberrypi.com/products/camera-module-v2/)
 - [Raspberry Pi OS with desktop (32bit)](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit)
 - Full set of this directory  
 
+### Procedure
 
-### Instructions
+1. Set up Raspberry Pi and Raspberry Pi Camera.
+   Connect Raspberry pi and Raspberry Pi Camera, and start them up.  
 
-1. Setting up both Raspberry Pi and Raspberry Pi Camera.  
-   Connect the Raspberry pi and Raspberry Pi Camera, and start them up.  
-
-2. Insatall "TensorFlow Lite runtime".  
+2. Install TensorFlow Lite runtime.
 ```
 $ pip3 install --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
 ```
@@ -60,11 +61,11 @@ $ bash download.sh ./tmp
 ```
 
 4. Load confidential information into the script as environment variables.    
-Copy the `.env.sample` file to create a `.env` file and set the values according to the instructions in the file.  
+Copy the `.env.sample` file to create a `.env` file and set the values according to the file contents.
 
-## Detect entering and leaving a specified area.  
+## Detect entry/exit inside the area
 
-Run `person_count.py` and when a person walks in front of the Raspberry Pi Camera, it will send the data to an MQTT Broker depending on the direction.  
+Run `person_count.py` and a person walks in front of the Raspberry Pi Camera, it will send entry/exit event to an MQTT Broker.
 
 ```
 python3 person_count.py \
@@ -72,7 +73,7 @@ python3 person_count.py \
   --labels ./tmp/coco_labels.txt
 ```
 
-## Transmission details
+## Output specifications
 
 | Items         | Details                                                 |
 | ------------ | ---------------------------------------------------- |
@@ -90,9 +91,6 @@ python3 person_count.py \
 
 ## Notes
 
-- Only one person should be caught by the Raspberry Pi's camera.  
-- Set up the camera around the same height as a person.  
-- A person must walk sideways to the camera.  
-- It may fail to detect when walking speed is too fast.  
-- This confirmed with a Raspberry Pi 3B, but the usage of some of the CPU cores will be 100%, so prepare a Raspberry Pi with higher specifications depending on the use case.  
-- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+- The sample script can detect only one person.
+- Set the camera at about a person waist height.
+- The encryption and authentication used in the sample script to communicate with an MQTT broker are simple. You need to modify according to your project's requirements. 

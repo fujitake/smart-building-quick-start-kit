@@ -69,7 +69,7 @@ $ python3 led_status_observer.py
 
 ## Notes
 
-- Capture so that one LED lamp occupies most of the camera view.
+- Capture so that one LED lamp occupies most of the camera's field of view.
 - The sample script does not work if two or more LED lamps are detected.
 - Only read and green can be detected.
 - Colors of images vary slightly depending on the type of camera.

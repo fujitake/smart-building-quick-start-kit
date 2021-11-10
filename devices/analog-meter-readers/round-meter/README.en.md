@@ -6,7 +6,7 @@
 
 This is the procedure for reading the value of a round-shaped meter and sending it to an MQTT broker.
 
-For high accuracy in reading values, it is necessary for the camera to capture so that the meter part occupies most of the camera view. It's also important that the meter part is not shaded.
+For high accuracy in reading values, it is necessary for the camera to capture so that the meter part occupies most of the camera's field of view. It's also important that the meter part is not shaded.
 
 It is not suitable for high accuracy requirements, as this was created for the purpose of experiencing the process of Smart Building.
 

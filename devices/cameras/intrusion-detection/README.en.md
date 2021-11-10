@@ -16,7 +16,7 @@ The model of the above sample program can detect various objects other than peop
 
 ### Detect intrusion into restricted area
 
-Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen (width: 320px) as the restricted area.  
+Put the virtual line in the middle of the camera's field of view (red dotted line), and regard the left side as the restricted area.
 
 ![](./img/flame0.en.png)
 
@@ -27,8 +27,6 @@ Figure 1.
 
 Figure 2.  
 ![](./img/flame2.en.png)
-
-It is confirmed that it can detect when a person walks sideways at a distance of about 1.5 m to 2.0 m from the camera. It may fail to detect when a person is walking too fast due to the high CPU load.
 
 The sample script has been confirmed to be able to detect when a person passes sideways 1.5m to 2.0m from the camera.
 This process is High CPU load and can fail a person passes too fast.
@@ -45,7 +43,7 @@ This process is High CPU load and can fail a person passes too fast.
 
 ### Procedure
 
-1. Setting up Raspberry Pi and Raspberry Pi Camera.
+1. Set up Raspberry Pi and Raspberry Pi Camera.
    Connect Raspberry pi and Raspberry Pi Camera, and start them up.  
 
 2. Install TensorFlow Lite runtime.  

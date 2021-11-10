@@ -79,7 +79,7 @@ $ python3 segment_meter_reader.py
 - Meter value is detected by tuning based on the sample image. The sample script may not detect a meter value correctly if you use an image prepared by yourself. 
 
 - Please check the following notes:
-  - Capture so that the meter part occupies most of the camera view.
+  - Capture so that the meter part occupies most of the camera's field of view.
   - Keep a 0.5 m distance between a meter and a camera.
 
 - The encryption and authentication used in the sample script to communicate with an MQTT broker are simple. You need to modify according to your project's requirements. 

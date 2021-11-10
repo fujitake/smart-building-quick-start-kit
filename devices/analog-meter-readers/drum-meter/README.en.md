@@ -81,7 +81,7 @@ $ python3 drum_meter_reader.py
 - Meter value is detected by tuning based on the sample image. The sample script may not detect a meter value correctly if you use an image prepared by yourself. 
 
 - Please check the following notes:
-  - Capture so that the meter part occupies most of the camera view.
+  - Capture so that the meter part occupies most of the camera's field of view.
   - Capture the meter part brightly.
   - Capture so that light is not reflected on the meter part.
   - Capture so that the meter part is positioned in front of the camera directly.
