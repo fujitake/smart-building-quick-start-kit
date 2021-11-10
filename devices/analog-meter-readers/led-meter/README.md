@@ -34,7 +34,7 @@ LED の点灯状態は OpenCV を用いた画像処理にて実現していま�
 $ brew install opencv
 ```
 
-2. led_status_observer.py と同じディレクトリに`requirements.txt` ファイルを設置し、スクリプトに必要な Python モジュールをインストールします
+2. led_status_observer.py と同じディレクトリに`requirements.txt` ファイルを設置し、サンプルスクリプトに必要な Python モジュールをインストールします
 
 ```
 $ pip3 install -r requirements.txt

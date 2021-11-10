@@ -20,7 +20,7 @@ At this point, it is only judging ***"whether or not there is green or red in th
 > The sample script also works with the sample image. You can try it without a LED lamp. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with camera
-   - This procedure has been verified with Macbook pro(2018).
+   - This procedure has been verified with MacBook Pro (2018).
 
 - Full set of this directory
 
@@ -33,7 +33,7 @@ At this point, it is only judging ***"whether or not there is green or red in th
 $ brew install opencv
 ```
 
-2. Place the `requirements.txt` file in the same directory as the led_status_observer.py, and install the Python modules needed for the script.  
+2. Place the `requirements.txt` file in the same directory as led_status_observer.py, and install the Python modules needed for the script.  
 
 ```
 $ pip3 install -r requirements.txt

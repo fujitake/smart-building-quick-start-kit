@@ -2,25 +2,22 @@
 
 # 登録者検知
 
-カメラで取得した映像からOpenCVで顔を検出し、あらかじめ登録した顔と一致するかをAWS Rekognitionで判定します。
+カメラで取得した映像からOpenCVで顔を検出し、あらかじめ登録した顔と一致するかをAmazon Rekognitionで判定します。
 一致した場合MQTTブローカーに送信します。
 
 ## 仕様
 
 ### 顔の登録
 
-OpenCV を用いて PC に内蔵されたカメラで、顔写真を 1 枚撮影します。
-この顔写真を検出対象とみなし、AWS Rekognition にアップロードします。
-
-アップロードが正しく行えたことを確認するため、アップロード後に同じ写真で顔を照合します。
-レスポンスが以下のように Terminal 上に出力されれば成功です。
+OpenCV を用いて PC に内蔵されたカメラで、顔写真を 1 枚撮影します。(カメラは接続したWebカメラなどでも構いません)
+この顔写真を検出対象とみなし、Amazon Rekognition にアップロードします。
 
 ### 顔の検出
 
-OpenCV を用いて PC に内蔵されたカメラで顔写真を定期的に撮影します。
+OpenCV を用いてカメラで顔写真を定期的に撮影します。
 撮影周期は顔の有無によって変動しますがおよそ 1〜4 秒周期です。
 
-顔が写っている場合、AWS Rekognition で顔を照合し、登録した顔と同じであるかチェックします。
+顔が写っている場合、Amazon Rekognition で顔を照合し、登録した顔と同じであるかチェックします。
 同じ顔であった場合、MQTTブローカーにpublishします。
 
 検出状況に応じて、プログラムを実行した Terminal 上に以下のようなログが出力されます。
@@ -47,7 +44,7 @@ matched.      # 顔が一致した
 $ brew install opencv
 ```
 
-2. person_detect.py と同じディレクトリに`requirements.txt` ファイルを設置し、アプリケーションに必要な Python モジュールをインストールします
+2. person_detect.py と同じディレクトリに`requirements.txt` ファイルを設置し、サンプルスクリプトに必要な Python モジュールをインストールします
 
 ```
 $ pip3 install -r requirements.txt
@@ -58,7 +55,7 @@ $ pip3 install -r requirements.txt
 
 ## 顔の登録
 
-`face_register.py`を実行して、あなたの顔を AWS Rekognition に登録します。
+`face_register.py`を実行して、あなたの顔を Amazon Rekognition に登録します。
 
 ```sh
 $ python3 face_register.py

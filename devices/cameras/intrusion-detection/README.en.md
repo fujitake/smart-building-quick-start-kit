@@ -52,7 +52,7 @@ $ pip3 install --extra-index-url https://google-coral.github.io/py-repo/ tflite_
 ```
 
 3. Install the required Python modules and TensorFlow lite models/labels.    
-   Place the `requirements.txt` file in the same directory as the `download.sh`, and run the following command.  
+   Place the `requirements.txt` file in the same directory as `download.sh`, and run the following command.  
 
 ```
 $ bash download.sh ./tmp

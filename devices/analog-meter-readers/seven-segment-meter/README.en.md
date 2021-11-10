@@ -23,7 +23,7 @@ The following demo page shows how `PaddleOCR` detects texts in an image. Please 
 > The sample script also works with the sample image. You can try it without a meter. The source code for using the sample image has been commented out, so please uncomment it if necessary.
 
 - PC with camera
-  - This procedure has been verified with Macbook pro(2018).
+  - This procedure has been verified with MacBook Pro (2018).
 
 >The PaddlePaddle module does not support Arm64 (as of 2021/10/18), so it will not work on Macs equipped with the Apple M1.  
 
@@ -38,7 +38,7 @@ The following demo page shows how `PaddleOCR` detects texts in an image. Please 
 $ brew install opencv
 ```
 
-2. Place the `requirements.txt` file in the same directory as the segment_meter_reader.py, and install the Python modules needed for the script.  
+2. Place the `requirements.txt` file in the same directory as segment_meter_reader.py, and install the Python modules needed for the script.  
 
 ```
 $ pip3 install -r requirements.txt

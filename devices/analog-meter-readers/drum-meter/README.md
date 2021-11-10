@@ -42,7 +42,7 @@ PaddleOCR がどのように画像中の文字列を検出しているかは、�
 $ brew install opencv
 ```
 
-2. drum_meter_reader.py と同じディレクトリに`requirements.txt` ファイルを設置し、スクリプトに必要な Python モジュールをインストールします
+2. drum_meter_reader.py と同じディレクトリに`requirements.txt` ファイルを設置し、サンプルスクリプトに必要な Python モジュールをインストールします
 
 ```
 $ pip3 install -r requirements.txt

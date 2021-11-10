@@ -45,7 +45,7 @@ C2:B7:E4:CC:FE:79 Env
    Copy the `.env.sample` file to create a `.env` file and set the values according to the instructions in the file.  
 
 4. Install the necessary packages and modules.  
-   Place the `requirements.txt` file in the same directory as the envsensor_observer.py, and install the Python modules needed for the application.  
+   Place the `requirements.txt` file in the same directory as envsensor_observer.py, and install the Python modules needed for the application.  
 
 ```
 $ sudo apt install libglib2.0-dev

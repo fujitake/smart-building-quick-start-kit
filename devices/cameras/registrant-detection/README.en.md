@@ -1,39 +1,38 @@
 [Japanese](./README.md)
 
-# Detecting registered persons    
+# Registrant detection
 
-Detect a face from the video captured by a camera using OpenCV, and verify whether it matches the face registered in advance using AWS Rekognition. When it matches, it will be sent to an MQTT Broker.
+This is the procedure to detect a registrant by detecting a face from video using OpenCV and verify the detected face matches the one registered in Amazon Rekognition, and sending it to an MQTT Broker.
 
 ## Specifications
 
-### Register a face
+### Register face
 
-Take a picture of a face with the camera built into the PC using OpenCV. Regard this face photo as the detection target, and upload it to AWS Rekognition.  
+Take a picture of a face with the camera (built-in camera or etc.) using OpenCV and upload it to Amazon Rekognition as a target face.
 
-To confirm that the upload was done correctly, verify the face with the same photo after the upload. It is successful when the Response is output in Terminal as shown below.
+### Detect face  
 
-### Detect a face  
+Take a picture of a face periodically with the camera using OpenCV. This cycle varies depending on the presence/absence of a face, but it is approximately 1 to 4 seconds.
 
-Take a picture of a face periodically with the camera built into the PC using OpenCV. The shooting cycle varies depending on the presence or absence of a face, but it is about 1 to 4 seconds.
+When detected a face in the picture, verify whether the face is in the registered faces in Amazon Rekognition, and send this event to an MQTT Broker if matched.
 
-When a face is in the picture, check the face with AWS Rekognition to verify whether it is the same as the registered face. If they matched, publish to an MQTT Broker.  
-
-Depending on the status of the detection, the following log will be output in Terminal where the program was executed.  
+The following logs will output in Terminal depending on the detection status:
 
 ```sh
 $ python3 person_detect.py
 not detected. # Face was not detected.  
 detected.     # Face was detected.  
-matched.      # Faces were matched.  
+matched.      # Face was matched.  
 ```
 
 ## Setup
 
-### Requirements for these instructions.
+### Required items
 
-- PC with camera &nbsp; ※ Used a MacBook Pro (2018) for this verification.  
+- PC with camera
+  - This procedure has been verified with MacBook Pro (2018).
 
-### Instructions
+### Procedure
 
 1. Install OpenCV.  
    On MacOS, install it with the following command.  
@@ -42,18 +41,18 @@ matched.      # Faces were matched.
 $ brew install opencv
 ```
 
-2. Place the `requirements.txt` file in the same directory as the sperson_detect.py, and install the Python modules needed for the application.  
+2. Place the `requirements.txt` file in the same directory as person_detect.py, and install the Python modules needed for the script.  
 
 ```
 $ pip3 install -r requirements.txt
 ```
 
 3. Load confidential information into the script as environment variables.    
-Copy the `.env.sample` file to create a `.env` file and set the values according to the instructions in the file.
+Copy the `.env.sample` file to create a `.env` file and set the values according to the file contents.
 
-## Register a face  
+## Register face  
 
-Run `face_register.py` to register a face with AWS Rekognition.  
+Run `face_register.py` to register a face to Amazon Rekognition.  
 
 ```sh
 $ python3 face_register.py
@@ -61,12 +60,12 @@ $ python3 face_register.py
 # Activate the camera.
 ```
 
-This program will output the Response data.    
-Set the ***FaceId*** included in the Response to the VANTIQ master data.
+This script will output the Response data.    
+Save ***FaceId*** (included in the response) to the Vantiq Type for master data.
 
-## Detect a face  
+## Detect face  
 
-Run `person_detect.py` to detect a face and send the data to an MQTT Broker.  
+Run `person_detect.py` to detect a face and send it to an MQTT Broker.  
 
 ```sh
 $ python3 person_detect.py
@@ -74,7 +73,7 @@ $ python3 person_detect.py
 # Activate the camera.
 ```
 
-## Transmission details
+## Output specifications
 
 | Items         | Details                              |
 | ------------ | --------------------------------- |
@@ -92,8 +91,7 @@ $ python3 person_detect.py
 ```
 
 ## Notes
-
-- In this sample, only one type of face can be registered and detected.  
-- It is necessary to take a picture of the front of the face with a camera.  
-- Keep a distance of about 0.5 m from the camera.  
-- Since the encryption and authentication of the communication path with the MQTT Broker is a brief one, please take measures according to the security level required in the actual project.  
+- The sample script can register/detect one face.
+- The sample script requires a face photo taken from the front.
+- Keep a distance of about 0.5m from the camera.
+- The encryption and authentication used in the sample script to communicate with an MQTT broker are simple. You need to modify according to your project's requirements. 

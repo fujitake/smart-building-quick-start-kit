@@ -30,7 +30,7 @@ It is not suitable for high accuracy requirements, as this was created for the p
 
 1. Set the environment variables used in the script.
 
-Create a `.env` file in the same directory as the script and set the information about your MQTT Broker and about round meter's scales such as min/max value, min/max value angles.
+Create a `.env` file in the same directory as script and set the information about your MQTT Broker and about round meter's scales such as min/max value, min/max value angles.
 
 ```.env
 # Mqtt broker

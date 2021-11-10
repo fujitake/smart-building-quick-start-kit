@@ -167,7 +167,7 @@ The configuration of HumanCounterPro is described in the XML files that exist in
     - ``lidar_position_sensor_observer.py``
     - ``lidar_inout_sensor_observer.py``
 
-1.  Create a ``.env`` file in the same directory as the set of the scripts, and configure the information about your MQTT broker.  
+1.  Create a ``.env`` file in the same directory as set of the scripts, and configure the information about your MQTT broker.  
 ```.env
 MQTT_HOST = 'your-broker.com'
 MQTT_TOPIC = '/lidar/position' → For using "lidar_position_sensor_observer.py"  
