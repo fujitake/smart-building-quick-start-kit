@@ -18,7 +18,7 @@ The models in the above sample programs can detect a variety of objects other th
 
 Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen as inside the area and regard the right side of the screen as outside the area.  
 
-![](./img/flame0.png)
+![](./img/flame0.en.png)
 
 Detect when a person overlaps the virtual line (Figure 1), and then when the person has moved to the left or the right of the virtual line (Figure 2 or 3), publish the event of detection to an MQTT broker.  
 
@@ -26,10 +26,10 @@ Figure 1.
 ![](./img/flame1.png)
 
 Figure 2.  
-![](./img/flame2.png)
+![](./img/flame2.en.png)
 
 Figure 3.  
-![](./img/flame3.png)
+![](./img/flame3.en.png)
 
 It is confirmed that it can detect when a person walks sideways at a distance of about 1.5 m to 2.0 m from the camera. It may fail to detect when a person is walking too fast due to the high CPU load.  
 
