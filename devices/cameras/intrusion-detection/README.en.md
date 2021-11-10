@@ -18,15 +18,15 @@ The model of the above sample program can detect various objects other than peop
 
 Put a virtual line in the middle of the screen (red dotted line), and regard the left side of the screen (width: 320px) as the restricted area.  
 
-![](./img/flame0.png)
+![](./img/flame0.en.png)
 
 Detect when a person overlaps the virtual line (Figure 1), and then when the person has completely moved into the restricted area (Figure 2), send intrusion event to an MQTT broker.
 
 Figure 1.  
-![](./img/flame1.png)
+![](./img/flame1.en.png)
 
 Figure 2.  
-![](./img/flame2.png)
+![](./img/flame2.en.png)
 
 It is confirmed that it can detect when a person walks sideways at a distance of about 1.5 m to 2.0 m from the camera. It may fail to detect when a person is walking too fast due to the high CPU load.
 
