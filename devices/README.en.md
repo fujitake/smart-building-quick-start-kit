@@ -1,6 +1,6 @@
 [Japanese](./README.md)
 
-# Device sample list
+# Device samples
 
 Here is the list of device samples. Samples can get value from a device and send it to a broker.
 You can experience the data flow from the device to the broker by trying each sample.
