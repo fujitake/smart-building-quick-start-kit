@@ -20,10 +20,10 @@ Even if you don't have actual analog meters, sample scripts work with sample ima
 
 ## [Cameras](./cameras)
 
-The samples that analyze camera images to detect intrusion, count the number of persons, and detect a registrant. 
+The samples that analyze images from a camera to detect intrusion, count the number of person, and detect a registrant. 
 
 - [Intrusion detection](./cameras/intrusion-detection/README.en.md)
-- [People count](./cameras/person-counter/README.en.md)
+- [Person counter](./cameras/person-counter/README.en.md)
 - [Registrant detection](./cameras/registrant-detection/README.en.md)
 
 ## [Hitachi LG 3D LiDAR Sensor](./hlds-lidar/README.en.md)
@@ -33,4 +33,4 @@ The sample uses a Hitachi LG 3D LiDAR sensor to detect the positions of people i
 
 ## [Omron Environment Sensor](./omron-env/README.en.md)
 
-The sample uses Omron Environment Sensor to acquire information about the surrounding environment, such as CO2 concentration, temperature, and humidity.    
+The sample uses Omron Environment Sensor to acquire information about the surrounding environment, such as CO2 concentration, temperature, and humidity.
