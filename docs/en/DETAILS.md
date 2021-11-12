@@ -1,25 +1,25 @@
-[Japanese](../ja/details.md)
+[Japanese](../ja/DETAILS.md)
 
 # Smart Building Quick Start Details
 
-## Table Of Contents  
+## Contents  
 
-1. [Introduction](#at-first)
+1. [Introduction](#introduction)
 2. [Device Layer](#device-layer)
 
-    2.1. [Specifications of the device](#device-spec)
+    2.1. [Device specification](#device-spec)
 
-    2.1.1. [What the device can do?](#what-device-can-do)
+    2.1.1. [What can this device do](#what-can-device-do)
 
-    2.1.2. [Quality of the device](#device-quality)
+    2.1.2. [Device quality](#device-quality)
 
-    2.1.3. [How to transmit the data](#device-data-transmission)
+    2.1.3. [How to send data](#device-data-sending)
 
-    2.1.4. [How to supply the power](#device-power-supply)
+    2.1.4. [How to supply power](#device-power-supply)
 
-    2.1.5. [Requirements for installation](#device-installation)
+    2.1.5. [Installation requirement](#device-installation)
 
-    2.1.6. [Specifications of the data](#device-data-spec)
+    2.1.6. [Data specification](#device-data-spec)
 
     2.2. [Price](#device-price)
 
@@ -27,9 +27,9 @@
 
     2.4. [Data loss](#device-data-loss)
 
-    2.5. [Path of transmitting data to Data Integration Layer (Vantiq)](#device-data-path)
+    2.5. [Data sending path to data integration layer (Vantiq)](#device-data-path)
 
-    2.6. [Operation in the case of anomaly or malfunction](#device-operation)
+    2.6. [Operation in abnormality/failure](#device-operation)
 
     2.7. [Summary of Device Layer](#device-summary)
 
@@ -43,15 +43,15 @@
 
     3.3.1. [Frequently used Activity Patterns](#data-integration-activity)
 
-    3.3.2. [Performance-conscious Implementation](#data-integration-performance)
+    3.3.2. [Performance-considered implementation](#data-integration-performance)
 
-    3.3.2.1. [Lighten the processing per task](#data-integration-lighten)
+    3.3.2.1. [Lighten processing per task](#data-integration-lighten)
 
-    3.3.2.2. [Reduce and Distribute the number of query issuances.](#data-integration-reduce-queries)
+    3.3.2.2. [Reduce/divide queries](#data-integration-reduce-queries)
 
-    3.3.2.3. [Reduce the number of concurrent executions](#data-integration-reduce-simultaneous)
+    3.3.2.3. [Reduce simultaneous executions](#data-integration-reduce-simultaneous)
 
-    3.3.2.4. [Confirm that it actually provides performance.](#data-integration-performacne-test)
+    3.3.2.4. [Verify actual performance](#data-integration-performacne-test)
 
     3.4. [Summary of Data Integration Layer](#data-integration-summary)
 
@@ -66,117 +66,166 @@
 <br />
 <br />
 
-<a id="at-first"></a>
+<a id="introduction"></a>
 ## 1. Introduction
 
-This repository summarizes the details of the knowledge, concepts, and precautions necessary for Smart Building with Vantiq. Smart Building includes a wide range of elements, from devices to clouds, and only a few people are able to grasp the whole picture. But ultimately what we need to think about is just the simple flow of how to collect, transform, and provide the data. It would be appreciated if you would read this document with an awareness of how this process can be achieved.  
+This document summarizes the details of the knowledge, concept and important points necessary to build a smart building with Vantiq. Smart building includes a wide range of elements, from devices to clouds, and not many people have an overall picture yet.
 
-This content is only the basic form, so there are areas that need to be changed as necessary for each requirement, but the basic idea remains the same.  
+However, what you need to think about is, after all, the simple flow of how to collect, process, and provide data. It would be appreciated if you would read this document while being conscious of how can achieve that flow.
 
-This document is also organized according to the layers of the following figure.  
+This content is just a basic pattern, so you will need to modify some parts according to your project/requirement, but the basic idea is same.
+
+This document is constructed based on the each layer of the following figure:
 
 <img src="../img/layers.en.png" width="1000">
 
 <a id="device-layer"></a>
 ## 2. Device Layer
 
-Devices are the most important element of all IoT projects, regardless of Smart Building. No matter what the plan is, it is impossible to accomplish it without a device that can acquire the data to make it possible. Also, the accuracy of the device is directly related to the accuracy of the data of the entire system. In other words, making a mistake in device selection will directly lead to the failure of the project itself, so it is necessary to select them carefully.  
-Now move to the points to be checked for selecting the devices.  
+Devices are the most important element of all IoT projects, not just for smart building. Any plans can never be achieved without devices which can acquire necessary data.
+In addition, device accuracy/precision is linked directly the entire system's data quality. In other words, making mistakes in device selection leads directly to the failure of the project itself. So you need to select them carefully.
+
+Now let's move on to the device section.
 
 
 <a id="device-spec"></a>
-### 2.1. Specifications of the device
+### 2.1. Device specification
 
-It is necessary to check the specifications in detail to see whether they can accomplish what you want to achieve. If the device is not suitable, the project will fail as it is and time and money will be wasted, so this phase should be done carefully even if it takes a long time.  
+You need to confirm the device specification in detail for judging whether the device can achieve what you'd like to achieve.
 
-<a id="what-device-can-do"></a>
-### 2.1.1. What the device can do?
+You'd better do this process carefully, even if it takes time. When devices are not suitable, the project will fail and waste time and money.
 
-First of all, as a matter of course, it is necessary to know exactly what the device is capable of. For example, when speaking of a "temperature sensor," it is necessary to confirm &nbsp;① what range of temperature it can measure (detection range), &nbsp;② what units it can measure (resolution), and &nbsp;③ how much the allowable margin of error it have (precision). As an example, suppose you want to provide an alert function when the temperature exceeds 100°C. If selecting a temperature sensor whose detection range is -30°C to +60°C, it is obviously not possible to achieve this function. It's not just a "temperature sensor," but first it is necessary to understand what the device can do with such clarity that it is a "temperature sensor that can cover a range of -30 to 60°C in 0.1°C increments with he allowable margin of error of about ±0.2°C". It is also important to confirm that the coverage area that can be covered by each device, in the case of using AI cameras or other devices that keep looking at a particular area.  
+<a id="what-can-device-do"></a>
+### 2.1.1. What can this device do
+
+First of all, it's just obvious but, you need to know exactly what the device can do.
+
+For example, even if you simply say "temperature sensor", you need to confirm &nbsp;`① what range of temperature it can measure (detection range)`, &nbsp;`② what unit it can measure (resolution)`, and &nbsp;`③ how much error may occur (accuracy)`.
+
+You can't develop obviously the function of alerting when the temperature exceeds 100℃ if you selected a temperature sensor whose detection range is -30℃ to + 60℃.
+
+Shouldn't think just like "this is a temperature sensor.". It's necessary to grasp in detail like "this temperature sensor can measure the detection range from -30℃ to + 60℃ in 0.1 ℃ increments and may have an error of about ± 0.2 ℃" firstly.
+
+In addition, If you use devices that keep looking at a specific section such as AI cameras, it's important to confirm the coverage area by each device. It's strongly related to the total cost.
 
 
 <a id="device-quality"></a>
-### 2.1.2. Quality of the device
+### 2.1.2. Device quality
 
-Frequent device failures, poor fire resistance and water resistance, etc. can cause unexpected maintenance costs and accidents. It is basic, but it should be confirmed for quality. It is also as a meaning of actually checking the accuracy, it is safe to purchase and verify the product before deciding to adopt it.  
+Frequent device failures, poor fire/water resistance and etc. can cause unexpected maintenance costs and accidents. 
 
-<a id="device-data-transmission"></a>
-### 2.1.3. How to transmit the data
+It's very basic, but you should confirm the quality. It's safe to purchase 1 device and verify it actually before final selection, even from an aspect to verify the accuracy.
 
-Confirm that how to transmit the the sensed contents to other layers. For example, using a temperature sensor, it does not make sense to have only a module with a sensor element. It is only possible to transmit the sensed contents to other layers when used in conjunction with a microcontroller or an IoT gateway. It is necessary to confirm because it depends on the device, such as one that plugs into an IoT gateway or has a BLE connection, or one that is integrated as a service and can transmit the data directly to the cloud. Also confirm that the path after an IoT gateway (e.g., is it WiFi, LTE communication using a SIM, etc.).
+<a id="device-data-sending"></a>
+### 2.1.3. How to send data
+
+Confirm how to send the sensed data to another layer.
+
+For example, if you'd like to use a temperature sensor, it doesn't make sense to just have a module with sensor elements, of course. Only after being used in combination with a micro-computer/IoT gateway(some devices include them), can send the data to another layer.
+
+As for sending data way, it depends on devices:
+- Used in combination with IoT gateway
+- BLE connection
+- Via a unique cloud service for the device
+- Etc.
+So, you need to confirm the way of your devices.
+
+In case of using IoT gateway, you also need to confirm the path of after IoT gateway like WiFi or LTE.
 
 <a id="device-power-supply"></a>
-### 2.1.4. How to supply the power
+### 2.1.4. How to supply power
 
-Whether a device is battery-powered or not greatly affects the location of installation and ease of maintenance. In the case of Smart Building, battery-powered devices are less likely to be candidates, but it is safer to confirm.
+Whether a battery-powered device or not affects the installation position and maintainability. For smart building, battery-powered devices are not unlikely to be options, but it's safer to confirm.
 
 <a id="device-installation"></a>
-### 2.1.5. Requirements for installation
+### 2.1.5. Installation requirement
 
-There are two installation requirements. The first is the device installation requirement. It means, in what kind of environment and under what kind of conditions it is installed, it can provide the performance defined in the specifications. If the device is not installed correctly, it will not perform to the specifications, so once understanding "what the device can do", confirm "the way to use it to accomplish its performance".
-For example, even if there is an AI camera that can detect a person's face with 100% precision, it may not be able to detect a person's face at all if the camera is installed in a place where the image is blown out highlights or in a dark place.
-The second is the installation requirements requested from building owner. There are not many cases where devices can be installed anywhere in the building as you like. Considering the landscape and the replacement due to malfunction, it should be installed in a location approved by the building owner.  
+There are two installation requirements meanings.
 
-It is important to consider the following: "With this device, it is possible to do what we want to do. But can this device be installed in this building in a way which maintains easy?"
+The first is device installation requirement. It means that under what circumstances(environment/condition) the device can perform like defined in the specification. You should confirm how to make devices perform correctly after understanding what devices can do because devices don't work well if you installed devices incorrectly. For example, even if you have an AI camera that can detect a human face with 100% accuracy, it doesn't work well when using it in a dark/too bright place where images quality will become low.  
+
+The second installation requirement is from the building owner.
+There are not many cases you can install your devices anywhere in the building as you like. It's necessary to install it the position permitted by the building side in consideration of the landscape and failure/replacement.
+
+You'd better make sure the following thing: 
+"I can achieve what I want to do with this device, but can this device install in an easy-to-maintain position of this building?"
 
 
 <a id="device-data-spec"></a>
-### 2.1.6. Specifications of the data
+### 2.1.6. Data specification
 
-Confirm the protocol, the format, the size, and the frequency of transmission.The protocol and the format determines how the data can be linked to other layers. The size and the frequency of transmissions have a great deal to do with the performance of the opposing system and its implementation.  
+Confirm protocol, format, size, and frequency of sending. Protocol and format will determine how can send the data to another layer. Size and frequency of sending affect the performance and implementation of the opposite system.
 
 <a id="device-price"></a>
 ### 2.2. Price
 
-Calculate the price and the number of devices, IoT gateways, WiFi routers, SIM cards, and other necessary items and confirm whether the cost is worth it. Some devices may be routed through a dedicated cloud service, and the pricing model may include that as well.  
+Calculate the total price of the number of devices, IoT gateways, WiFi routers, SIM cards, and other necessary items and confirm whether the cost is worth it. Some devices need to use a unique cloud service for that device to send data, you may need to consider the cost of that kind of service also.
 
 <a id="device-laws"></a>
 ### 2.3. Laws and Regulations
 
-Be especially careful when dealing with devices from overseas.Check whether the device meets (or is able to meet) the laws and regulations for the device, such as whether it has obtained the Technical Compliance Mark and/or PSE Mark, as well as the laws and regulations imposed on the business (such as the Personal Information Protection Law). The device should be in compliance with Japanese law. Also, be careful when handling data that contains personal information.
+You have to be careful when using devices from overseas. It may be developed based on laws and regulations from your country. Devices must comply with the laws of your country. 
+
+In addition, you also have to be careful when handling sensitive data like including personal information.
+
 
 <a id="device-data-loss"></a>
 ### 2.4. Data loss
 
-Especially in the case of wireless connections, data loss will occur, so it is necessary to consider increasing the number of devices to reduce the loss rate, supplementing the data on the application side, and designing the system so that it will not be affected by the loss.  
+Especially in the case of wireless connection, data loss will occur, so it is necessary to consider measures such as increasing the number of devices to reduce the loss rate, complementing on the application side, and designing so that not be affected by data loss. 
 
 <a id="device-data-path"></a>
-### 2.5. Path of transmitting data to Data Integration Layer (Vantiq)
+### 2.5. Data sending path to data integration layer (Vantiq)
 
-It is necessary to consider the path how the data will be transmitted from the device to Vantiq, the Data Integration Layer. There are two main patterns for providing the data to Vantiq. The first is to use the REST API of Vantiq. The second is via a broker with protocols such as MQTT and Kafka.  
+You need to consider how to send data from devices to Vantiq in the data integration layer. There are 2 main patterns.
+The first is to use Vantiq REST API. The second is via broker with protocols such as MQTT, AMQP, and Kafka. 
 
-First of all, when using the REST API of Vantiq, it should be necessary to set the Access Token issued by Vantiq in the Header and then make an HTTP request. If the device has this feature, it is possible to use this method. There are some cases where HTTP requests can be made but the settings of the Header cannot be configured, in that case  case there are other options such as using AWS Lambda or Azure Functions as a relay.  
+First, when using Vantiq REST API, Devices must set the Vantiq access token in the header when making HTTP requests. You can use this way if your devices have this function. In some cases, a device can make HTTP requests, but not be able to set the header. In this case, you can use the Vantiq REST API by relaying the data with AWS Lambda/Azure Functions. (The device just makes a request to Lambda/Functions, then Lambda/Functions that hold the Vantiq access token make a request to Vantiq.)
 
-Using the REST API is simple, but has the following disadvantages.  
-① The management of Access Tokens becomes complicated.  
-Since the Access Token is embedded in the device, when it needs to be updated due to expiration or leakage of the token, it is necessary to replace the token on all devices, depending on how the token was distributed.  
-② Impact on the performance of Vantiq.  
-Since HTTP is not a lightweight as a protocol, it will consume a lot of Vantiq resources if the number of devices is large.    
+Using REST API is simple/easy, but it has the following disadvantages:
 
-Secondly, the method via a broker eliminates the need to issue an Access Token to the device (Authentication Information to the broker are still required). It can also use MQTT, AMQP, and Kafka protocols, which are lightweight compared to HTTP.  
-The disadvantages are the followings.  
-① Need to prepare a broker.  
-For example, it is required to prepare AWS AmazonMQ and/or Azure Event Hubs. The characteristics of each broker, such as performance and required settings, should be understood.    
-② Difficulty of protocol support is higher than HTTP.
-There is no problem on the Vantiq side because MQTT, AMQP, and Kafka clients are prepared in advance, but not many devices support MQTT, AMQP, and Kafka even if they support HTTP.    
+1. Manage access token are complicated
 
-To summarize, it is easier to operate via a broker unless the number of devices is extremely small. It is required to build a broker, but it can be used a fully managed one. Also, managing devices with AWS IoT Core, Azure IoT hub, etc. makes it easy to support protocols, as data from devices can be routed to the broker when it is received.  
+    Since access tokens are embedded in the device side, you may need to replace tokens for all devices if it has to be updated due to expiration or leak. It depends on how tokens were distributed, but it's tough.
 
-**One word about Device Management Service**
->There are services that often advertise device management, but what is a device in this context? It is never called "Sensor Management", in my opinion. These services can manage devices that are connected to the Internet, so to be precise, it would be "IoT gateway management".  Even if it can manage the IoT gateway, it cannot manage the sensors connected to it (of course, this is not a problem if the sensing part and the IoT gateway functions are integrated). It is better to understand what exactly the service can do before deciding to implement it.  
+2. Impact on Vantiq performance
+
+    Since HTTP is not lightweight, It consumes a lot of Vantiq resources if you use a large amount devices.
+
+Secondly, if you select the way via a broker, no need to distribute access tokens (but the broker's authentication information is required).
+In addition, MQTT, AMQP, and Kafka which are lighter than HTTP can be used. The disadvantages are the followings:
+
+1. Need to prepare broker
+
+    For example, you need to prepare AWS AmazonMQ/Azure Event Hubs and also need to understand the characteristics of these brokers specifically performance and required settings.
+
+2. Difficulty of protocol support
+
+    Protocol support is more difficult than HTTP. About the Vantiq side, these protocol's clients are already prepared in advance, but not many devices/IoT gateways support MQTT, AMQP, and Kafka even if they support HTTP.
+
+In summary, it's easier to operate via broker unless you use extremely few devices. 
+
+It's necessary to build brokers, but you can use a fully managed one, and if you manage devices with AWS IoT Core or Azure IoT hub, you can route data from devices to brokers. Therefore, it's easy to support the protocols.
+
+**About device management service**
+
+>You may see the services that state "device management" often, but what is "device" in this context? They never say "sensor management". These services can manage devices connected to the internet only. So to be precise, they are "IoT gateway management". Even if the IoT gateway can be managed, it can't manage the sensors connected to it (of course, in the case of devices that have both the sensing part and IoT gateway function, there is no problem). In any case, you should make a decision to the introduction that kind of service after understanding what the service can do.
+
 
 <a id="device-operation"></a>
-### 2.6. Operation in the case of anomaly or malfunction
+### 2.6. Operation in abnormality/failure
 
-Since there is no machine that will never break down, any device will surely anomaly or malfunction at some point. It is necessary to have a system design and organizational operation mechanism in order to identify devices that are experiencing anomalies and to ensure that there are no problems when replacements occur.  
+There is no machine never breaks. So any device will fail or be in an abnormal state someday.
+The system had better be designed to identify abnormal devices and support device replacement.
 
 <a id="device-summary"></a>
 ### 2.7. Summary of Device Layer
 
-As this is the most important layer, there are many things to confirm. To summarize simply, the following should be confirmed.   
-① It is possible to get the data to accomplish the plan.  
-② It is possible to establish a route to transmit the acquired data to Vantiq.  
-③ It should be in a state to be able to operate continuously.
+As this is the most important layer, there are many things to confirm. To summarize simply, the following should be confirmed:
+
+1. Being possible to acquire the data to accomplish the plan/project.
+1. Paths have been established to send the retrieved data to Vantiq.  
+1. Being in a state that can be continuously operated.
 
 <a id="data-integration-layer"></a>
 ## 3. Data Integration Layer
@@ -235,19 +284,19 @@ Vantiq provides a variety of Activity Patterns, and introduce some of the most f
 
 
 <a id="data-integration-performance"></a>
-### 3.3.2. Performance-conscious Implementation  
+### 3.3.2. Performance-considered implementation  
 
 Vantiq can provide a high performance platform, but it may not be able to provide the performance depending on how it is implemented. It requires to understand the characteristics of Vantiq and to implement it accordingly. Especially, be more careful for those who are used to implementing web applications. Vantiq has the elements such as web (or mobile) client, DB, and application, so it is possible to implement 3-tier architecture for a traditional  web applications.
 However, it is a service that specializes in stream processing, so applying in the common sense of web application development as is will result in failure.
 It should be considered as an asynchronous and parallel processing of small processes at high speed.  
 
 <a id="data-integration-lighten"></a>
-### 3.3.2.1. Lighten the processing per task
+### 3.3.2.1. Lighten processing per task
 
 When implementing an application, it is necessary to lighten the content to be processed per task. When using Procedure, any number of processes can be grouped together and called in a single task. However, since Vantiq performs load balancing in units of one task, performance will be improved by dividing it into multiple tasks rather than executing heavy processing in one task. Typical heavy processing is that which needs to wait for the response of a system other than Vantiq, such as issuing SQL that cannot be completed in memory alone, or executing an external API.  
 
 <a id="data-integration-reduce-queries"></a>
-### 3.3.2.2. Reduce and Distribute the number of query issuances.
+### 3.3.2.2. Reduce/divide queries
 
 When referring to the Master data stored in Type, or writing data to it, queries will be issued. This process is heavier than a process that is completed within memory only. Therefore, it is important to reduce the number of query issuances and distribute queries if better performance is to be expected.  
 
@@ -273,12 +322,12 @@ Please consider this method while keeping a balance with maintainability.
 
 
 <a id="data-integration-reduce-simultaneous"></a>
-### 3.3.2.3. Reduce the number of concurrent executions
+### 3.3.2.3. Reduce simultaneous executions
 
 Trying to process a large amount of data all at once with less than a 0.1 second latency, it will consume a lot of resources at once. Therefore, the process needs to be shifted as slightly as possible. Vantiq has ***Scheduled Event***, but when using it to issue a large number of queries at the exact same time, the entire cluster will be overloaded.  
 
 <a id="data-integration-performacne-test"></a>
-### 3.3.2.4. Confirm that it actually provides performance.
+### 3.3.2.4. Verify actual performance
 
 It is necessary to confirm that sufficient performance can be provided under the actual load of production operation. As it is not feasible to actually use real sensors and IoT gateways for performance testing, a performance testing tool is used to confirm the results.  
 

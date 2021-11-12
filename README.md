@@ -93,7 +93,7 @@
 
 ## 次のステップ
 - スマートビル化についてのより詳細な説明
-    - [Smart Building Quick Start Details](./docs/ja/details.md)
+    - [Smart Building Quick Start Details](./docs/ja/DETAILS.md)
 - サンプル
     - [接続デバイスのサンプルスクリプト及び手順](./devices)
     - [Vantiqアプリケーション](./vantiq)

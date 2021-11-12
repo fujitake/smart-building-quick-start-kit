@@ -43,7 +43,7 @@ This repository summarizes the knowledge necessary to facilitate a smart buildin
 - Data specification
     - Format
     - Protocol
-    - Transmission frequency
+    - Data sending frequency
 - How to send data to "data integration layer"(Vantiq)
     - From sensors directly, via an IoT gateway, via a broker, via a device-specific service or etc.
     - When sending directly to Vantiq via REST API, it's necessary to check how to set HTTP Header, method, and body (Some devices cannot set them).
@@ -71,7 +71,7 @@ This repository summarizes the knowledge necessary to facilitate a smart buildin
         - It depends on the characteristics of the data.
 - Performance-considered implementation
     - Won't get the high performance just by using Vantiq. Proper implementation is required.
-    - Implement in consideration of the number of devices and the frequency of data transmission.
+    - Implement in consideration of the number of devices and the frequency of data sending.
         - e.g.: 
             - Use MQTT instead of REST.
             - Minimize read/write frequency to Type by denormalizing.
@@ -103,7 +103,7 @@ This repository summarizes the knowledge necessary to facilitate a smart buildin
 
 ## Next step
 - A more detailed explanation of smart building
-    - [Smart Building Quick Start Details](./docs/en/details.md)
+    - [Smart Building Quick Start Details](./docs/en/DETAILS.md)
 - Samples
     - [Sample scripts and procedures for devices](./devices)
     - [Vantiq application](./vantiq)
