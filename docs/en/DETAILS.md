@@ -35,9 +35,9 @@
 
 3. [Data Integration Layer](#data-integration-layer)
 
-    3.1. [Master data Management](#data-integration-master-data)
+    3.1. [Master data management](#data-integration-master-data)
 
-    3.2. [Data Store](#data-integration-data-store)
+    3.2. [Data store](#data-integration-data-store)
 
     3.3. [Vantiq](#data-integration-vantiq)
 
@@ -224,83 +224,109 @@ The system had better be designed to identify abnormal devices and support devic
 As this is the most important layer, there are many things to confirm. To summarize simply, the following should be confirmed:
 
 1. Being possible to acquire the data to accomplish the plan/project.
-1. Paths have been established to send the retrieved data to Vantiq.  
-1. Being in a state that can be continuously operated.
+1. Paths have been established to send the acquired data to Vantiq.  
+1. Being able to continue operation.
 
 <a id="data-integration-layer"></a>
 ## 3. Data Integration Layer
 
-The Data Integration Layer is the layer that creates the data to be ultimately provided to users. It performs data integration processes such as combining data from multiple sensors, assigning Master data to sensor data, threshold judgment, and transformation. Vantiq is responsible for directly processing data from the Device Layer, while the Master data required for that processing is managed by other applications such as those separate from Vantiq. Also, because Vantiq specializes in stream processing, it retains the most recently created data, but does not retain older data, so if it is necessary to save the processed data for analysis, etc., it should be saved in a separate data store.
+The data integration layer is the layer that creates the provided data to users finally by integrating data, specifically combining multiple sensors data, adding master data to events, judging whether thresholds have been exceeded, transforming them, and etc.
+
+Vantiq is in charge of directly processing the data sent from the device layer, and required master data for processing are managed by an application other than Vantiq.
+
+Due to the nature of Vantiq specializing in stream processing, it holds limited data such as the latest one, but it doesn't hold old data. So you need to save them in a separate data store if you'd like to save them for analysis and etc.
 
 <a id="data-integration-master-data"></a>
-### 3.1. Master data Management
+### 3.1. Master data management
 
-The data sent from the device is not used as it is, but by combining the necessary contents as Master data in addition to the data sent, such as the device name that is easy for persons to understand, its installation location and coordinates, etc., and finally the data to be provided to users can be created.
-例For example, to achieve the use case that " Notify when the temperature in a room exceeds 35 °C," it is required to have information about which room the sensor is installed in, in addition to the temperature data. If the data sent from the device measuring the temperature originally contains the installation location, nothing needs to be done, but in some cases it contains only minimal data (e.g. serial number and temperature data).  
+In many cases, the data sent from devices are not used as they are but can create provided data to users finally by combining with the necessary information(as master data) such as the easy-to-understand device name, installation position/coordinates.
 
-In such a case, holding the Master data in advance in Vantiq and combining it with the data sent from the device will provide the necessary information for the subsequent processing.
-In a Smart Building, a wide variety of devices are used, and each of the data contents is completely different. It is possible to respond to various use cases by being ready to provide all the necessary information in Vantiq side.  
+For example. in order to achieve a use case such as "notify when room temperature exceeds 35 ℃", in addition to the temperature data, you need information about which room the sensor is installed in.
 
-What is needed is the role of managing the Master data. Since Vantiq is the one that actually uses the Master data, it is technically possible to manage the Master data directly in Vantiq, but it is preferable to separate them from the point of view of responsibility boundary point.  
+If that data includes the necessary information like installation position originally, you don't need to do anything, but in not few cases, it may include only the minimum serial number and temperature.
 
-Since Vantiq will hold the Master data in Type, the application which takes on this role needs to be able to CRUD operations for the records of Vantiq's Type using the REST API, while having the Master data in its own DB.  
+In such a case, you have Vantiq holds master data in advance, and combine it with the data sent from devices to prepare all information for the subsequent process.
+
+A wide variety of devices are used in a smart building, and each content of data is completely different. You can handle various use cases by preparing all the necessary information on the Vantiq side.
+
+What is needed is the role of managing the master data. Since
+
+Since it's Vantiq that actually uses the master data, it's technically possible to manage the master data directly with Vantiq, but it's desirable to separate it from the viewpoint of the demarcation point of responsibility. Since Vantiq holds the master data in Types, the application which takes on this role needs to be able to CRUD operations for the records of Vantiq's Types via REST API, while having the master data in its own DB.  
 
 <a id="data-integration-data-store"></a>
-### 3.2. Data Store  
+### 3.2. Data store  
 
-This is the data store for storing the data processed by Vantiq and which needs to be stored for a long time. Continuously store the following data according to the requirements.  
+This is a data store for storing data processed by Vantiq that needs to be stored for a long time.  It will continue to store the following data according to your requirements:
+
 - Data provided to users created by Vantiq  
 - Raw data sent from devices  
-- Log data  
-Since the data to be stored will continue to increase from the start of the system's operation, the cost will increase. Instead of storing everything, build and configure the system so that it stores the minimum amount of data required.  
+- Log data
 
-It is required to be able to receive data from Vantiq. Since the performance of Vantiq is often higher than that of an ordinary DB, it is not recommended to execute APIs directly on Vantiq to receive data. It is better to implement it via a broker or a queue to keep it more loosely coupled.  
+Since the data to be stored will continue to increase from the start of the system's operation, the cost will also increase. You should build/configure the system to store the minimum amount of data you need, instead of saving everything blindly.
+
+The data store must be capable of receiving data from Vantiq. 
+Since Vantiq's performance is often higher than normal DBs, it's desirable to implement it via brokers/queues even from the aspect of being loosely-coupled instead of having Vantiq execute API directly to receive data.
 
 
 <a id="data-integration-vantiq"></a>
 ### 3.3. Vantiq
 
-This is the core of the Data Integration Layer. This section describes frequently used Activity Patterns and cautions for implementation.  
+This is the core of the data integration layer. This section describes frequently used Activity Patterns and cautions for implementation.  
 
 <a id="data-integration-activity"></a>
 ### 3.3.1. Frequently used Activity Patterns
 
-Vantiq provides a variety of Activity Patterns, and introduce some of the most frequently used and essential ones.  
+Vantiq has various activity patterns. Here are some of the most frequently used and almost always used patterns:
 
-- Transformation
-    - Used to perform the data transformation such as deleting unnecessary parameters, renaming parameters, and adjusting data units. The data sent from the device is in a different format for each device, so this Activity absorbs the differences between devices and converts the data into the format to be provided to users finally.  
+- Transformation (Formatting data)
+    - This is used to format data such as trimming unnecessary parameters, renaming parameters, adjusting data units, and etc.
 
-- Enrich
-    - Since the contents of the records of Type can be added to the data to be stream processed, it is often used to add Master data to the data sent from the device. As the parameter with the same name must exist in the Type as the data to be processed, it is often done with Procedure together with Transformation.  
+    - The data sent from devices have different formats for each device, so this activity pattern is used to absorb the differences between devices and convert the data into the format to be provided to users finally.
 
-- Filter
-    - This function passes only the data that meets the specified conditions to the next process. This function is used for threshold judgment and conditional branching.  
+- Enrich (Attaching static data to stream data)
+    - This activity pattern can attach Type's record to stream data.
+    - It's often used to attach master data to the data sent from devices.
+    - Since this needs the same name parameters to exist in the stream data and Type's, it's often implemented with "Procedure" together with data formatting without using "Enrich".
 
-- SaveToType  
-    - It is used to save the data in Type. There is an `Upsert` option, which is used to keep in Vantiq only the most recent one for each device.
+- Filter (Filtering by condition)
+    - This is a function to pass only the data matches the set condition and pass it to the next process.
+    - It's used for judging whether a threshold has been exceeded or implementing conditional branching and etc.
 
-- Procedure
-    - This is the most versatile Activity because it is possible to call your own Procedures. It is used everywhere, and the most common case is to create your own process to send data from Vantiq to other systems, and then call the Procedure. It is also use ***PublishToSource*** when sending the data to other systems, but it is often used Procedure because it does not allow detailed settings such as error handling.  
+- SaveToType (Save data)
+    - It is used to save the data in Types. There is an `Upsert` option which is often used when holding only the latest data for each device.
+
+- Procedure (Call your own Procedures)
+    - This is the most versatile activity pattern because you can call your own Procedures.
+    - This is often used everywhere, but especially in the case that implementing the process to send data from Vantiq to other systems. You can also use `PublishToSource` in this case, but because you can't make detailed settings such as error handling and etc.
+
 
 
 <a id="data-integration-performance"></a>
 ### 3.3.2. Performance-considered implementation  
 
-Vantiq can provide a high performance platform, but it may not be able to provide the performance depending on how it is implemented. It requires to understand the characteristics of Vantiq and to implement it accordingly. Especially, be more careful for those who are used to implementing web applications. Vantiq has the elements such as web (or mobile) client, DB, and application, so it is possible to implement 3-tier architecture for a traditional  web applications.
-However, it is a service that specializes in stream processing, so applying in the common sense of web application development as is will result in failure.
-It should be considered as an asynchronous and parallel processing of small processes at high speed.  
+Vantiq is a high-performance platform, but it can't provide high-performance depending on how it's implemented.
+
+You need to understand the characteristics of Vantiq and implement your application accordingly. Especially, people who are accustomed to implementing ordinary Web applications that don't use stream processing should be more careful about it.
+
+Vantiq applications can be implemented like a traditional 3-layer architecture web application because Vantiq has elements such as a web/mobile client, DB and application. However, since Vantiq specializes in stream processing, you may fail if you bring the common sense of Web application development as it is. It's necessary to have an image that handles small processes synchronously and in parallel at high speed.
 
 <a id="data-integration-lighten"></a>
 ### 3.3.2.1. Lighten processing per task
 
-When implementing an application, it is necessary to lighten the content to be processed per task. When using Procedure, any number of processes can be grouped together and called in a single task. However, since Vantiq performs load balancing in units of one task, performance will be improved by dividing it into multiple tasks rather than executing heavy processing in one task. Typical heavy processing is that which needs to wait for the response of a system other than Vantiq, such as issuing SQL that cannot be completed in memory alone, or executing an external API.  
+When implementing Vantiq applications, you need to lighten processing per task. When using Procedures, you can call as many processes as you like in one task, but Vantiq distributes the load in units of one task(it's related with Vert.x). Therefore, you can get better performance if you divide processes into multiple tasks rather than executing heavy processes in one task.
+
+Typical heavy processes include a process that is not completed only in a memory, such as issuing SQL queries and executing external APIs needs to wait for a response of other systems.
+
+
 
 <a id="data-integration-reduce-queries"></a>
 ### 3.3.2.2. Reduce/divide queries
 
-When referring to the Master data stored in Type, or writing data to it, queries will be issued. This process is heavier than a process that is completed within memory only. Therefore, it is important to reduce the number of query issuances and distribute queries if better performance is to be expected.  
+Of course, you issue queries when referring to the master data stored in Types, or writing data to Types.
 
-For example, according to the requirements, it may necessary to add multiple types of Master data to the data transmitted from a single device. In that case, it can be implemented in Procedure as the following.  
+This process is heavier than a process that is completed only with memory. Therefore, it's important to reduce the number of queries and distribute queries to get good performance.
+
+For example, there is a case that you need to attach multiple master data to the data sent from one device. In that case, you can implement in Procedure as follows:
 
 ```
 PROCEDURE attachMasterData(event)
@@ -310,41 +336,59 @@ event.master3 = SELECT ONE FROM master3 WHERE device_id == event.deviceId
 return event
 ```
 
-The query is issued three times in one Procedure. When calling this Procedure in an application task, the query will be issued three times in one task. It is easy for maintenance and refurbishment, but this will not provide performance (in other words, if the performance is not important, this method is preferable). The followings are two methods to handle this.  
+The query is issued three times in one Procedure. 
+In short, when calling this Procedure in the task, one task will issue query three times.
 
-① Divide into 3 Procedures, 3 Tasks.  
-This one is simple method. If the performance is not good because it is grouped together, then it is better to divide the queries. Even this alone will improve the performance. However, the number of query issuances itself has not been reduced.  
+It's easy to maintain and modify, but this will not provide good performance (in other words, this way is preferable when the performance is not so important).
 
-② Prepare a Type for denormalized Master data.  
-This is a method to create Type which groups the necessary Master data in advance in order to issue a query only once. In consideration of the Master data management application that updates Vantiq Master data, it is possible to use the following methods. &nbsp;① Have the Type which groups the Master data updated directly. &nbsp;② In the case that Vantiq has a Type that is a DB and a replica of the Master data management application, prepare a Vantiq application or Rule that works as a trigger when those Types are updated, and update the Type that groups the Master data.  
-This is recommended because it minimizes the number of query issuances and simplifies the implementation.
-Please consider this method while keeping a balance with maintainability.  
+There are two ways to deal with it:
+
+1.  Divide into 3 Procedures, 3 tasks
+
+    This one is simple. If you can't get enough performance because Procedures are put together, all you need to do is just divide them. Even with only this way improve performance well. However, the number of queries has not been reduced.
+
+1.  Prepare denormalized Types for master data
+
+    This is a way to reduce the number of queries to just one time by pre-creating denormalized Types that hold all necessary information in advance. If one type holds the all necessary master data, you issue only one SELECT statement.
+
+    However, how flexible the master data can be updated depends on the master data management application, and denormalization complicates master data management.  Therefore, you should consider carefully the required performance and maintainability when considering this way.
+
+    There is no problem if the master data management application can manage/synchronize data even if it's denormalized, but in some cases, it's difficult unless it's normalized.
+
+    In that case, prepare both the normalized Types and the denormalized Type that puts them together on the Vantiq side, and create a Vantiq application or Rule that starts when the normalized Types are updated. These updates the denormalized Types.
+
+    This way is a necessary idea when pursuing fairly high performance. Careful consideration is required for implementation.
 
 
 <a id="data-integration-reduce-simultaneous"></a>
 ### 3.3.2.3. Reduce simultaneous executions
 
-Trying to process a large amount of data all at once with less than a 0.1 second latency, it will consume a lot of resources at once. Therefore, the process needs to be shifted as slightly as possible. Vantiq has ***Scheduled Event***, but when using it to issue a large number of queries at the exact same time, the entire cluster will be overloaded.  
+Trying to process a large amount of data all at once with less than a 0.1-second latency, will consume a lot of resources at once. Therefore, you should shift the timing of execution as much as possible. Vantiq has `Scheduled Event`, but when using it to issue a large number of queries at the exact same time, the entire cluster will be overloaded.  
 
 <a id="data-integration-performacne-test"></a>
 ### 3.3.2.4. Verify actual performance
 
-It is necessary to confirm that sufficient performance can be provided under the actual load of production operation. As it is not feasible to actually use real sensors and IoT gateways for performance testing, a performance testing tool is used to confirm the results.  
+It is necessary to verify that sufficient performance can be provided under a load of production operation actually. 
+
+As it is not feasible to actually use real sensors and IoT gateways for performance testing, so use performance test tools to verify.
 
 <a id="data-integration-summary"></a>
 ### 3.4. Summary of Data Integration Layer
 
-In order to implement the Data Integration Layer, it is important to understand Vantiq which is as core. It requires a different way of thinking than a web application implementation, and depending on the required performance, it may sacrifice some maintainability.
-However, there is no need to think too hard about it, just design and implement it with the following points in mind.  
+In order to implement the data integration Layer, it is important to understand Vantiq which is the core. 
+
+You need to think differently from a web application implementation. In addition, sometimes you may sacrifice some maintainability depending on the required performance. 
+
+However, there is no need to think too hard, just design and implement it with the following points in mind:
 - Make each processing unit small.  
-- Minimize the frequency of Type (DB) usage.  
+- Minimize the frequency of Types (DB) usage.  
 - Don't overload at once at the same timing.  
 
 
 <a id="data-providing-layer"></a>
 ## 4. Data Providing Layer
 
-This is the layer that provides the data for users to be able to use it finally. By having this layer, users do not need to be aware of the lower layers. Data is provided in two main styles: PULL type and PUSH type. Consider the method of providing the data depending on the characteristics and the type of data to be provided.  
+This is the layer that provides the data for users. By this layer, users do not need to be aware of the lower layers. Data is provided in two main ways: PULL type and PUSH type. you need to consider the way of providing the data depending on the characteristics of the data.
 
 For example, if the data to be provided is only the most recent one sent by the device, it is convenient for Vantiq, the Data Integration layer, to keep the entity of the data to be provided in Type. There is also the possibility of providing data from sources other than Vantiq when considering Smart Building as a whole. For these reasons, hide the elements in the Data Integration Layer with this layer.　In this case, the data can be acquired by providing users with a REST API endpoint of the Type of Vantiq and an Access Token. However, distributing an Access Token of Vantiq to users is not preferred as it would be unmanageable, and as for the domain, being the domain of Vantiq is not always preferred to users.  
 
