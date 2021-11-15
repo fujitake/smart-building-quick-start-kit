@@ -16,8 +16,8 @@ This repository summarizes the knowledge necessary to facilitate a smart buildin
 
 **Check the following samples if you'd like to build a sample system right away:** 
 - Samples
-    - [Sample scripts and procedures for devices](./devices)
-    - [Vantiq application](./vantiq)
+    - [Sample scripts and procedures for devices](./devices/README.en.md)
+    - [Vantiq application](./vantiq/README.en.md)
 
 **Continue to read this page if you'd like to understand the overview first.** 
 
@@ -105,7 +105,7 @@ This repository summarizes the knowledge necessary to facilitate a smart buildin
 - A more detailed explanation of smart building
     - [Smart Building Quick Start Details](./docs/en/DETAILS.md)
 - Samples
-    - [Sample scripts and procedures for devices](./devices)
-    - [Vantiq application](./vantiq)
+    - [Sample scripts and procedures for devices](./devices/README.en.md)
+    - [Vantiq application](./vantiq/README.en.md)
 
 > Samples of devices (device layer) and Vantiq application (data integration layer) are included in this package.
