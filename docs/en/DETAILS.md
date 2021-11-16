@@ -251,7 +251,7 @@ A wide variety of devices are used in a smart building, and each content of data
 
 What is needed is the role of managing the master data. Since
 
-Since it's Vantiq that actually uses the master data, it's technically possible to manage the master data directly with Vantiq, but it's desirable to separate it from the viewpoint of the demarcation point of responsibility. Since Vantiq holds the master data in Types, the application which takes on this role needs to be able to CRUD operations for the records of Vantiq's Types via REST API, while having the master data in its own DB.  
+Since it's Vantiq that actually uses the master data, it's technically possible to manage the master data directly with Vantiq, but it's preferable to separate it from the viewpoint of the demarcation point of responsibility. Since Vantiq holds the master data in Types, the application which takes on this role needs to be able to CRUD operations for the records of Vantiq's Types via REST API, while having the master data in its own DB.  
 
 <a id="data-integration-data-store"></a>
 ### 3.2. Data store  
@@ -388,29 +388,30 @@ However, there is no need to think too hard, just design and implement it with t
 <a id="data-providing-layer"></a>
 ## 4. Data Providing Layer
 
-This is the layer that provides the data for users. By this layer, users do not need to be aware of the lower layers. Data is provided in two main ways: PULL type and PUSH type. you need to consider the way of providing the data depending on the characteristics of the data.
+This is the layer that provides the data for users. By this layer, users don't need to be aware of the lower layers. Data is provided in two main ways: PULL type and PUSH type. you need to consider the way of providing the data depending on the characteristics of the data.
 
-For example, if the data to be provided is only the most recent one sent by the device, it is convenient for Vantiq, the Data Integration layer, to keep the entity of the data to be provided in Type. There is also the possibility of providing data from sources other than Vantiq when considering Smart Building as a whole. For these reasons, hide the elements in the Data Integration Layer with this layer.　In this case, the data can be acquired by providing users with a REST API endpoint of the Type of Vantiq and an Access Token. However, distributing an Access Token of Vantiq to users is not preferred as it would be unmanageable, and as for the domain, being the domain of Vantiq is not always preferred to users.  
+If the data you provide is only the latest one, you don't need to prepare any additional elements, and can provide data just share Vantiq REST API endpoints and access tokens technically. However, distributing Vantiq access tokens to users is not desirable because it's unmanageable, and it is sometimes not desirable for users to be Vantiq domains. In addition, when considering the entire smart building, there is a possibility that sources other than Vantiq provide data. For this reason, the elements below the data integration layer are hidden by this layer.
 
-Users can use APIs and brokers whose interfaces are commonized, regardless of what elements are there, without being aware of from the Device Layer to the Data Integration Layer.  
+Users can use APIs/Brokers with common interfaces without being aware of anything from devices to the data integration layer no matter what elements exist.
 
 
 <a id="data-providing-pull"></a>
 ### 4.1. PULL type (API) data providing  
 
-If the data to be provided is limited, such as only the most recent of sensing result, the data may be stored in Type of Vantiq, and it may also be provided via REST API. However, it does not have users execute the REST APIT of Vantiq directly, but provides data via AWS API Gateway/Lambda or Azure API Management/Functions.
+If the data to be provided is limited, such as only the latest one of the sensing result, you can choose the way to provide the data by holding in Vantiq and via the REST API. However, you need to provide it via AWS API Gateway/Lambda or Azure API Management/Functions instead of users executing Vantiq REST API directly.
 
-Users execute APIs provided by AWS API Gateway or Azure API Management, and Lambda or Functions, which is entity of each, executes the REST API of Vantiq to acquire the data.  
+In case of providing old data as well, save the data processed by Vantiq to another data store via brokers.
 
-In the case of allowing to provide old data as well, store the data processed by Vantiq in another data store via a broker, and provide the data via the API as above. Lambda and Functions will manage that data store.  
-
+Users execute APIs provided by AWS API Gateway/Azure API Management, and Lambda/Functions, which is the entity of each, execute REST API of Vantiq or data stores, then users can get data.
 
 <a id="data-providing-push"></a>
 ### 4.2. PUSH type (Broker) data providing  
 
-When the data to be provides is required to be provided in real time, such as alerts for detecting intrusion, this method of providing is suitable. Vantiq makes a threshold judgment and then publishes the matched data to a broker. To use a fully managed service, AWS AmazonMQ or Azure Event Hubs are the available options. These brokers are easy to build, but there are some things to keep in mind. For example, the number of simultaneous connections of Event Hubs is determined by the settings. When using a fully managed service, it is necessary to understand the characteristics of the service itself before implementing it, although it is not limited only for brokers.
+This way is suitable for the data you provide that requires real-time performance, such as intrusion detection. Vantiq determines thresholds/condition match, and publishes the matched data to brokers. 
+
+When using fully managed services, AWS AmazonMQ or Azure Event Hubs will be your options. These brokers are easy to build, but there are some points to keep in mind, such as the setting of Event Hubs determines the number of simultaneous connections. It's necessary to understand the characteristics of the service itself before introducing it when using them, it's not limited to brokers. 
 
 <a id="data-providing-summary"></a>
 ### 4.3. Summary of Data Providing Layer
 
-For this layer, the implementation itself is not complicated, but the required performance and the scope of API exposure will differ depending on the requirements. Therefore, it is necessary to properly understand the characteristics of each cloud service and make the necessary settings.   
+For this layer, the implementation itself is not complicated, but the required performance and the scope of API exposure differ depending on the requirements. Therefore, it is necessary to properly understand the characteristics of each cloud service and make the necessary settings.
