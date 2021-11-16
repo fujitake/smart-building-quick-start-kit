@@ -83,7 +83,7 @@ This document is constructed based on the each layer of the following figure:
 ## 2. Device Layer
 
 Devices are the most important element of all IoT projects, not just for smart building. Any plans can never be achieved without devices that can acquire necessary data.
-In addition, `device accuracy/precision is linked directly to the entire system's data quality`. In other words, making mistakes in device selection leads directly to the failure of the project itself. So `you need to select them carefully`.
+In addition, **device accuracy/precision is linked directly to the entire system's data quality**. In other words, making mistakes in device selection leads directly to the failure of the project itself. So **you need to select them carefully**.
 
 Now let's move on to the device section.
 
@@ -93,14 +93,14 @@ Now let's move on to the device section.
 
 You need to confirm the device specification in detail for judging whether you can achieve what needs to achieve in your project with that device.
 
-`You'd better do this process carefully, even if it takes time. When devices are not suitable, the project will fail and waste time and money`.
+**You'd better do this process carefully, even if it takes time. When devices are not suitable, the project will fail and waste time and money**.
 
 <a id="what-can-device-do"></a>
 ### 2.1.1. What can this device do
 
 First of all, it's just obvious but, you need to know exactly what the device can do.
 
-For example, even if you simply say "temperature sensor", you need to confirm &nbsp;`① what range of temperature it can measure (detection range)`, &nbsp;`② what unit it can measure (resolution)`, and &nbsp;`③ how much error may occur (accuracy)`.
+For example, even if you simply say "temperature sensor", you need to confirm &nbsp;**① what range of temperature it can measure (detection range)**, &nbsp;**② what unit it can measure (resolution)**, and &nbsp;**③ how much error may occur (accuracy)**.
 
 You can't develop obviously the function of alerting when the temperature exceeds 100℃ if you selected a temperature sensor whose detection range is -30℃ to + 60℃.
 
@@ -142,9 +142,9 @@ Whether a battery-powered device or not affects the installation position and ma
 
 There are two installation requirements meanings.
 
-`The first is the device installation requirement`. It means that under what circumstances(environment/condition) the device can perform like defined in the specification. You should confirm how to make devices perform correctly after understanding what devices can do because devices don't work well if you installed devices incorrectly. For example, even if you have an AI camera that can detect a human face with 100% accuracy, it doesn't work well when using it in a dark/too bright place where images quality will become low.  
+**The first is the device installation requirement**. It means that under what circumstances(environment/condition) the device can perform like defined in the specification. You should confirm how to make devices perform correctly after understanding what devices can do because devices don't work well if you installed devices incorrectly. For example, even if you have an AI camera that can detect a human face with 100% accuracy, it doesn't work well when using it in a dark/too bright place where images quality will become low.  
 
-`The second installation requirement is from the building owner`.
+**The second installation requirement is from the building owner**.
 There are not many cases you can install your devices anywhere in the building as you like. It's necessary to install it in the position permitted by the building side in consideration of the landscape and failure/replacement.
 
 You'd better make sure the following thing: 
@@ -182,7 +182,7 @@ The first is to use Vantiq REST API. The second is via broker with protocols suc
 
 First, when using Vantiq REST API, Devices must set the Vantiq access token in the header when making HTTP requests. You can use this way if your devices have this function. In some cases, a device can make HTTP requests, but not be able to set the header. In this case, you can use the Vantiq REST API by relaying the data with AWS Lambda/Azure Functions. (The device just makes a request to Lambda/Functions, then Lambda/Functions that hold the Vantiq access token make a request to Vantiq.)
 
-`Using REST API is simple/easy, but it has the following disadvantages`:
+**Using REST API is simple/easy, but it has the following disadvantages**:
 
 1. Manage access token are complicated
 
@@ -215,7 +215,7 @@ It's necessary to build brokers, but you can use a fully managed one, and if you
 <a id="device-operation"></a>
 ### 2.6. Operation in abnormality/failure
 
-`There is no machine never breaks`. So any device will fail or be in an abnormal state someday.
+**There is no machine never breaks**. So any device will fail or be in an abnormal state someday.
 The system had better be designed to identify abnormal devices and support device replacement.
 
 <a id="device-summary"></a>
@@ -223,9 +223,9 @@ The system had better be designed to identify abnormal devices and support devic
 
 As this is the most important layer, there are many things to confirm. To summarize simply, the following should be confirmed:
 
-1. `Being possible to acquire the data to accomplish the plan/project`.
-1. `Paths have been established to send the acquired data to Vantiq`.
-1. `Being able to continue operation`.
+1. **Being possible to acquire the data to accomplish the plan/project**.
+1. **Paths have been established to send the acquired data to Vantiq**.
+1. **Being able to continue operation**.
 
 <a id="data-integration-layer"></a>
 ## 3. Data Integration Layer
@@ -234,12 +234,12 @@ The data integration layer is the layer that creates the provided data to users 
 
 Vantiq is in charge of directly processing the data sent from the device layer, and required master data for processing are managed by an application other than Vantiq.
 
-`Due to the nature of Vantiq specializing in stream processing, it holds limited data such as the latest one, but it doesn't hold old data`. So you need to save them in a separate data store if you'd like to save them for analysis and etc.
+**Due to the nature of Vantiq specializing in stream processing, it holds limited data such as the latest one, but it doesn't hold old data**. So you need to save them in a separate data store if you'd like to save them for analysis and etc.
 
 <a id="data-integration-master-data"></a>
 ### 3.1. Master data management
 
-`In many cases, the data sent from devices are not used as they are but can create provided data to users finally by combining with the necessary information(as master data) such as the easy-to-understand device name, installation position/coordinates`.
+**In many cases, the data sent from devices are not used as they are but can create provided data to users finally by combining with the necessary information(as master data) such as the easy-to-understand device name, installation position/coordinates**.
 
 For example. in order to achieve a use case such as "notify when room temperature exceeds 35 ℃", in addition to the temperature data, you need information about which room the sensor is installed in.
 
@@ -262,10 +262,10 @@ This is a data store for storing data processed by Vantiq that needs to be store
 - Raw data sent from devices  
 - Log data
 
-Since the data to be stored will continue to increase from the start of the system's operation, the cost will also increase. You should build/configure the system to store `the minimum amount of data you need, instead of saving everything blindly`.
+Since the data to be stored will continue to increase from the start of the system's operation, the cost will also increase. You should build/configure the system to store **the minimum amount of data you need, instead of saving everything blindly**.
 
 The data store must be capable of receiving data from Vantiq. 
-`Since Vantiq's performance is often higher than normal DBs, it's desirable to implement it via brokers/queues even from the aspect of being loosely-coupled instead of having Vantiq execute API directly to receive data`.
+**Since Vantiq's performance is often higher than normal DBs, it's desirable to implement it via brokers/queues even from the aspect of being loosely-coupled instead of having Vantiq execute API directly to receive data**.
 
 
 <a id="data-integration-vantiq"></a>
@@ -293,18 +293,18 @@ Vantiq has various activity patterns. Here are some of the most frequently used 
     - It's used for judging whether a threshold has been exceeded or implementing conditional branching and etc.
 
 - SaveToType (Save data)
-    - It is used to save the data in Types. There is an `Upsert` option which is often used when holding only the latest data for each device.
+    - It is used to save the data in Types. There is an **Upsert** option which is often used when holding only the latest data for each device.
 
 - Procedure (Call your own Procedures)
     - This is the most versatile activity pattern because you can call your own Procedures.
-    - This is often used everywhere, but especially in the case that implementing the process to send data from Vantiq to other systems. You can also use `PublishToSource` in this case, but because you can't make detailed settings such as error handling and etc.
+    - This is often used everywhere, but especially in the case that implementing the process to send data from Vantiq to other systems. You can also use **PublishToSource** in this case, but because you can't make detailed settings such as error handling and etc.
 
 
 
 <a id="data-integration-performance"></a>
 ### 3.3.2. Performance-considered implementation  
 
-`Vantiq is a high-performance platform, but it may not be able to provide high-performance depending on how it's implemented`.
+**Vantiq is a high-performance platform, but it may not be able to provide high-performance depending on how it's implemented**.
 
 You need to understand the characteristics of Vantiq and implement your application accordingly. Especially, people who are accustomed to implementing ordinary Web applications that don't use stream processing should be more careful about it.
 
@@ -313,7 +313,7 @@ Vantiq applications can be implemented like a traditional 3-layer architecture w
 <a id="data-integration-lighten"></a>
 ### 3.3.2.1. Lighten processing per task
 
-When implementing Vantiq applications, `you need to lighten processing per task`. When using Procedures, you can call as many processes as you like in one task, but Vantiq distributes the load in units of one task(it's related with Vert.x). Therefore, you can get better performance if you divide processes into multiple tasks rather than executing heavy processes in one task.
+When implementing Vantiq applications, **you need to lighten processing per task**. When using Procedures, you can call as many processes as you like in one task, but Vantiq distributes the load in units of one task(it's related with Vert.x). Therefore, you can get better performance if you divide processes into multiple tasks rather than executing heavy processes in one task.
 
 Typical heavy processes include a process that is not completed only in a memory, such as issuing SQL queries and executing external APIs needs to wait for a response of other systems.
 
@@ -324,7 +324,7 @@ Typical heavy processes include a process that is not completed only in a memory
 
 Of course, you issue queries when referring to the master data stored in Types, or writing data to Types.
 
-This process is heavier than a process that is completed only with memory. Therefore, `it's important to reduce the number of queries and distribute queries to get good performance`.
+This process is heavier than a process that is completed only with memory. Therefore, **it's important to reduce the number of queries and distribute queries to get good performance**.
 
 For example, there is a case that you need to attach multiple master data to the data sent from one device. In that case, you can implement in Procedure as follows:
 
@@ -339,11 +339,11 @@ return event
 The query is issued three times in one Procedure. 
 In short, when calling this Procedure in the task, one task will issue query three times.
 
-It's easy to maintain and modify, but this will not provide good performance (`in other words, this way is preferable when the performance is not so important`).
+It's easy to maintain and modify, but this will not provide good performance (**in other words, this way is preferable when the performance is not so important**).
 
 There are two ways to deal with it:
 
-1.  `Divide into 3 Procedures, 3 tasks`
+1.  **Divide into 3 Procedures, 3 tasks**
 
     This one is simple. If you can't get enough performance because Procedures are put together, all you need to do is just divide them. Even with only this way improve performance well. However, the number of queries has not been reduced.
 
@@ -363,7 +363,7 @@ There are two ways to deal with it:
 <a id="data-integration-reduce-simultaneous"></a>
 ### 3.3.2.3. Reduce simultaneous executions
 
-Trying to process a large amount of data all at once with less than a 0.1-second latency, will consume a lot of resources at once. Therefore, you should shift the timing of execution as much as possible. Vantiq has `Scheduled Event`, but when using it to issue a large number of queries at the exact same time, the entire cluster will be overloaded.  
+Trying to process a large amount of data all at once with less than a 0.1-second latency, will consume a lot of resources at once. Therefore, you should shift the timing of execution as much as possible. Vantiq has **Scheduled Event**, but when using it to issue a large number of queries at the exact same time, the entire cluster will be overloaded.  
 
 <a id="data-integration-performacne-test"></a>
 ### 3.3.2.4. Verify actual performance
@@ -380,15 +380,15 @@ In order to implement the data integration Layer, it is important to understand 
 You need to think differently from a web application implementation. In addition, sometimes you may sacrifice some maintainability depending on the required performance. 
 
 However, there is no need to think too hard, just design and implement it with the following points in mind:
-1. `Make each processing unit small.`  
-1. `Minimize the frequency of Types (DB) usage.`
-1. `Don't overload at once at the same timing.`
+1. **Make each processing unit small.**  
+1. **Minimize the frequency of Types (DB) usage.**
+1. **Don't overload at once at the same timing.**
 
 
 <a id="data-providing-layer"></a>
 ## 4. Data Providing Layer
 
-This is the layer that provides the data for users. By this layer, users don't need to be aware of the lower layers. Data is provided in two main ways: `PULL` type and `PUSH` type. you need to consider the way of providing the data depending on the characteristics of the data.
+This is the layer that provides the data for users. By this layer, users don't need to be aware of the lower layers. Data is provided in two main ways: **PULL** type and **PUSH** type. you need to consider the way of providing the data depending on the characteristics of the data.
 
 If the data you provide is only the latest one, you don't need to prepare any additional elements and can provide data just share Vantiq REST API endpoints and access tokens technically. However, distributing Vantiq access tokens to users is not desirable because it's unmanageable, and it is sometimes not desirable for users to be Vantiq domains. In addition, when considering the entire smart building, there is a possibility that sources other than Vantiq provide data. For this reason, the elements below the data integration layer are hidden by this layer.
 
