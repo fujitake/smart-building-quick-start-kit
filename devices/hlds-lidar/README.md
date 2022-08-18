@@ -48,7 +48,7 @@ AmazonMQなどフルマネージドのものやMosquitoで自分で構築する�
     ※ インストーラ実行時にエラーが発生した場合は同封されているマニュアルで対応方法を確認する
     ``HldsTofSdk.2.3.0vs2015\manual``
 1. 動線計測パッケージのダウンロード
-    1.  [ダウンロードページ](https://hlds.co.jp/product/tofsdk/peopletrack)より、最新版をダウンロードする（例: PeopleTracking_v200.zip）
+    1.  [ダウンロードページ](https://hlds.co.jp/product/tofsdk/PeopleTrack)より、最新版をダウンロードする（例: PeopleTracking_v200.zip）
     1. 任意の場所でzipファイルを展開する
 
 <br/>
